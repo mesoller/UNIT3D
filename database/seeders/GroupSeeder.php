@@ -87,7 +87,7 @@ class GroupSeeder extends Seeder
                 'min_age'          => null,
             ],
             [
-                'name'             => 'User',
+                'name'             => 'Pengguna',
                 'slug'             => 'user',
                 'position'         => 6,
                 'color'            => '#7289DA',
