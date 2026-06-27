@@ -34,7 +34,7 @@ return [
     |
     */
 
-    'subTitle' => 'Percuma',
+    'subTitle' => 'Arkib',
 
     /*
     |--------------------------------------------------------------------------
@@ -56,7 +56,7 @@ return [
     |
     */
 
-    'meta_description' => 'Percuma',
+    'meta_description' => 'Arkib',
 
     /*
     |--------------------------------------------------------------------------
@@ -76,7 +76,7 @@ return [
     | Global Freeleech
     |
     */
-    'freeleech' => true,
+    'freeleech' => false,
 
     'freeleech_until' => '06/16/2026 3:00 AM EST',
 
@@ -88,7 +88,7 @@ return [
     | Global Double Upload
     |
     */
-    'doubleup' => true,
+    'doubleup' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -122,7 +122,7 @@ return [
     | Restricted mode for invites. If set to true, invites will be restricted
     | Exempt these groups from the invite restrictions
     */
-    'invite-only'   => false,
+    'invite-only'   => true,
     'invite_expire' => 14,
 
     'invites_restriced' => false,
