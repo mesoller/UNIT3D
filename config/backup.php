@@ -182,7 +182,7 @@ return [
          * The password to be used for archive encryption.
          * Set to `null` to disable encryption.
          */
-/*       'password' => env('APP_KEY'), */
+        /*       'password' => env('APP_KEY'), */
         'password' => env('null'),
         /*
          * The encryption algorithm to be used for archive encryption.
