@@ -223,5 +223,11 @@ return [
     'this' => 'ini',
     'top-10' => 'Top 10',
     'wished' => 'Teringin',
-    'test' => 'uji',
+    'test'       => 'uji',
+    'a-an-art'   => '{0}a|[1,*]an',
+    'alive'      => 'Hidup',
+    'dead'       => 'Mati',
+    'deleted_at' => 'Dipadam pada',
+    'total'      => 'Jumlah',
+    'trending'   => 'Trending',
 ];

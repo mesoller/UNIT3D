@@ -56,4 +56,8 @@ return [
     'disabled' => '\'Disabled\'',
     'last30days' => '30 hari terakhir',
     'last60days' => '60 hari terakhir',
+    'place'      => 'Tempat',
+    'pruned'     => 'Dipangkas',
+    'real'       => 'Sebenar',
+    'updated'    => '(Dikemaskini setiap 10 minit!)',
 ];

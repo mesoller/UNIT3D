@@ -28,5 +28,8 @@ return [
     'resurrect-canceled' => '\'Resurrection\' berjaya dibatalkan!',
     'resurrect-complete' => '\'Torrent resurrection\' siap! Anda akan diberikan ganjaran secara automatik apabila keperluan \'seedtime\' dipenuhi.',
     'resurrect-date' => 'Tarikh \'resurrect\'',
-    'resurrect-failed-own' => 'Torrent \'resurrection\' gagal! Anda tidak boleh \'resurrect\' muat naik anda sendiri.',
+    'resurrect-failed-own'     => 'Torrent \'resurrection\' gagal! Anda tidak boleh \'resurrect\' muat naik anda sendiri.',
+    'resurrect-failed-pending' => 'Torrent \'resurrection\' gagal! Torrent ini sudah menunggu untuk \'resurrection\'.',
+    'rewarded'                 => 'Diberi ganjaran',
+    'seedtime-goal'            => 'Sasaran seedtime',
 ];
