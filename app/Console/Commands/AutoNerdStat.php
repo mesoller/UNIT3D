@@ -78,21 +78,21 @@ class AutoNerdStat extends Command
 
         // Generate the message based on the selected stat.
         $message = match ($stats) {
-            'birthday' => config('other.title').' Birthday Is [b]'.config('other.birthdate').'[/b]!',
-            'logins'   => 'In the last 24 hours [color=#93c47d][b]'.DB::table('users')->whereNotNull('last_login')->where('last_login', '>', now()->subDay())->count().'[/b][/color] unique users have logged into '.config('other.title').'!',
-            'uploads'  => 'In the last 24 hours [color=#93c47d][b]'.DB::table('torrents')->where('created_at', '>', now()->subDay())->count().'[/b][/color] torrents have been uploaded to '.config('other.title').'!',
-            'users'    => 'In the last 24 hours [color=#93c47d][b]'.DB::table('users')->where('created_at', '>', now()->subDay())->count().'[/b][/color] users have registered to '.config('other.title').'!',
-            'fl25'     => 'There are currently [color=#93c47d][b]'.DB::table('torrents')->where('free', '=', 25)->count().'[/b][/color] 25% freeleech torrents on '.config('other.title').'!',
-            'fl50'     => 'There are currently [color=#93c47d][b]'.DB::table('torrents')->where('free', '=', 50)->count().'[/b][/color] 50% freeleech torrents on '.config('other.title').'!',
-            'fl75'     => 'There are currently [color=#93c47d][b]'.DB::table('torrents')->where('free', '=', 75)->count().'[/b][/color] 75% freeleech torrents on '.config('other.title').'!',
-            'fl100'    => 'There are currently [color=#93c47d][b]'.DB::table('torrents')->where('free', '=', 100)->count().'[/b][/color] 100% freeleech torrents on '.config('other.title').'!',
-            'du'       => 'There are currently [color=#93c47d][b]'.DB::table('torrents')->where('doubleup', '=', 1)->count().'[/b][/color] double upload torrents on '.config('other.title').'!',
-            'peers'    => 'Currently there are [color=#93c47d][b]'.DB::table('peers')->where('active', '=', 1)->count().'[/b][/color] peers on '.config('other.title').'!',
-            'bans'     => 'In the last 24 hours [color=#dd7e6b][b]'.DB::table('bans')->whereNotNull('ban_reason')->where('created_at', '>', now()->subDay())->count().'[/b][/color] users have been banned from '.config('other.title').'!',
-            'unbans'   => 'In the last 24 hours [color=#dd7e6b][b]'.DB::table('bans')->whereNotNull('unban_reason')->where('removed_at', '>', now()->subDay())->count().'[/b][/color] users have been unbanned from '.config('other.title').'!',
-            'warnings' => 'In the last 24 hours [color=#dd7e6b][b]'.DB::table('warnings')->where('created_at', '>', now()->subDay())->count().'[/b][/color] hit and run warnings have been issued on '.config('other.title').'!',
-            'king'     => config('other.title').' is king!',
-            default    => 'Nerd stat error!',
+            'birthday' => config('other.title').' Ditubuhkan Pada [b]'.config('other.birthdate').'[/b]!',
+            'logins'   => 'Dalam tempoh 24 jam lepas [color=#93c47d][b]'.DB::table('users')->whereNotNull('last_login')->where('last_login', '>', now()->subDay())->count().'[/b][/color] pengguna unik telah log masuk ke '.config('other.title').'!',
+            'uploads'  => 'Dalam tempoh 24 jam lepas [color=#93c47d][b]'.DB::table('torrents')->where('created_at', '>', now()->subDay())->count().'[/b][/color] torrent telah dimuat naik ke '.config('other.title').'!',
+            'users'    => 'Dalam tempoh 24 jam lepas [color=#93c47d][b]'.DB::table('users')->where('created_at', '>', now()->subDay())->count().'[/b][/color] pengguna telah mendaftar di '.config('other.title').'!',
+            'fl25'     => 'Terdapat [color=#93c47d][b]'.DB::table('torrents')->where('free', '=', 25)->count().'[/b][/color] torrent freeleech 25% di '.config('other.title').' pada masa ini!',
+            'fl50'     => 'Terdapat [color=#93c47d][b]'.DB::table('torrents')->where('free', '=', 50)->count().'[/b][/color] torrent freeleech 50% di '.config('other.title').' pada masa ini!',
+            'fl75'     => 'Terdapat [color=#93c47d][b]'.DB::table('torrents')->where('free', '=', 75)->count().'[/b][/color] torrent freeleech 75% di '.config('other.title').' pada masa ini!',
+            'fl100'    => 'Terdapat [color=#93c47d][b]'.DB::table('torrents')->where('free', '=', 100)->count().'[/b][/color] torrent freeleech 100% di '.config('other.title').' pada masa ini!',
+            'du'       => 'Terdapat [color=#93c47d][b]'.DB::table('torrents')->where('doubleup', '=', 1)->count().'[/b][/color] torrent muat naik berganda di '.config('other.title').' pada masa ini!',
+            'peers'    => 'Pada masa ini terdapat [color=#93c47d][b]'.DB::table('peers')->where('active', '=', 1)->count().'[/b][/color] peers di '.config('other.title').'!',
+            'bans'     => 'Dalam tempoh 24 jam lepas [color=#dd7e6b][b]'.DB::table('bans')->whereNotNull('ban_reason')->where('created_at', '>', now()->subDay())->count().'[/b][/color] pengguna telah diharamkan dari '.config('other.title').'!',
+            'unbans'   => 'Dalam tempoh 24 jam lepas [color=#dd7e6b][b]'.DB::table('bans')->whereNotNull('unban_reason')->where('removed_at', '>', now()->subDay())->count().'[/b][/color] pengguna telah dinyahsekat dari '.config('other.title').'!',
+            'warnings' => 'Dalam tempoh 24 jam lepas [color=#dd7e6b][b]'.DB::table('warnings')->where('created_at', '>', now()->subDay())->count().'[/b][/color] amaran lari tanpa seed telah dikeluarkan di '.config('other.title').'!',
+            'king'     => config('other.title').' adalah raja!',
+            default    => 'Ralat statistik!',
         };
 
         // Post the message to the chatbox.

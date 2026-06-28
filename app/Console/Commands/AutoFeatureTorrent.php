@@ -88,7 +88,7 @@ class AutoFeatureTorrent extends Command
         $appurl = config('app.url');
 
         $this->chatRepository->systemMessage(
-            \sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] has been added to the Featured Torrents Slider! Grab It While You Can!', $appurl, $torrent->id, $torrent->name)
+            \sprintf('Tuan-tuan dan Puan-puan, [url=%s/torrents/%s]%s[/url] telah ditambah ke Gelongsor Torrent Pilihan! Dapatkan Sekarang Sebelum Kehabisan!', $appurl, $torrent->id, $torrent->name)
         );
 
         $this->comment(\sprintf('Torrent "%s" (id=%d) is now featured.', $torrent->name, $torrent->id));

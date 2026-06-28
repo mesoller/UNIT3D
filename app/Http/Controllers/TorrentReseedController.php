@@ -86,7 +86,7 @@ class TorrentReseedController extends Controller
             $torrentUrl = href_torrent($torrent);
 
             $this->chatRepository->systemMessage(
-                \sprintf('Ladies and Gents, a reseed request was just placed on [url=%s]%s[/url] can you help out?', $torrentUrl, $torrent->name)
+                \sprintf('Tuan-tuan dan Puan-puan, permintaan reseed baru sahaja diletakkan pada [url=%s]%s[/url] boleh anda bantu?', $torrentUrl, $torrent->name)
             );
 
             return to_route('torrents.show', ['id' => $torrent->id])

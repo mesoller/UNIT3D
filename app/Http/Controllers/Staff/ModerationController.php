@@ -98,11 +98,11 @@ class ModerationController extends Controller
                 // Announce To Shoutbox
                 if (!$torrent->anon) {
                     $this->chatRepository->systemMessage(
-                        \sprintf('User [url=%s/users/', config('app.url')).$torrent->user->username.']'.$torrent->user->username.\sprintf('[/url] has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', config('app.url')).$id.']'.$torrent->name.'[/url], grab it now!'
+                        \sprintf('Pengguna [url=%s/users/', config('app.url')).$torrent->user->username.']'.$torrent->user->username.\sprintf('[/url] telah memuat naik '.$torrent->category->name.' baharu. [url=%s/torrents/', config('app.url')).$id.']'.$torrent->name.'[/url], dapatkan sekarang!'
                     );
                 } else {
                     $this->chatRepository->systemMessage(
-                        \sprintf('An anonymous user has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', config('app.url')).$id.']'.$torrent->name.'[/url], grab it now!'
+                        \sprintf('Pengguna tanpa nama telah memuat naik '.$torrent->category->name.' baharu. [url=%s/torrents/', config('app.url')).$id.']'.$torrent->name.'[/url], dapatkan sekarang!'
                     );
                 }
 

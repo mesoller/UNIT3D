@@ -431,21 +431,21 @@ class TorrentController extends BaseController
             // Announce To Shoutbox
             if (!$anon) {
                 $this->chatRepository->systemMessage(
-                    \sprintf('User [url=%s/users/', $appurl).$username.']'.$username.\sprintf('[/url] has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now!'
+                    \sprintf('Pengguna [url=%s/users/', $appurl).$username.']'.$username.\sprintf('[/url] telah memuat naik '.$torrent->category->name.' baharu. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], dapatkan sekarang!'
                 );
             } else {
                 $this->chatRepository->systemMessage(
-                    \sprintf('An anonymous user has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now!'
+                    \sprintf('Pengguna tanpa nama telah memuat naik '.$torrent->category->name.' baharu. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], dapatkan sekarang!'
                 );
             }
 
             if ($anon && $featured == 1) {
                 $this->chatRepository->systemMessage(
-                    \sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been added to the Featured Torrents Slider by an anonymous user! Grab It While You Can!'
+                    \sprintf('Tuan-tuan dan Puan-puan, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] telah ditambah ke Gelongsor Torrent Pilihan oleh pengguna tanpa nama! Dapatkan Sekarang Sebelum Kehabisan!'
                 );
             } elseif (!$anon && $featured == 1) {
                 $this->chatRepository->systemMessage(
-                    \sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.\sprintf('[/url] has been added to the Featured Torrents Slider by [url=%s/users/', $appurl).$username.']'.$username.'[/url]! Grab It While You Can!'
+                    \sprintf('Tuan-tuan dan Puan-puan, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.\sprintf('[/url] telah ditambah ke Gelongsor Torrent Pilihan oleh [url=%s/users/', $appurl).$username.']'.$username.'[/url]! Dapatkan Sekarang Sebelum Kehabisan!'
                 );
             }
 
@@ -453,9 +453,9 @@ class TorrentController extends BaseController
                 if ($torrent->fl_until === null) {
                     $this->chatRepository->systemMessage(
                         \sprintf(
-                            'Ladies and Gents, [url=%s/torrents/',
+                            'Tuan-tuan dan Puan-puan, [url=%s/torrents/',
                             $appurl
-                        ).$torrent->id.']'.$torrent->name.'[/url] has been granted '.$free.'% FreeLeech! Grab It While You Can!'
+                        ).$torrent->id.']'.$torrent->name.'[/url] telah diberikan '.$free.'% FreeLeech! Dapatkan Sekarang Sebelum Kehabisan!'
                     );
                 } else {
                     $this->chatRepository->systemMessage(

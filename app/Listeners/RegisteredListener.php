@@ -33,13 +33,13 @@ readonly class RegisteredListener
         $profileUrl = href_profile($user);
 
         return Arr::random([
-            \sprintf('[url=%s]%s[/url], Welcome to ', $profileUrl, $user->username).config('other.title').'! Hope you enjoy the community.',
-            \sprintf("[url=%s]%s[/url], We've been expecting you.", $profileUrl, $user->username),
-            \sprintf("[url=%s]%s[/url] has arrived. Party's over.", $profileUrl, $user->username),
-            \sprintf("It's a bird! It's a plane! Never mind, it's just [url=%s]%s[/url].", $profileUrl, $user->username),
-            \sprintf('Ready player [url=%s]%s[/url].', $profileUrl, $user->username),
-            \sprintf('A wild [url=%s]%s[/url] appeared.', $profileUrl, $user->username),
-            'Welcome to '.config('other.title').\sprintf(' [url=%s]%s[/url]. We were expecting you.', $profileUrl, $user->username),
+            \sprintf('[url=%s]%s[/url], Selamat datang ke ', $profileUrl, $user->username).config('other.title').'! Semoga anda menikmati komuniti ini.',
+            \sprintf("[url=%s]%s[/url], kami sudah menunggu anda.", $profileUrl, $user->username),
+            \sprintf("[url=%s]%s[/url] telah tiba. Parti sudah tamat.", $profileUrl, $user->username),
+            \sprintf("Burung ke? Kapal terbang ke? Alah, itu cuma [url=%s]%s[/url].", $profileUrl, $user->username),
+            \sprintf('Pemain bersedia [url=%s]%s[/url].', $profileUrl, $user->username),
+            \sprintf('Seekor [url=%s]%s[/url] liar telah muncul.', $profileUrl, $user->username),
+            'Selamat datang ke '.config('other.title').\sprintf(' [url=%s]%s[/url]. Kami sudah menjangkakan kehadiran anda.', $profileUrl, $user->username),
         ]);
     }
 }

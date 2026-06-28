@@ -82,7 +82,7 @@ class NerdBot
             fn () => User::orderByDesc('seedbonus')->first()
         );
 
-        return "Currently [url=/users/{$banker->username}]{$banker->username}[/url] is the top BON holder on {$this->site}!";
+        return "Pada masa ini [url=/users/{$banker->username}]{$banker->username}[/url] adalah pemegang BON teratas di {$this->site}!";
     }
 
     public function getSnatched(): string
@@ -93,7 +93,7 @@ class NerdBot
             fn () => Torrent::orderByDesc('times_completed')->first()
         );
 
-        return "Currently [url=/torrents/{$snatched->id}]{$snatched->name}[/url] is the most snatched torrent on {$this->site}!";
+        return "Pada masa ini [url=/torrents/{$snatched->id}]{$snatched->name}[/url] adalah torrent yang paling banyak disnatched di {$this->site}!";
     }
 
     public function getLeeched(): string
@@ -104,7 +104,7 @@ class NerdBot
             fn () => Torrent::orderByDesc('leechers')->first()
         );
 
-        return "Currently [url=/torrents/{$leeched->id}]{$leeched->name}[/url] is the most leeched torrent on {$this->site}!";
+        return "Pada masa ini [url=/torrents/{$leeched->id}]{$leeched->name}[/url] adalah torrent yang paling banyak dileeched di {$this->site}!";
     }
 
     public function getSeeded(): string
@@ -115,7 +115,7 @@ class NerdBot
             fn () => Torrent::orderByDesc('seeders')->first()
         );
 
-        return "Currently [url=/torrents/{$seeded->id}]{$seeded->name}[/url] is the most seeded torrent on {$this->site}!";
+        return "Pada masa ini [url=/torrents/{$seeded->id}]{$seeded->name}[/url] adalah torrent yang paling banyak di-seed di {$this->site}!";
     }
 
     public function getFreeleech(): string
@@ -126,7 +126,7 @@ class NerdBot
             fn () => Torrent::where('free', '=', 1)->count()
         );
 
-        return "There are currently {$freeleech} freeleech torrents on {$this->site}!";
+        return "Terdapat {$freeleech} torrent freeleech di {$this->site} pada masa ini!";
     }
 
     public function getDoubleUpload(): string
@@ -137,7 +137,7 @@ class NerdBot
             fn () => Torrent::where('doubleup', '=', 1)->count()
         );
 
-        return "There are currently {$doubleUpload} double upload torrents on {$this->site}!";
+        return "Terdapat {$doubleUpload} torrent muat naik berganda di {$this->site} pada masa ini!";
     }
 
     public function getPeers(): string
@@ -148,7 +148,7 @@ class NerdBot
             fn () => Peer::where('active', '=', 1)->count()
         );
 
-        return "Currently there are {$peers} peers on {$this->site}!";
+        return "Pada masa ini terdapat {$peers} peers di {$this->site}!";
     }
 
     public function getBans(): string
@@ -160,7 +160,7 @@ class NerdBot
                 ->where('created_at', '>', $this->current->subDay())->count()
         );
 
-        return "In the last 24 hours, {$bans} users have been banned from {$this->site}";
+        return "Dalam tempoh 24 jam lepas, {$bans} pengguna telah diharamkan dari {$this->site}";
     }
 
     public function getUnbans(): string
@@ -172,7 +172,7 @@ class NerdBot
                 ->where('removed_at', '>', $this->current->subDay())->count()
         );
 
-        return "In the last 24 hours, {$unbans} users have been unbanned from {$this->site}";
+        return "Dalam tempoh 24 jam lepas, {$unbans} pengguna telah dinyahsekat dari {$this->site}";
     }
 
     public function getWarnings(): string
@@ -183,7 +183,7 @@ class NerdBot
             fn () => Warning::where('created_at', '>', $this->current->subDay())->count()
         );
 
-        return "In the last 24 hours, {$warnings} hit and run warnings have been issued on {$this->site}!";
+        return "Dalam tempoh 24 jam lepas, {$warnings} amaran lari tanpa seed telah dikeluarkan di {$this->site}!";
     }
 
     public function getUploads(): string
@@ -194,7 +194,7 @@ class NerdBot
             fn () => Torrent::where('created_at', '>', $this->current->subDay())->count()
         );
 
-        return "In the last 24 hours, {$uploads} torrents have been uploaded to {$this->site}!";
+        return "Dalam tempoh 24 jam lepas, {$uploads} torrent telah dimuat naik ke {$this->site}!";
     }
 
     public function getLogins(): string
@@ -205,7 +205,7 @@ class NerdBot
             fn () => User::whereNotNull('last_login')->where('last_login', '>', $this->current->subDay())->count()
         );
 
-        return "In The Last 24 Hours, {$logins} Unique Users Have Logged Into {$this->site}!";
+        return "Dalam Tempoh 24 Jam Lepas, {$logins} Pengguna Unik Telah Log Masuk Ke {$this->site}!";
     }
 
     public function getRegistrations(): string
@@ -216,7 +216,7 @@ class NerdBot
             fn () => User::where('created_at', '>', $this->current->subDay())->count()
         );
 
-        return "In the last 24 hours, {$registrations} users have registered to {$this->site}!";
+        return "Dalam tempoh 24 jam lepas, {$registrations} pengguna telah mendaftar di {$this->site}!";
     }
 
     public function getHelp(): string
@@ -226,7 +226,7 @@ class NerdBot
 
     public function getKing(): string
     {
-        return config('other.title').' Is King!';
+        return config('other.title').' Adalah Raja!';
     }
 
     /**
@@ -258,7 +258,7 @@ class NerdBot
             'seeded'        => $this->getSeeded(),
             'leeched'       => $this->getLeeched(),
             'snatched'      => $this->getSnatched(),
-            default         => 'All '.$this->bot->name.' commands must be a private message or begin with /'.$this->bot->command.' or !'.$this->bot->command.'. Need help? Type /'.$this->bot->command.' help and you shall be helped.',
+            default         => 'Semua arahan '.$this->bot->name.' mesti berupa mesej peribadi atau bermula dengan /'.$this->bot->command.' atau !'.$this->bot->command.'. Perlukan bantuan? Taip /'.$this->bot->command.' help dan anda akan dibantu.',
         };
 
         $this->type = $type;
