@@ -28,5 +28,6 @@ return [
     'type' => 'Jenis',
     'created' => 'RSS feed peribadi berjaya dicipta',
     'deleted' => 'RSS feed telah dibuang!',
-    'error' => 'Permintaan (request) tidak boleh diproses',
+    'error'   => 'Permintaan (request) tidak boleh diproses',
+    'updated' => 'RSS feed berjaya dikemaskini!',
 ];
