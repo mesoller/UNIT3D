@@ -70,10 +70,10 @@
                     @if (auth()->id() !== $user->id)
                         <div class="panel__action" x-data="dialog">
                             <button class="form__button form__button--text" x-bind="showDialog">
-                                Report
+                                {{ __('common.report') }}
                             </button>
                             <dialog class="dialog" x-bind="dialogElement">
-                                <h3 class="dialog__heading">Report user: {{ $user->username }}</h3>
+                                <h3 class="dialog__heading">{{ __('common.report') }}: {{ $user->username }}</h3>
                                 <form
                                     class="dialog__form"
                                     method="POST"
@@ -92,7 +92,7 @@
                                             class="form__label form__label--floating"
                                             for="report_reason"
                                         >
-                                            Reason
+                                            {{ __('common.reason') }}
                                         </label>
                                     </p>
                                     <p class="form__group">
@@ -179,7 +179,7 @@
                                 </span>
                                 <span>
                                     <i class="{{ config('other.font-awesome') }} fa-clock"></i>
-                                    Last action:
+                                    {{ __('user.last-action') }}:
                                     @if ($user->last_action)
                                         <time
                                             datetime="{{ $user->last_action }}"
@@ -194,7 +194,7 @@
                                 @if (auth()->user()->is($user) || auth()->user()->group->is_modo)
                                     <span>
                                         <i class="{{ config('other.font-awesome') }} fa-key"></i>
-                                        PID: ••••••••
+                                        {{ __('user.passkey') }}: ••••••••
                                     </span>
                                 @endif
                             </div>
@@ -206,7 +206,7 @@
                         <div class="profile__info-row">
                             <span>
                                 <i class="{{ config('other.font-awesome') }} fa-hashtag"></i>
-                                ID: <strong>{{ $user->id }}</strong>
+                                {{ __('user.user-id') }}: <strong>{{ $user->id }}</strong>
                             </span>
                             <span>
                                 <i class="{{ config('other.font-awesome') }} fa-user-friends"></i>
@@ -224,10 +224,10 @@
                             <span>
                                 @if ($user->two_factor_confirmed_at !== null)
                                     <i class="{{ config('other.font-awesome') }} fa-lock text-green"></i>
-                                    2FA: <span class="text-green">Enabled</span>
+                                    2FA: <span class="text-green">{{ __('common.yes') }}</span>
                                 @else
                                     <i class="{{ config('other.font-awesome') }} fa-lock-open text-red"></i>
-                                    2FA: <span class="text-red">Disabled</span>
+                                    2FA: <span class="text-red">{{ __('common.no') }}</span>
                                 @endif
                             </span>
                         </div>
@@ -238,32 +238,32 @@
                         <div class="profile__permissions">
                             <div class="profile__permissions-header">
                                 <i class="{{ config('other.font-awesome') }} fa-lock"></i>
-                                PERMISSIONS
+                                {{ __('user.permissions') }}
                             </div>
                             <div class="profile__permission-badges">
                                 <span class="permission-badge {{ ($user->can_upload ?? $user->group->can_upload) ? 'permission-badge--active' : 'permission-badge--inactive' }}">
                                     <i class="{{ config('other.font-awesome') }} fa-upload"></i>
-                                    Upload
+                                    {{ __('common.upload') }}
                                 </span>
                                 <span class="permission-badge {{ $user->can_download ? 'permission-badge--active' : 'permission-badge--inactive' }}">
                                     <i class="{{ config('other.font-awesome') }} fa-download"></i>
-                                    Download
+                                    {{ __('common.download') }}
                                 </span>
                                 <span class="permission-badge {{ ($user->can_comment ?? $user->group->can_comment) ? 'permission-badge--active' : 'permission-badge--inactive' }}">
                                     <i class="{{ config('other.font-awesome') }} fa-comment"></i>
-                                    Comment
+                                    {{ __('common.comment') }}
                                 </span>
                                 <span class="permission-badge {{ ($user->can_request ?? $user->group->can_request) ? 'permission-badge--active' : 'permission-badge--inactive' }}">
                                     <i class="{{ config('other.font-awesome') }} fa-question-circle"></i>
-                                    Request
+                                    {{ __('user.request') }}
                                 </span>
                                 <span class="permission-badge {{ (($user->can_invite ?? $user->group->can_invite) && $user->two_factor_confirmed_at !== null) ? 'permission-badge--active' : 'permission-badge--inactive' }}">
                                     <i class="{{ config('other.font-awesome') }} fa-paper-plane"></i>
-                                    Invite
+                                    {{ __('user.invites') }}
                                 </span>
                                 <span class="permission-badge {{ ($user->can_chat ?? $user->group->can_chat) ? 'permission-badge--active' : 'permission-badge--inactive' }}">
                                     <i class="{{ config('other.font-awesome') }} fa-comments"></i>
-                                    Chat
+                                    {{ __('common.chat') }}
                                 </span>
                             </div>
                             @php
@@ -277,25 +277,25 @@
                                     @if ($user->group->is_freeleech)
                                         <span class="special-badge special-badge--freeleech">
                                             <i class="{{ config('other.font-awesome') }} fa-star"></i>
-                                            Freeleech
+                                            {{ __('user.freeleech') }}
                                         </span>
                                     @endif
                                     @if ($user->group->is_double_upload)
                                         <span class="special-badge special-badge--double-upload">
                                             <i class="{{ config('other.font-awesome') }} fa-sort-amount-up"></i>
-                                            2x Upload
+                                            {{ __('user.double-upload') }}
                                         </span>
                                     @endif
                                     @if ($user->group->is_trusted)
                                         <span class="special-badge special-badge--skip-modq">
                                             <i class="{{ config('other.font-awesome') }} fa-check-circle"></i>
-                                            Skip ModQ
+                                            {{ __('user.skip-modq') }}
                                         </span>
                                     @endif
                                     @if ($user->group->is_immune)
                                         <span class="special-badge special-badge--hnr-immune">
                                             <i class="{{ config('other.font-awesome') }} fa-shield-alt"></i>
-                                            HnR Immune
+                                            {{ __('user.hnr-immune') }}
                                         </span>
                                     @endif
                                 </div>
@@ -309,43 +309,43 @@
                             <div class="profile__stat-card">
                                 <i class="{{ config('other.font-awesome') }} fa-balance-scale profile__stat-icon"></i>
                                 <div class="profile__stat-value">{{ $user->formatted_ratio }}</div>
-                                <div class="profile__stat-label">RATIO</div>
+                                <div class="profile__stat-label">{{ __('common.ratio') }}</div>
                             </div>
                             <div class="profile__stat-card">
                                 <i class="{{ config('other.font-awesome') }} fa-database profile__stat-icon"></i>
                                 <div class="profile__stat-value">{{ App\Helpers\StringHelper::formatBytes($user->seedingTorrents()->sum('size'), 2) }}</div>
-                                <div class="profile__stat-label">SEEDSIZE</div>
+                                <div class="profile__stat-label">{{ __('user.seeding-size') }}</div>
                             </div>
                             <div class="profile__stat-card">
                                 <i class="{{ config('other.font-awesome') }} fa-arrow-up profile__stat-icon"></i>
                                 <div class="profile__stat-value">{{ $user->formatted_uploaded }}</div>
-                                <div class="profile__stat-label">TOTAL UPLOAD</div>
+                                <div class="profile__stat-label">{{ __('user.total-upload') }}</div>
                             </div>
                             <div class="profile__stat-card">
                                 <i class="{{ config('other.font-awesome') }} fa-arrow-down profile__stat-icon"></i>
                                 <div class="profile__stat-value">{{ $user->formatted_downloaded }}</div>
-                                <div class="profile__stat-label">TOTAL DOWNLOAD</div>
+                                <div class="profile__stat-label">{{ __('user.total-download') }}</div>
                             </div>
                             <div class="profile__stat-card">
                                 <i class="{{ config('other.font-awesome') }} fa-upload profile__stat-icon"></i>
                                 <div class="profile__stat-value">{{ ($user->non_anon_uploads_count ?? 0) + ($user->anon_uploads_count ?? 0) }}</div>
-                                <div class="profile__stat-label">TOTAL UPLOADS</div>
+                                <div class="profile__stat-label">{{ __('user.total-uploads') }}</div>
                             </div>
                             <div class="profile__stat-card">
                                 <i class="{{ config('other.font-awesome') }} fa-hourglass-half profile__stat-icon"></i>
                                 <div class="profile__stat-value">{{ App\Helpers\StringHelper::timeElapsed(($history->seedtime_sum ?? 0) / max(1, $history->count ?? 0)) }}</div>
-                                <div class="profile__stat-label">AVG SEEDTIME</div>
+                                <div class="profile__stat-label">{{ __('user.avg-seedtime') }}</div>
                             </div>
                             <div class="profile__stat-card">
                                 <i class="{{ config('other.font-awesome') }} fa-satellite-dish profile__stat-icon"></i>
                                 <div class="profile__stat-value text-green">{{ $peers->seeding ?? 0 }}</div>
-                                <div class="profile__stat-label">TOTAL SEEDING</div>
+                                <div class="profile__stat-label">{{ __('user.total-seeding') }}</div>
                             </div>
                             @if (auth()->user()->isAllowed($user, 'profile', 'show_profile_warning'))
                                 <div class="profile__stat-card">
                                     <i class="{{ config('other.font-awesome') }} fa-exclamation-triangle profile__stat-icon text-yellow"></i>
                                     <div class="profile__stat-value">{{ $user->active_warnings_count ?? 0 }}</div>
-                                    <div class="profile__stat-label">ACTIVE WARNINGS</div>
+                                    <div class="profile__stat-label">{{ __('user.active-warnings') }}</div>
                                 </div>
                             @endif
                         </div>
@@ -384,7 +384,7 @@
                             alt="{{ $achievement->details->name }}"
                         />
                     @empty
-                        No recent achievements.
+                        {{ __('user.no-recent-achievements') }}
                     @endforelse
                 </div>
             </section>
@@ -398,54 +398,54 @@
                     <div class="profile-panel__header" @click="open = !open">
                         <span class="profile-panel__title">
                             <i class="{{ config('other.font-awesome') }} fa-chart-bar"></i>
-                            Traffic Statistics
+                            {{ __('user.traffic-statistics') }}
                         </span>
                         <i class="{{ config('other.font-awesome') }} fa-chevron-down profile-panel__chevron" :class="{ 'profile-panel__chevron--open': open }"></i>
                     </div>
                     <div class="profile-panel__body" x-show="open" x-cloak x-transition>
                         <div class="profile-panel__item">
                             <i class="{{ config('other.font-awesome') }} fa-balance-scale"></i>
-                            <span class="profile-panel__label">Real Ratio</span>
+                            <span class="profile-panel__label">{{ __('user.real-ratio') }}</span>
                             <span class="profile-panel__value">{{ $history->download_sum ? round(($history->upload_sum ?? 0) / $history->download_sum, 2) : "\u{221E}" }}</span>
                         </div>
                         <div class="profile-panel__item">
                             <i class="{{ config('other.font-awesome') }} fa-arrow-up"></i>
-                            <span class="profile-panel__label">Account Upload</span>
+                            <span class="profile-panel__label">{{ __('user.account-upload') }}</span>
                             <span class="profile-panel__value">{{ $user->formatted_uploaded }}</span>
                         </div>
                         <div class="profile-panel__item">
                             <i class="{{ config('other.font-awesome') }} fa-arrow-down"></i>
-                            <span class="profile-panel__label">Account Download</span>
+                            <span class="profile-panel__label">{{ __('user.account-download') }}</span>
                             <span class="profile-panel__value">{{ $user->formatted_downloaded }}</span>
                         </div>
                         <div class="profile-panel__item">
                             <i class="{{ config('other.font-awesome') }} fa-upload"></i>
-                            <span class="profile-panel__label">Torrent Upload</span>
+                            <span class="profile-panel__label">{{ __('user.torrent-upload') }}</span>
                             <span class="profile-panel__value">{{ App\Helpers\StringHelper::formatBytes($history->upload_sum ?? 0, 2) }}</span>
                         </div>
                         <div class="profile-panel__item">
                             <i class="{{ config('other.font-awesome') }} fa-upload"></i>
-                            <span class="profile-panel__label">Upload (credited)</span>
+                            <span class="profile-panel__label">{{ __('user.upload-credited') }}</span>
                             <span class="profile-panel__value">{{ App\Helpers\StringHelper::formatBytes($history->credited_upload_sum ?? 0, 2) }}</span>
                         </div>
                         <div class="profile-panel__item">
                             <i class="{{ config('other.font-awesome') }} fa-download"></i>
-                            <span class="profile-panel__label">Torrent Download</span>
+                            <span class="profile-panel__label">{{ __('user.torrent-download') }}</span>
                             <span class="profile-panel__value">{{ App\Helpers\StringHelper::formatBytes($history->download_sum ?? 0, 2) }}</span>
                         </div>
                         <div class="profile-panel__item">
                             <i class="{{ config('other.font-awesome') }} fa-download"></i>
-                            <span class="profile-panel__label">Download (credited)</span>
+                            <span class="profile-panel__label">{{ __('user.download-credited') }}</span>
                             <span class="profile-panel__value">{{ App\Helpers\StringHelper::formatBytes($history->credited_download_sum ?? 0, 2) }}</span>
                         </div>
                         <div class="profile-panel__item">
                             <i class="{{ config('other.font-awesome') }} fa-undo"></i>
-                            <span class="profile-panel__label">Download (refunded)</span>
+                            <span class="profile-panel__label">{{ __('user.download-refunded') }}</span>
                             <span class="profile-panel__value">{{ App\Helpers\StringHelper::formatBytes($history->refunded_download_sum ?? 0, 2) }}</span>
                         </div>
                         <div class="profile-panel__item">
                             <i class="{{ config('other.font-awesome') }} fa-coins"></i>
-                            <span class="profile-panel__label">BON Upload</span>
+                            <span class="profile-panel__label">{{ __('user.bon-upload') }}</span>
                             <span class="profile-panel__value">{{ App\Helpers\StringHelper::formatBytes($boughtUpload, 2) }}</span>
                         </div>
                     </div>
@@ -458,7 +458,7 @@
                     <div class="profile-panel__header" @click="open = !open">
                         <span class="profile-panel__title">
                             <i class="{{ config('other.font-awesome') }} fa-cloud-upload-alt"></i>
-                            Torrent Activity
+                            {{ __('user.torrent-activity') }}
                         </span>
                         <i class="{{ config('other.font-awesome') }} fa-chevron-down profile-panel__chevron" :class="{ 'profile-panel__chevron--open': open }"></i>
                     </div>
@@ -467,9 +467,9 @@
                             <i class="{{ config('other.font-awesome') }} fa-upload"></i>
                             <span class="profile-panel__label">
                                 @if (auth()->user()->is($user) || auth()->user()->group->is_modo)
-                                    <a href="{{ route('users.torrents.index', ['user' => $user]) }}">Total Uploads</a>
+                                    <a href="{{ route('users.torrents.index', ['user' => $user]) }}">{{ __('user.total-uploads') }}</a>
                                 @else
-                                    <a href="{{ route('torrents.index', ['uploader' => $user->username]) }}">Total Uploads</a>
+                                    <a href="{{ route('torrents.index', ['uploader' => $user->username]) }}">{{ __('user.total-uploads') }}</a>
                                 @endif
                             </span>
                             <span class="profile-panel__value">{{ ($user->non_anon_uploads_count ?? 0) + ($user->anon_uploads_count ?? 0) }}</span>
@@ -477,7 +477,7 @@
                         @if (auth()->user()->is($user) || auth()->user()->group->is_modo)
                             <div class="profile-panel__item">
                                 <i class="{{ config('other.font-awesome') }} fa-user-secret"></i>
-                                <span class="profile-panel__label">Anonymous Uploads</span>
+                                <span class="profile-panel__label">{{ __('user.anon-uploads') }}</span>
                                 <span class="profile-panel__value">{{ $user->anon_uploads_count ?? 0 }}</span>
                             </div>
                         @endif
@@ -485,9 +485,9 @@
                             <i class="{{ config('other.font-awesome') }} fa-download"></i>
                             <span class="profile-panel__label">
                                 @if (auth()->user()->is($user) || auth()->user()->group->is_modo)
-                                    <a href="{{ route('users.history.index', ['user' => $user, 'downloaded' => 'include']) }}">Total Downloads</a>
+                                    <a href="{{ route('users.history.index', ['user' => $user, 'downloaded' => 'include']) }}">{{ __('user.total-downloads') }}</a>
                                 @else
-                                    Total Downloads
+                                    {{ __('user.total-downloads') }}
                                 @endif
                             </span>
                             <span class="profile-panel__value">{{ $history->download_count ?? 0 }}</span>
@@ -496,9 +496,9 @@
                             <i class="{{ config('other.font-awesome') }} fa-satellite-dish"></i>
                             <span class="profile-panel__label">
                                 @if (auth()->user()->is($user) || auth()->user()->group->is_modo)
-                                    <a href="{{ route('users.peers.index', ['user' => $user, 'seeding' => 'include']) }}">Total Seeding</a>
+                                    <a href="{{ route('users.peers.index', ['user' => $user, 'seeding' => 'include']) }}">{{ __('user.total-seeding') }}</a>
                                 @else
-                                    Total Seeding
+                                    {{ __('user.total-seeding') }}
                                 @endif
                             </span>
                             <span class="profile-panel__value text-green">{{ $peers->seeding ?? 0 }}</span>
@@ -507,9 +507,9 @@
                             <i class="{{ config('other.font-awesome') }} fa-arrow-circle-down"></i>
                             <span class="profile-panel__label">
                                 @if (auth()->user()->is($user) || auth()->user()->group->is_modo)
-                                    <a href="{{ route('users.peers.index', ['user' => $user, 'seeding' => 'exclude']) }}">Total Leeching</a>
+                                    <a href="{{ route('users.peers.index', ['user' => $user, 'seeding' => 'exclude']) }}">{{ __('user.total-leeching') }}</a>
                                 @else
-                                    Total Leeching
+                                    {{ __('user.total-leeching') }}
                                 @endif
                             </span>
                             <span class="profile-panel__value">{{ $peers->leeching ?? 0 }}</span>
@@ -518,9 +518,9 @@
                             <i class="{{ config('other.font-awesome') }} fa-minus-circle"></i>
                             <span class="profile-panel__label">
                                 @if (auth()->user()->is($user) || auth()->user()->group->is_modo)
-                                    <a href="{{ route('users.peers.index', ['user' => $user, 'active' => 'exclude']) }}">Inactive Peers</a>
+                                    <a href="{{ route('users.peers.index', ['user' => $user, 'active' => 'exclude']) }}">{{ __('user.inactive-peers') }}</a>
                                 @else
-                                    Inactive Peers
+                                    {{ __('user.inactive-peers') }}
                                 @endif
                             </span>
                             <span class="profile-panel__value">{{ $peers->inactive ?? 0 }}</span>
@@ -528,18 +528,18 @@
                         @if (config('other.thanks-system.is-enabled'))
                             <div class="profile-panel__item">
                                 <i class="{{ config('other.font-awesome') }} fa-heart"></i>
-                                <span class="profile-panel__label">Thanks Received</span>
+                                <span class="profile-panel__label">{{ __('user.thanks-received') }}</span>
                                 <span class="profile-panel__value">{{ $user->thanksReceived()->count() }}</span>
                             </div>
                             <div class="profile-panel__item">
                                 <i class="{{ config('other.font-awesome') }} fa-heart"></i>
-                                <span class="profile-panel__label">Thanks Given</span>
+                                <span class="profile-panel__label">{{ __('user.thanks-given') }}</span>
                                 <span class="profile-panel__value">{{ $user->thanksGiven()->count() }}</span>
                             </div>
                         @endif
                         <div class="profile-panel__item">
                             <i class="{{ config('other.font-awesome') }} fa-cloud-download-alt"></i>
-                            <span class="profile-panel__label">Upload Snatches</span>
+                            <span class="profile-panel__label">{{ __('user.upload-snatches') }}</span>
                             <span class="profile-panel__value">{{ $user->uploadSnatches()->count() }}</span>
                         </div>
                     </div>
@@ -552,24 +552,24 @@
                     <div class="profile-panel__header" @click="open = !open">
                         <span class="profile-panel__title">
                             <i class="{{ config('other.font-awesome') }} fa-leaf"></i>
-                            Seed Statistics
+                            {{ __('user.seed-statistics') }}
                         </span>
                         <i class="{{ config('other.font-awesome') }} fa-chevron-down profile-panel__chevron" :class="{ 'profile-panel__chevron--open': open }"></i>
                     </div>
                     <div class="profile-panel__body" x-show="open" x-cloak x-transition>
                         <div class="profile-panel__item">
                             <i class="{{ config('other.font-awesome') }} fa-clock"></i>
-                            <span class="profile-panel__label">Total Seedtime</span>
+                            <span class="profile-panel__label">{{ __('user.total-seedtime') }}</span>
                             <span class="profile-panel__value">{{ App\Helpers\StringHelper::timeElapsed($history->seedtime_sum ?? 0) }}</span>
                         </div>
                         <div class="profile-panel__item">
                             <i class="{{ config('other.font-awesome') }} fa-hourglass-half"></i>
-                            <span class="profile-panel__label">Average Seedtime</span>
+                            <span class="profile-panel__label">{{ __('user.avg-seedtime') }}</span>
                             <span class="profile-panel__value">{{ App\Helpers\StringHelper::timeElapsed(($history->seedtime_sum ?? 0) / max(1, $history->count ?? 0)) }}</span>
                         </div>
                         <div class="profile-panel__item">
                             <i class="{{ config('other.font-awesome') }} fa-database"></i>
-                            <span class="profile-panel__label">Seeding Size</span>
+                            <span class="profile-panel__label">{{ __('user.seeding-size') }}</span>
                             <span class="profile-panel__value">{{ App\Helpers\StringHelper::formatBytes($user->seedingTorrents()->sum('size'), 2) }}</span>
                         </div>
                     </div>
@@ -581,7 +581,7 @@
                 <div class="profile-panel__header" @click="open = !open">
                     <span class="profile-panel__title">
                         <i class="{{ config('other.font-awesome') }} fa-users"></i>
-                        Community
+                        {{ __('user.community') }}
                     </span>
                     <i class="{{ config('other.font-awesome') }} fa-chevron-down profile-panel__chevron" :class="{ 'profile-panel__chevron--open': open }"></i>
                 </div>
@@ -590,14 +590,14 @@
                         <div class="profile-panel__item">
                             <i class="{{ config('other.font-awesome') }} fa-comments"></i>
                             <span class="profile-panel__label">
-                                <a href="{{ route('users.topics.index', ['user' => $user]) }}">Topics Started</a>
+                                <a href="{{ route('users.topics.index', ['user' => $user]) }}">{{ __('user.topics-started') }}</a>
                             </span>
                             <span class="profile-panel__value">{{ $user->topics_count }}</span>
                         </div>
                         <div class="profile-panel__item">
                             <i class="{{ config('other.font-awesome') }} fa-comment"></i>
                             <span class="profile-panel__label">
-                                <a href="{{ route('users.posts.index', ['user' => $user]) }}">Posts Posted</a>
+                                <a href="{{ route('users.posts.index', ['user' => $user]) }}">{{ __('user.posts-posted') }}</a>
                             </span>
                             <span class="profile-panel__value">{{ $user->posts_count }}</span>
                         </div>
@@ -605,17 +605,17 @@
                     @if (auth()->user()->isAllowed($user, 'profile', 'show_profile_comment_extra'))
                         <div class="profile-panel__item">
                             <i class="{{ config('other.font-awesome') }} fa-newspaper"></i>
-                            <span class="profile-panel__label">Article Comments</span>
+                            <span class="profile-panel__label">{{ __('user.article-comments') }}</span>
                             <span class="profile-panel__value">{{ $user->comments()->whereHasMorph('commentable', [App\Models\Article::class])->count() }}</span>
                         </div>
                         <div class="profile-panel__item">
                             <i class="{{ config('other.font-awesome') }} fa-film"></i>
-                            <span class="profile-panel__label">Torrent Comments</span>
+                            <span class="profile-panel__label">{{ __('user.torrent-comments') }}</span>
                             <span class="profile-panel__value">{{ $user->comments()->whereHasMorph('commentable', [App\Models\Torrent::class])->count() }}</span>
                         </div>
                         <div class="profile-panel__item">
                             <i class="{{ config('other.font-awesome') }} fa-question"></i>
-                            <span class="profile-panel__label">Request Comments</span>
+                            <span class="profile-panel__label">{{ __('user.request-comments') }}</span>
                             <span class="profile-panel__value">{{ $user->comments()->whereHasMorph('commentable', [App\Models\TorrentRequest::class])->count() }}</span>
                         </div>
                     @endif
@@ -623,13 +623,13 @@
                         <div class="profile-panel__item">
                             <i class="{{ config('other.font-awesome') }} fa-hand-paper"></i>
                             <span class="profile-panel__label">
-                                <a href="{{ route('requests.index', ['requestor' => $user->username]) }}">Requested</a>
+                                <a href="{{ route('requests.index', ['requestor' => $user->username]) }}">{{ __('user.request') }}</a>
                             </span>
                             <span class="profile-panel__value">{{ $user->requests_count }}</span>
                         </div>
                         <div class="profile-panel__item">
                             <i class="{{ config('other.font-awesome') }} fa-check-circle"></i>
-                            <span class="profile-panel__label">Filled Requests</span>
+                            <span class="profile-panel__label">{{ __('user.filled-request') }}</span>
                             <span class="profile-panel__value">{{ $user->filled_requests_count }}</span>
                         </div>
                     @endif
@@ -642,7 +642,7 @@
                     <div class="profile-panel__header" @click="open = !open">
                         <span class="profile-panel__title">
                             <i class="{{ config('other.font-awesome') }} fa-coins"></i>
-                            BON Transactions
+                            {{ __('user.bon-transactions') }}
                         </span>
                         <i class="{{ config('other.font-awesome') }} fa-chevron-down profile-panel__chevron" :class="{ 'profile-panel__chevron--open': open }"></i>
                     </div>
@@ -676,38 +676,38 @@
                         <div class="profile-panel__item">
                             <i class="{{ config('other.font-awesome') }} fa-wallet"></i>
                             <span class="profile-panel__label">
-                                <a href="{{ route('users.earnings.index', ['user' => $user]) }}">BON Balance</a>
+                                <a href="{{ route('users.earnings.index', ['user' => $user]) }}">{{ __('user.bon-balance') }}</a>
                             </span>
                             <span class="profile-panel__value text-yellow">{{ $user->formatted_seedbonus }}</span>
                         </div>
                         <div class="profile-panel__item">
                             <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>
-                            <span class="profile-panel__label">Tips Received</span>
+                            <span class="profile-panel__label">{{ __('user.tips-received') }}</span>
                             <span class="profile-panel__value text-green">{{ \number_format($user->receivedPostTips()->sum('bon') + $user->receivedTorrentTips()->sum('bon'), 0, null, "\u{202F}") }}</span>
                         </div>
                         <div class="profile-panel__item">
                             <i class="{{ config('other.font-awesome') }} fa-thumbs-down"></i>
-                            <span class="profile-panel__label">Tips Given</span>
+                            <span class="profile-panel__label">{{ __('user.tips-given') }}</span>
                             <span class="profile-panel__value">{{ \number_format($user->sentPostTips()->sum('bon') + $user->sentTorrentTips()->sum('bon'), 0, null, "\u{202F}") }}</span>
                         </div>
                         <div class="profile-panel__item">
                             <i class="{{ config('other.font-awesome') }} fa-gift"></i>
-                            <span class="profile-panel__label">Gifts Received</span>
+                            <span class="profile-panel__label">{{ __('user.gift-received') }}</span>
                             <span class="profile-panel__value text-green">{{ \number_format($user->receivedGifts()->sum('bon'), 0, null, "\u{202F}") }}</span>
                         </div>
                         <div class="profile-panel__item">
                             <i class="{{ config('other.font-awesome') }} fa-gift"></i>
-                            <span class="profile-panel__label">Gifts Given</span>
+                            <span class="profile-panel__label">{{ __('user.gift-given') }}</span>
                             <span class="profile-panel__value">{{ \number_format($user->sentGifts()->sum('bon'), 0, null, "\u{202F}") }}</span>
                         </div>
                         <div class="profile-panel__item">
                             <i class="{{ config('other.font-awesome') }} fa-trophy"></i>
-                            <span class="profile-panel__label">Bounties Received</span>
+                            <span class="profile-panel__label">{{ __('user.bounty-received') }}</span>
                             <span class="profile-panel__value text-green">{{ \number_format($user->filledRequests()->sum('bounty'), 0, null, "\u{202F}") }}</span>
                         </div>
                         <div class="profile-panel__item">
                             <i class="{{ config('other.font-awesome') }} fa-donate"></i>
-                            <span class="profile-panel__label">Bounties Given</span>
+                            <span class="profile-panel__label">{{ __('user.bounty-given') }}</span>
                             <span class="profile-panel__value">{{ \number_format($user->requestBounty()->sum('seedbonus'), 0, null, "\u{202F}") }}</span>
                         </div>
                     </div>
@@ -720,39 +720,39 @@
                     <div class="profile-panel__header" @click="open = !open">
                         <span class="profile-panel__title">
                             <i class="{{ config('other.font-awesome') }} fa-star"></i>
-                            Currencies
+                            {{ __('user.currencies') }}
                         </span>
                         <i class="{{ config('other.font-awesome') }} fa-chevron-down profile-panel__chevron" :class="{ 'profile-panel__chevron--open': open }"></i>
                     </div>
                     <div class="profile-panel__body" x-show="open" x-cloak x-transition>
                         <div class="profile-panel__item">
                             <i class="{{ config('other.font-awesome') }} fa-ticket-alt"></i>
-                            <span class="profile-panel__label">FL Tokens</span>
+                            <span class="profile-panel__label">{{ __('common.fl_tokens') }}</span>
                             <span class="profile-panel__value text-yellow">{{ $user->fl_tokens }}</span>
                         </div>
                         <div class="profile-panel__item">
                             <i class="{{ config('other.font-awesome') }} fa-paper-plane"></i>
                             <span class="profile-panel__label">
-                                <a href="{{ route('users.invites.index', ['user' => $user]) }}">Invites</a>
+                                <a href="{{ route('users.invites.index', ['user' => $user]) }}">{{ __('user.invites') }}</a>
                             </span>
                             <span class="profile-panel__value">{{ $user->invites }}</span>
                         </div>
                         @if (auth()->user()->isAllowed($user, 'profile', 'show_profile_warning'))
                             <div class="profile-panel__item">
                                 <i class="{{ config('other.font-awesome') }} fa-exclamation-triangle text-yellow"></i>
-                                <span class="profile-panel__label">Active Warnings</span>
+                                <span class="profile-panel__label">{{ __('user.active-warnings') }}</span>
                                 <span class="profile-panel__value {{ ($user->active_warnings_count ?? 0) > 0 ? 'text-red' : '' }}">{{ $user->active_warnings_count ?? 0 }}</span>
                             </div>
                             <div class="profile-panel__item">
                                 <i class="{{ config('other.font-awesome') }} fa-running text-orange"></i>
-                                <span class="profile-panel__label">Hit &amp; Runs</span>
+                                <span class="profile-panel__label">{{ __('user.hit-n-runs') }}</span>
                                 <span class="profile-panel__value {{ $user->hitandruns > 0 ? 'text-red' : '' }}">{{ $user->hitandruns }}</span>
                             </div>
                         @endif
                         @if (auth()->user()->group->is_modo || auth()->user()->is($user))
                             <div class="profile-panel__item">
                                 <i class="{{ config('other.font-awesome') }} fa-heart text-red"></i>
-                                <span class="profile-panel__label">Active Donor</span>
+                                <span class="profile-panel__label">{{ __('user.active-donor') }}</span>
                                 <span class="profile-panel__value">
                                     @if ($user->is_donor)
                                         <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
@@ -820,7 +820,7 @@
                             <span class="follower-card__group">{{ $follower->group->name }}</span>
                         </a>
                     @empty
-                        <p class="followers-grid__empty">No recent followers</p>
+                        <p class="followers-grid__empty">{{ __('user.no-recent-followers') }}</p>
                     @endforelse
                 </div>
             </section>
@@ -847,7 +847,7 @@
                                 <div class="client-card__row">
                                     <span class="client-card__label">
                                         <i class="{{ config('other.font-awesome') }} fa-network-wired"></i>
-                                        IP / Port
+                                        {{ __('common.ip') }} / {{ __('common.port') }}
                                     </span>
                                     <span class="client-card__value">
                                         @if (auth()->user()->group->is_modo)
@@ -861,7 +861,7 @@
                                 <div class="client-card__row">
                                     <span class="client-card__label">
                                         <i class="{{ config('other.font-awesome') }} fa-play-circle"></i>
-                                        Started
+                                        {{ __('torrent.started') }}
                                     </span>
                                     <span class="client-card__value">
                                         <time datetime="{{ $client->created_at }}" title="{{ $client->created_at }}">
@@ -872,7 +872,7 @@
                                 <div class="client-card__row">
                                     <span class="client-card__label">
                                         <i class="{{ config('other.font-awesome') }} fa-sync-alt"></i>
-                                        Last update
+                                        {{ __('torrent.last-update') }}
                                     </span>
                                     <span class="client-card__value">
                                         <time datetime="{{ $client->updated_at }}" title="{{ $client->updated_at }}">
@@ -894,7 +894,7 @@
                                 <div class="client-card__row">
                                     <span class="client-card__label">
                                         <i class="{{ config('other.font-awesome') }} fa-hdd"></i>
-                                        Size
+                                        {{ __('torrent.size') }}
                                     </span>
                                     <span class="client-card__value">{{ App\Helpers\StringHelper::formatBytes($client->size) }}</span>
                                 </div>
@@ -910,7 +910,7 @@
                                     <div class="client-card__row">
                                         <span class="client-card__label">
                                             <i class="{{ config('other.font-awesome') }} fa-plug"></i>
-                                            Connectable
+                                            {{ __('user.connectable') }}
                                         </span>
                                         <span class="client-card__value {{ $connectable ? 'text-green' : 'text-red' }}">
                                             @choice('user.client-connectable-state', $connectable)
@@ -920,12 +920,12 @@
                             </div>
                         </div>
                     @empty
-                        <p class="clients-list__empty">No active clients</p>
+                        <p class="clients-list__empty">{{ __('user.no-active-clients') }}</p>
                     @endforelse
                     <p class="clients-list__notice">
                         <i class="{{ config('other.font-awesome') }} fa-info-circle"></i>
-                        Don't recognise a client or IP?
-                        <a href="{{ route('tickets.index') }}">Open a helpdesk ticket</a>
+                        {{ __('user.client-unrecognised') }}
+                        <a href="{{ route('tickets.index') }}">{{ __('ticket.helpdesk') }}</a>
                     </p>
                 </div>
             </section>
