@@ -38,6 +38,5 @@ return [
     'empty-inbox' => 'Kosongkan peti masuk',
     'all-marked-read' => 'Semua Mesej Anda Sudah Ditanda Sebagai Telah Dibaca',
     'delete-success' => 'Mesej (Private Message) berjaya dibuang!',
-    'error'        => 'Apa yang anda cuba lakukan ni!',
-    'sent-success' => 'Mesej peribadi berjaya dihantar!',
+    'error' => 'Apa yang anda cuba lakukan ni!',
 ];
