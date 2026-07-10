@@ -65,18 +65,18 @@
 }
 
 .top-nav__site-logo {
-    background-color: #4281da;
+    background-color: #ff9800;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     background-image: radial-gradient(
         circle,
-        rgba(21, 225, 237, 1) 0%,
-        rgba(175, 99, 228, 1) 44%,
-        rgba(141, 0, 255, 1) 86%
+        rgba(255, 215, 0, 1) 0%,
+        rgba(255, 165, 0, 1) 44%,
+        rgba(255, 140, 0, 1) 86%
     );
     font-weight: 400;
     font-size: 2.5rem;
-    text-shadow: rgba(52, 160, 230, 0.55) 0 0 1px;
+    text-shadow: rgba(255, 165, 0, 0.55) 0 0 1px;
     font-family:
         Helvetica Neue,
         Helvetica,

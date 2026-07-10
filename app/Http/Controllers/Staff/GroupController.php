@@ -118,12 +118,12 @@ class GroupController extends Controller
 
             $defaultGroup = Group::query()
                 ->where('system_required', true)
-                ->where('name', '=', 'User')
+                ->where('name', '=', 'Pengguna')
                 ->first();
 
             if ($defaultGroup === null) {
                 return to_route('staff.groups.index')
-                    ->with('error', 'Cannot find default User group to reassign users.');
+                    ->with('error', 'Cannot find default Pengguna group to reassign users.');
             }
 
             $group->users()->update(['group_id' => $defaultGroup->id]);

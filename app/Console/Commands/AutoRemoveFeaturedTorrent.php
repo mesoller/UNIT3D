@@ -69,7 +69,7 @@ class AutoRemoveFeaturedTorrent extends Command
                 $appurl = config('app.url');
 
                 $this->chatRepository->systemMessage(
-                    \sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] is no longer featured.', $appurl, $featuredTorrent->torrent_id, $featuredTorrent->torrent->name)
+                    \sprintf('Tuan-tuan dan Puan-puan, [url=%s/torrents/%s]%s[/url] tidak lagi menjadi pilihan.', $appurl, $featuredTorrent->torrent_id, $featuredTorrent->torrent->name)
                 );
 
                 Unit3dAnnounce::removeFeaturedTorrent($featuredTorrent->torrent_id);

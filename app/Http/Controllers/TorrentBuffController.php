@@ -107,16 +107,16 @@ class TorrentBuffController extends Controller
             if ($request->fl_until !== null) {
                 $torrent->fl_until = Carbon::now()->addDays($request->integer('fl_until'));
                 $this->chatRepository->systemMessage(
-                    \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted %s%% FreeLeech for '.$request->fl_until.' days.', $torrentUrl, $torrent->name, $request->freeleech)
+                    \sprintf('Tuan-tuan dan Puan-puan, [url=%s]%s[/url] telah diberikan %s%% FreeLeech selama '.$request->fl_until.' hari.', $torrentUrl, $torrent->name, $request->freeleech)
                 );
             } else {
                 $this->chatRepository->systemMessage(
-                    \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted %s%% FreeLeech! Grab It While You Can!', $torrentUrl, $torrent->name, $request->freeleech)
+                    \sprintf('Tuan-tuan dan Puan-puan, [url=%s]%s[/url] telah diberikan %s%% FreeLeech! Dapatkan Sekarang Sebelum Kehabisan!', $torrentUrl, $torrent->name, $request->freeleech)
                 );
             }
         } elseif ($torrent->free != 0) {
             $this->chatRepository->systemMessage(
-                \sprintf('Ladies and Gents, [url=%s]%s[/url] has been revoked of its %s%% FreeLeech!', $torrentUrl, $torrent->name, $torrent->free)
+                \sprintf('Tuan-tuan dan Puan-puan, [url=%s]%s[/url] telah ditarik balik %s%% FreeLeech-nya!', $torrentUrl, $torrent->name, $torrent->free)
             );
         }
 
@@ -154,7 +154,7 @@ class TorrentBuffController extends Controller
             $torrentUrl = href_torrent($torrent);
             $profileUrl = href_profile($user);
             $this->chatRepository->systemMessage(
-                \sprintf('Ladies and Gents, [url=%s]%s[/url] has been added to the Featured Torrents Slider by [url=%s]%s[/url]! Grab It While You Can!', $torrentUrl, $torrent->name, $profileUrl, $user->username)
+                \sprintf('Tuan-tuan dan Puan-puan, [url=%s]%s[/url] telah ditambah ke Gelongsor Torrent Pilihan oleh [url=%s]%s[/url]! Dapatkan Sekarang Sebelum Kehabisan!', $torrentUrl, $torrent->name, $profileUrl, $user->username)
             );
 
             return to_route('torrents.show', ['id' => $torrent->id])
@@ -183,7 +183,7 @@ class TorrentBuffController extends Controller
         $appurl = config('app.url');
 
         $this->chatRepository->systemMessage(
-            \sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] is no longer featured.', $appurl, $torrent->id, $torrent->name)
+            \sprintf('Tuan-tuan dan Puan-puan, [url=%s/torrents/%s]%s[/url] tidak lagi menjadi pilihan.', $appurl, $torrent->id, $torrent->name)
         );
 
         $featured_torrent->delete();
@@ -212,17 +212,17 @@ class TorrentBuffController extends Controller
             if ($du_until !== null) {
                 $torrent->du_until = Carbon::now()->addDays($request->integer('du_until'));
                 $this->chatRepository->systemMessage(
-                    \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted Double Upload for '.$request->input('du_until').' days.', $torrentUrl, $torrent->name)
+                    \sprintf('Tuan-tuan dan Puan-puan, [url=%s]%s[/url] telah diberikan Muat Naik Berganda selama '.$request->input('du_until').' hari.', $torrentUrl, $torrent->name)
                 );
             } else {
                 $this->chatRepository->systemMessage(
-                    \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted Double Upload! Grab It While You Can!', $torrentUrl, $torrent->name)
+                    \sprintf('Tuan-tuan dan Puan-puan, [url=%s]%s[/url] telah diberikan Muat Naik Berganda! Dapatkan Sekarang Sebelum Kehabisan!', $torrentUrl, $torrent->name)
                 );
             }
         } else {
             $torrent->doubleup = false;
             $this->chatRepository->systemMessage(
-                \sprintf('Ladies and Gents, [url=%s]%s[/url] has been revoked of its Double Upload!', $torrentUrl, $torrent->name)
+                \sprintf('Tuan-tuan dan Puan-puan, [url=%s]%s[/url] telah ditarik balik Muat Naik Berganda-nya!', $torrentUrl, $torrent->name)
             );
         }
 
@@ -284,13 +284,13 @@ class TorrentBuffController extends Controller
             $torrent->refundable = true;
 
             $this->chatRepository->systemMessage(
-                \sprintf('Ladies and Gents, [url=%s]%s[/url] is now refundable! Grab It While You Can!', $torrent_url, $torrent->name)
+                \sprintf('Tuan-tuan dan Puan-puan, [url=%s]%s[/url] kini boleh dikembalikan! Dapatkan Sekarang Sebelum Kehabisan!', $torrent_url, $torrent->name)
             );
         } else {
             $torrent->refundable = false;
 
             $this->chatRepository->systemMessage(
-                \sprintf('Ladies and Gents, [url=%s]%s[/url] is no longer refundable!', $torrent_url, $torrent->name)
+                \sprintf('Tuan-tuan dan Puan-puan, [url=%s]%s[/url] tidak lagi boleh dikembalikan!', $torrent_url, $torrent->name)
             );
         }
 

@@ -76,7 +76,7 @@ class AutoRewardResurrection extends Command
                     $appurl = config('app.url');
 
                     $this->chatRepository->systemMessage(
-                        \sprintf('Ladies and Gents, [url=%s/users/%s]%s[/url] has successfully resurrected [url=%s/torrents/%s]%s[/url].', $appurl, $resurrection->user->username, $resurrection->user->username, $appurl, $resurrection->torrent->id, $resurrection->torrent->name)
+                        \sprintf('Tuan-tuan dan Puan-puan, [url=%s/users/%s]%s[/url] telah berjaya membangkitkan semula [url=%s/torrents/%s]%s[/url].', $appurl, $resurrection->user->username, $resurrection->user->username, $appurl, $resurrection->torrent->id, $resurrection->torrent->name)
                     );
 
                     // Bump Torrent With FL
@@ -89,7 +89,7 @@ class AutoRewardResurrection extends Command
                     ]);
 
                     $this->chatRepository->systemMessage(
-                        \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted 100%% FreeLeech for 3 days and has been bumped to the top.', $torrentUrl, $resurrection->torrent->name)
+                        \sprintf('Tuan-tuan dan Puan-puan, [url=%s]%s[/url] telah diberikan 100%% FreeLeech selama 3 hari dan telah dinaikkan ke kedudukan teratas.', $torrentUrl, $resurrection->torrent->name)
                     );
 
                     cache()->forget('announce-torrents:by-infohash:'.$resurrection->torrent->info_hash);

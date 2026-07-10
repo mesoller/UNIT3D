@@ -122,6 +122,9 @@
                     <a class="auth-form__footer-item" href="{{ route('password.request') }}">
                         {{ __('auth.lost-password') }}
                     </a>
+                    <a class="auth-form__footer-item" href="mailto:bantuan@malayabits.cc">
+                        Problem logging in? Contact us!
+                    </a>
                 </footer>
             </section>
         </main>

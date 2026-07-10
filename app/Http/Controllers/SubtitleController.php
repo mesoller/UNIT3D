@@ -104,7 +104,7 @@ class SubtitleController extends Controller
         if (!$subtitle->anon) {
             $this->chatRepository->systemMessage(
                 \sprintf(
-                    '[url=%s]%s[/url] has uploaded a new %s subtitle for [url=%s]%s[/url]',
+                    '[url=%s]%s[/url] telah memuat naik sari kata %s baharu untuk [url=%s]%s[/url]',
                     href_profile($user),
                     $user->username,
                     $subtitle->language->name,
@@ -130,7 +130,7 @@ class SubtitleController extends Controller
         } else {
             $this->chatRepository->systemMessage(
                 \sprintf(
-                    'An anonymous user has uploaded a new %s subtitle for [url=%s]%s[/url]',
+                    'Pengguna tanpa nama telah memuat naik sari kata %s baharu untuk [url=%s]%s[/url]',
                     $subtitle->language->name,
                     href_torrent($torrent),
                     $subtitle->torrent->name

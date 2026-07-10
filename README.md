@@ -18,18 +18,38 @@
 ## 📝 Table of Contents
 
 1. [Introduction](#introduction)
-2. [Installation](#installation)
-3. [Updating](#updating)
-4. [Documentation](#docs)
-5. [Products, Services and Support](#hdinnovations)
-6. [Contributing](#contributing)
-7. [Translations](#translations)
-8. [License](#license)
+2. [MalayaBits Customizations](#malayabits)
+3. [Installation](#installation)
+4. [Updating](#updating)
+5. [Documentation](#docs)
+6. [Products, Services and Support](#hdinnovations)
+7. [Contributing](#contributing)
+8. [Translations](#translations)
+9. [License](#license)
 
 
 ## <a name="introduction"></a> 🧐 Introduction
 
 UNIT3D (pronounced "united") is a modern Private Torrent Tracker software built with Laravel, Livewire and AlpineJS. It offers a feature-rich platform with excellent performance, security and scalability to create and manage a private tracker. It is MySQL Strict Mode Compliant and PHP 8.4 Ready. It uses an MVC Architecture to ensure clarity between logic and presentation.
+
+This repository is a fork of [UNIT3D Community Edition](https://github.com/HDInnovations/UNIT3D) customized for **MalayaBits**.
+
+## <a name="malayabits"></a> 🇲🇾 MalayaBits Customizations
+
+The following changes have been made on top of the upstream UNIT3D codebase:
+
+### Branding
+- Site logo updated to a gold/orange gradient
+- Login page background replaced with a poster image
+- "Contact Us" link added to the login page
+
+### Localization (Bahasa Melayu)
+- All chatbox system messages translated to Bahasa Melayu — covers NerdBot, AutoNerdStat, torrent upload announcements, achievement unlocks, welcome messages, freeleech/double upload/featured torrent notifications, subtitle uploads, reseed requests, and resurrection rewards
+- Default user group renamed from `User` to `Pengguna`
+- Locale set to `ms` (Bahasa Melayu)
+
+### Automation
+- Laravel Pint CI workflow added for automated code formatting
 
 ## <a name="installation"></a> 🖥️ Installation
 
@@ -66,5 +86,3 @@ We use Weblate for translations. You can easily contribute to translations at ht
 ## <a name="license"></a> 📜 License
 
 This project is licensed under the AGPL v3.0 License. See the [LICENSE](https://github.com/HDInnovations/UNIT3D/blob/master/LICENSE.md) file for details.
-
-
