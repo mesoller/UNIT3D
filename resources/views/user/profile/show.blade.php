@@ -115,48 +115,242 @@
             </header>
             <div class="panel__body">
                 <article class="profileV2">
-                    <x-user-tag :user="$user" :anon="false" class="profile__username">
-                        <x-slot:appendedIcons>
-                            @if ($user->isOnline())
-                                <i
-                                    class="{{ config('other.font-awesome') }} fa-circle text-green"
-                                    title="{{ __('user.online') }}"
-                                ></i>
-                            @else
-                                <i
-                                    class="{{ config('other.font-awesome') }} fa-circle text-red"
-                                    title="{{ __('user.offline') }}"
-                                ></i>
+                    {{-- Top: avatar + username/meta --}}
+                    <div class="profile__top">
+                        <img
+                            src="{{ $user->image === null ? url('img/profile.png') : route('authenticated_images.user_avatar', ['user' => $user]) }}"
+                            alt=""
+                            class="profile__avatar"
+                        />
+                        <div class="profile__header-content">
+                            <x-user-tag :user="$user" :anon="false" class="profile__username">
+                                <x-slot:appendedIcons>
+                                    @if ($user->isOnline())
+                                        <i
+                                            class="{{ config('other.font-awesome') }} fa-circle text-green"
+                                            title="{{ __('user.online') }}"
+                                        ></i>
+                                    @else
+                                        <i
+                                            class="{{ config('other.font-awesome') }} fa-circle text-red"
+                                            title="{{ __('user.offline') }}"
+                                        ></i>
+                                    @endif
+                                    <a
+                                        href="{{ route('users.conversations.create', ['user' => auth()->user(), 'username' => $user->username]) }}"
+                                    >
+                                        <i
+                                            class="{{ config('other.font-awesome') }} fa-envelope text-info"
+                                        ></i>
+                                    </a>
+                                    @if ($user->warnings()->active()->exists())
+                                        <i
+                                            class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
+                                            aria-hidden="true"
+                                            title="{{ __('user.active-warning') }}"
+                                        ></i>
+                                    @endif
+                                </x-slot>
+                            </x-user-tag>
+                            <div class="profile__meta">
+                                <span>
+                                    <i class="{{ config('other.font-awesome') }} fa-calendar-alt"></i>
+                                    {{ __('user.registration-date') }}:
+                                    <time
+                                        datetime="{{ $user->created_at }}"
+                                        title="{{ $user->created_at }}"
+                                    >
+                                        {{ $user->created_at?->diffForHumans() ?? 'N/A' }}
+                                    </time>
+                                </span>
+                                <span>
+                                    <i class="{{ config('other.font-awesome') }} fa-sign-in-alt"></i>
+                                    {{ __('user.last-login') }}:
+                                    @if ($user->last_login)
+                                        <time
+                                            datetime="{{ $user->last_login }}"
+                                            title="{{ $user->last_login }}"
+                                        >
+                                            {{ $user->last_login->diffForHumans() }}
+                                        </time>
+                                    @else
+                                        N/A
+                                    @endif
+                                </span>
+                                <span>
+                                    <i class="{{ config('other.font-awesome') }} fa-clock"></i>
+                                    Last action:
+                                    @if ($user->last_action)
+                                        <time
+                                            datetime="{{ $user->last_action }}"
+                                            title="{{ $user->last_action }}"
+                                        >
+                                            {{ $user->last_action->diffForHumans() }}
+                                        </time>
+                                    @else
+                                        N/A
+                                    @endif
+                                </span>
+                                @if (auth()->user()->is($user) || auth()->user()->group->is_modo)
+                                    <span>
+                                        <i class="{{ config('other.font-awesome') }} fa-key"></i>
+                                        PID: ••••••••
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Info row: ID / Invited by / Email / 2FA --}}
+                    @if (auth()->user()->is($user) || auth()->user()->group->is_modo)
+                        <div class="profile__info-row">
+                            <span>
+                                <i class="{{ config('other.font-awesome') }} fa-hashtag"></i>
+                                ID: <strong>{{ $user->id }}</strong>
+                            </span>
+                            <span>
+                                <i class="{{ config('other.font-awesome') }} fa-user-friends"></i>
+                                {{ __('user.invited-by') }}:
+                                @if ($invitedBy)
+                                    <x-user-tag :user="$invitedBy->sender" :anon="false" />
+                                @else
+                                    <strong>{{ __('user.open-registration') }}</strong>
+                                @endif
+                            </span>
+                            <span>
+                                <i class="{{ config('other.font-awesome') }} fa-envelope"></i>
+                                {{ __('common.email') }}: {{ $user->email }}
+                            </span>
+                            <span>
+                                @if ($user->two_factor_confirmed_at !== null)
+                                    <i class="{{ config('other.font-awesome') }} fa-lock text-green"></i>
+                                    2FA: <span class="text-green">Enabled</span>
+                                @else
+                                    <i class="{{ config('other.font-awesome') }} fa-lock-open text-red"></i>
+                                    2FA: <span class="text-red">Disabled</span>
+                                @endif
+                            </span>
+                        </div>
+                    @endif
+
+                    {{-- Permissions section --}}
+                    @if (auth()->user()->is($user) || auth()->user()->group->is_modo)
+                        <div class="profile__permissions">
+                            <div class="profile__permissions-header">
+                                <i class="{{ config('other.font-awesome') }} fa-lock"></i>
+                                PERMISSIONS
+                            </div>
+                            <div class="profile__permission-badges">
+                                <span class="permission-badge {{ ($user->can_upload ?? $user->group->can_upload) ? 'permission-badge--active' : 'permission-badge--inactive' }}">
+                                    <i class="{{ config('other.font-awesome') }} fa-upload"></i>
+                                    Upload
+                                </span>
+                                <span class="permission-badge {{ $user->can_download ? 'permission-badge--active' : 'permission-badge--inactive' }}">
+                                    <i class="{{ config('other.font-awesome') }} fa-download"></i>
+                                    Download
+                                </span>
+                                <span class="permission-badge {{ ($user->can_comment ?? $user->group->can_comment) ? 'permission-badge--active' : 'permission-badge--inactive' }}">
+                                    <i class="{{ config('other.font-awesome') }} fa-comment"></i>
+                                    Comment
+                                </span>
+                                <span class="permission-badge {{ ($user->can_request ?? $user->group->can_request) ? 'permission-badge--active' : 'permission-badge--inactive' }}">
+                                    <i class="{{ config('other.font-awesome') }} fa-question-circle"></i>
+                                    Request
+                                </span>
+                                <span class="permission-badge {{ (($user->can_invite ?? $user->group->can_invite) && $user->two_factor_confirmed_at !== null) ? 'permission-badge--active' : 'permission-badge--inactive' }}">
+                                    <i class="{{ config('other.font-awesome') }} fa-paper-plane"></i>
+                                    Invite
+                                </span>
+                                <span class="permission-badge {{ ($user->can_chat ?? $user->group->can_chat) ? 'permission-badge--active' : 'permission-badge--inactive' }}">
+                                    <i class="{{ config('other.font-awesome') }} fa-comments"></i>
+                                    Chat
+                                </span>
+                            </div>
+                            @php
+                                $hasSpecialBadge = $user->group->is_freeleech
+                                    || $user->group->is_double_upload
+                                    || $user->group->is_trusted
+                                    || $user->group->is_immune;
+                            @endphp
+                            @if ($hasSpecialBadge)
+                                <div class="profile__special-badges">
+                                    @if ($user->group->is_freeleech)
+                                        <span class="special-badge special-badge--freeleech">
+                                            <i class="{{ config('other.font-awesome') }} fa-star"></i>
+                                            Freeleech
+                                        </span>
+                                    @endif
+                                    @if ($user->group->is_double_upload)
+                                        <span class="special-badge special-badge--double-upload">
+                                            <i class="{{ config('other.font-awesome') }} fa-sort-amount-up"></i>
+                                            2x Upload
+                                        </span>
+                                    @endif
+                                    @if ($user->group->is_trusted)
+                                        <span class="special-badge special-badge--skip-modq">
+                                            <i class="{{ config('other.font-awesome') }} fa-check-circle"></i>
+                                            Skip ModQ
+                                        </span>
+                                    @endif
+                                    @if ($user->group->is_immune)
+                                        <span class="special-badge special-badge--hnr-immune">
+                                            <i class="{{ config('other.font-awesome') }} fa-shield-alt"></i>
+                                            HnR Immune
+                                        </span>
+                                    @endif
+                                </div>
                             @endif
-                            <a
-                                href="{{ route('users.conversations.create', ['user' => auth()->user(), 'username' => $user->username]) }}"
-                            >
-                                <i
-                                    class="{{ config('other.font-awesome') }} fa-envelope text-info"
-                                ></i>
-                            </a>
-                            @if ($user->warnings()->active()->exists())
-                                <i
-                                    class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
-                                    aria-hidden="true"
-                                    title="{{ __('user.active-warning') }}"
-                                ></i>
+                        </div>
+                    @endif
+
+                    {{-- Stats cards --}}
+                    @if (auth()->user()->isAllowed($user, 'profile', 'show_profile_torrent_ratio'))
+                        <div class="profile__stats">
+                            <div class="profile__stat-card">
+                                <i class="{{ config('other.font-awesome') }} fa-balance-scale profile__stat-icon"></i>
+                                <div class="profile__stat-value">{{ $user->formatted_ratio }}</div>
+                                <div class="profile__stat-label">RATIO</div>
+                            </div>
+                            <div class="profile__stat-card">
+                                <i class="{{ config('other.font-awesome') }} fa-database profile__stat-icon"></i>
+                                <div class="profile__stat-value">{{ App\Helpers\StringHelper::formatBytes($user->seedingTorrents()->sum('size'), 2) }}</div>
+                                <div class="profile__stat-label">SEEDSIZE</div>
+                            </div>
+                            <div class="profile__stat-card">
+                                <i class="{{ config('other.font-awesome') }} fa-arrow-up profile__stat-icon"></i>
+                                <div class="profile__stat-value">{{ $user->formatted_uploaded }}</div>
+                                <div class="profile__stat-label">TOTAL UPLOAD</div>
+                            </div>
+                            <div class="profile__stat-card">
+                                <i class="{{ config('other.font-awesome') }} fa-arrow-down profile__stat-icon"></i>
+                                <div class="profile__stat-value">{{ $user->formatted_downloaded }}</div>
+                                <div class="profile__stat-label">TOTAL DOWNLOAD</div>
+                            </div>
+                            <div class="profile__stat-card">
+                                <i class="{{ config('other.font-awesome') }} fa-upload profile__stat-icon"></i>
+                                <div class="profile__stat-value">{{ ($user->non_anon_uploads_count ?? 0) + ($user->anon_uploads_count ?? 0) }}</div>
+                                <div class="profile__stat-label">TOTAL UPLOADS</div>
+                            </div>
+                            <div class="profile__stat-card">
+                                <i class="{{ config('other.font-awesome') }} fa-hourglass-half profile__stat-icon"></i>
+                                <div class="profile__stat-value">{{ App\Helpers\StringHelper::timeElapsed(($history->seedtime_sum ?? 0) / max(1, $history->count ?? 0)) }}</div>
+                                <div class="profile__stat-label">AVG SEEDTIME</div>
+                            </div>
+                            <div class="profile__stat-card">
+                                <i class="{{ config('other.font-awesome') }} fa-satellite-dish profile__stat-icon"></i>
+                                <div class="profile__stat-value text-green">{{ $peers->seeding ?? 0 }}</div>
+                                <div class="profile__stat-label">TOTAL SEEDING</div>
+                            </div>
+                            @if (auth()->user()->isAllowed($user, 'profile', 'show_profile_warning'))
+                                <div class="profile__stat-card">
+                                    <i class="{{ config('other.font-awesome') }} fa-exclamation-triangle profile__stat-icon text-yellow"></i>
+                                    <div class="profile__stat-value">{{ $user->active_warnings_count ?? 0 }}</div>
+                                    <div class="profile__stat-label">ACTIVE WARNINGS</div>
+                                </div>
                             @endif
-                        </x-slot>
-                    </x-user-tag>
-                    <time
-                        datetime="{{ $user->created_at }}"
-                        title="{{ $user->created_at }}"
-                        class="profile__registration"
-                    >
-                        {{ __('user.registration-date') }}:
-                        {{ $user->created_at?->format('Y-m-d') ?? 'N/A' }}
-                    </time>
-                    <img
-                        src="{{ $user->image === null ? url('img/profile.png') : route('authenticated_images.user_avatar', ['user' => $user]) }}"
-                        alt=""
-                        class="profile__avatar"
-                    />
+                        </div>
+                    @endif
+
                     @if (auth()->user()->isAllowed($user, 'profile', 'show_profile_title') && $user->title)
                         <span class="profile__title">
                             {{ __('user.title') }}: {{ $user->title }}
@@ -175,12 +369,12 @@
         @if (auth()->user()->isAllowed($user, 'profile', 'show_profile_achievement'))
             <section class="panelV2">
                 <h2 class="panel__heading">{{ __('user.recent-achievements') }}</h2>
-                <div class="panel__body">
+                <div class="panel__body profile__badges">
                     @forelse ($achievements->take(25) as $achievement)
                         <img
+                            class="profile__badge"
                             src="/img/badges/{{ $achievement->details->name }}.png"
                             title="{{ $achievement->details->name }}"
-                            height="50px"
                             alt="{{ $achievement->details->name }}"
                         />
                     @empty
