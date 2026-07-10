@@ -767,17 +767,9 @@
                 <div class="data-table-wrapper torrent-search--list__results">
                     <table class="data-table">
                         <thead>
-                            <tr
-                                @class([
-                                    'torrent-search--list__headers' => auth()->user()->settings->show_poster,
-                                    'torrent-search--list__no-poster-headers' => ! auth()->user()->settings->show_poster,
-                                ])
-                            >
-                                @if (auth()->user()->settings->show_poster)
-                                    <th class="torrent-search--list__poster-header">Poster</th>
-                                @endif
+                            <tr class="torrent-search--list__headers">
+                                <th class="torrent-search--list__poster-header"></th>
 
-                                <th class="torrent-search--list__format-header">Format</th>
                                 <th
                                     class="torrent-search--list__name-header"
                                     wire:click="sortBy('name')"
@@ -785,9 +777,6 @@
                                 >
                                     {{ __('torrent.name') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'name'])
-                                </th>
-                                <th class="torrent-search--list__actions-header">
-                                    {{ __('common.actions') }}
                                 </th>
                                 <th
                                     class="torrent-search--list__ratings-header"

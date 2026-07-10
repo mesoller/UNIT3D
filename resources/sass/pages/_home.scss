@@ -1,3 +1,272 @@
+// ── Top Torrents active tab — yellow ────────────────────────────────────────
+.blocks__top-torrents .panel__tab--active,
+.blocks__uploaders .panel__tab--active {
+    color: #ffd700;
+    border-bottom: 2px solid #ffd700;
+}
+
+// ── Top Torrents card list ───────────────────────────────────────────────────
+.tt-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.tt-card {
+    display: flex;
+    gap: 1rem;
+    padding: 0.9rem 1.1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    align-items: flex-start;
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.025);
+    }
+}
+
+.tt-card__poster {
+    flex-shrink: 0;
+    display: block;
+    width: 66px;
+
+    &:hover {
+        opacity: 0.85;
+    }
+}
+
+.tt-card__poster-img {
+    width: 66px;
+    height: 99px;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.tt-card__body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.tt-card__title-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.tt-card__name {
+    flex: 1;
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--body-fg);
+    text-decoration: none;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+    &:hover {
+        opacity: 0.8;
+        text-decoration: none;
+    }
+}
+
+.tt-card__title-actions {
+    display: flex;
+    gap: 0.25rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.tt-card__icon-btn {
+    background: none;
+    border: none;
+    padding: 0.25rem 0.4rem;
+    cursor: pointer;
+    color: var(--body-fg);
+    font-size: 1.15rem;
+    opacity: 0.5;
+    border-radius: 4px;
+    transition: opacity 0.15s;
+
+    &:hover {
+        opacity: 1;
+        background-color: rgba(255, 255, 255, 0.08);
+    }
+}
+
+.tt-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 1.1rem;
+}
+
+.tt-card__category-img {
+    height: 26px;
+    width: auto;
+    opacity: 0.8;
+}
+
+.tt-card__category-icon {
+    font-size: 1.3rem;
+    opacity: 0.7;
+}
+
+.tt-card__badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.6rem;
+    border-radius: 3px;
+    font-size: 1.05rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--body-fg);
+    opacity: 0.85;
+
+    &--resolution {
+        background-color: rgba(39, 128, 227, 0.2);
+        color: #60a5fa;
+    }
+
+    &--type {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+}
+
+.tt-card__uploader {
+    opacity: 0.7;
+    font-size: 1.1rem;
+}
+
+.tt-card__action-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: default;
+    transition: opacity 0.15s;
+
+    i {
+        font-size: 1rem;
+    }
+
+    &:hover {
+        opacity: 0.85;
+        text-decoration: none;
+    }
+
+    &--thanks {
+        background-color: rgba(239, 68, 68, 0.2);
+        color: #f87171;
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        cursor: pointer;
+    }
+
+    &--comments {
+        background-color: rgba(39, 128, 227, 0.2);
+        color: #60a5fa;
+        border: 1px solid rgba(39, 128, 227, 0.3);
+    }
+
+    &--fl {
+        background-color: rgba(34, 197, 94, 0.2);
+        color: #4ade80;
+        border: 1px solid rgba(34, 197, 94, 0.3);
+        cursor: default;
+    }
+
+    &--du {
+        background-color: rgba(251, 146, 60, 0.2);
+        color: #fb923c;
+        border: 1px solid rgba(251, 146, 60, 0.3);
+        cursor: default;
+    }
+}
+
+.tt-card__stats {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.1rem;
+    opacity: 0.8;
+    margin-top: 0.1rem;
+}
+
+.tt-card__stat {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    text-decoration: none;
+    color: inherit;
+
+    i {
+        font-size: 1rem;
+        opacity: 0.6;
+    }
+
+    &--rating {
+        font-weight: 600;
+        opacity: 1;
+    }
+
+    &--seeds {
+        color: #3fb618;
+
+        &:hover {
+            color: #3fb618;
+        }
+    }
+
+    &--leeches {
+        color: #2780e3;
+
+        &:hover {
+            color: #2780e3;
+        }
+    }
+
+    &--age {
+        margin-left: auto;
+        white-space: nowrap;
+        font-size: 1.05rem;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .tt-card {
+        gap: 0.75rem;
+        padding: 0.75rem 0.85rem;
+    }
+
+    .tt-card__poster {
+        width: 52px;
+    }
+
+    .tt-card__poster-img {
+        width: 52px;
+        height: 78px;
+    }
+
+    .tt-card__stat--age {
+        margin-left: 0;
+    }
+}
+
 .top-users__place {
     border-radius: 50%;
     background: #212125;
@@ -13,4 +282,140 @@
     text-align: center;
     float: right;
     display: inline-block;
+}
+
+// ── Latest Topics homepage block — yellow accent redesign ────────────────────
+.blocks__latest-topics {
+    .topic-listings__item {
+        border-left: 4px solid #ffd700;
+        background-color: rgba(255, 255, 255, 0.025) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+        transition: background-color 0.15s;
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.055) !important;
+        }
+
+        &:last-child {
+            border-bottom: none !important;
+        }
+    }
+
+    .topic-listing {
+        grid-template-columns: 58px 1fr 85px 85px 160px;
+        padding: 12px 14px;
+        gap: 0 12px;
+    }
+
+    .topic-listing__icon {
+        background-color: rgba(255, 215, 0, 0.12);
+        border-radius: 8px;
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.6rem;
+        color: #ffd700;
+        max-width: unset;
+    }
+
+    .topic-listing__forum {
+        font-size: 0.88rem;
+        color: rgba(255, 215, 0, 0.65);
+        margin-top: 5px;
+    }
+
+    .topic-listing__heading {
+        font-size: 1.35rem;
+        font-weight: 600;
+    }
+
+    .topic-listing__link {
+        color: inherit;
+        text-decoration: none;
+
+        &:hover {
+            color: #ffd700;
+            text-decoration: none;
+        }
+    }
+
+    .topic-listing__created-post {
+        margin-top: 4px;
+        font-size: 1.05rem;
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .topic-listing__created-author {
+        font-size: inherit;
+        color: rgba(255, 215, 0, 0.75);
+
+        a {
+            color: inherit;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .topic-listing__created-datetime {
+        font-size: inherit;
+    }
+
+    .topic-listing__post-stats,
+    .topic-listing__view-stats {
+        flex-direction: column-reverse;
+    }
+
+    .topic-listing__post-stats dd,
+    .topic-listing__view-stats dd {
+        font-size: 1.7rem;
+        font-weight: 700;
+        color: var(--body-fg);
+    }
+
+    .topic-listing__post-stats dt,
+    .topic-listing__view-stats dt {
+        font-size: 0.82rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: rgba(255, 255, 255, 0.4);
+    }
+
+    .topic-listing__latest-post {
+        align-items: flex-end;
+    }
+
+    .topic-listing__latest-author {
+        font-size: 1.2rem;
+        color: #ffd700;
+        margin: 0;
+
+        a {
+            color: inherit;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .topic-listing__latest-datetime {
+        font-size: 1.0rem;
+        color: rgba(255, 255, 255, 0.45);
+    }
+
+    @media only screen and (max-width: 767px) {
+        .topic-listing {
+            grid-template-columns: 54px auto 1fr;
+        }
+
+        .topic-listing__post-stats {
+            flex-direction: row;
+        }
+    }
 }

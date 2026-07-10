@@ -127,16 +127,16 @@
 .torrent-search--list__row {
     display: grid;
     grid-template-rows: auto;
-    grid-template-columns: 60px 100px 1fr 150px 68px 100px 50px 50px 50px 120px;
-    grid-template-areas: 'poster format overview buttons rating size seeders leechers completed age';
+    grid-template-columns: 70px 1fr 72px 105px 52px 52px 52px 120px;
+    grid-template-areas: 'poster overview rating size seeders leechers completed age';
 }
 
 .torrent-search--list__no-poster-headers,
 .torrent-search--list__no-poster-row {
     display: grid;
     grid-template-rows: auto;
-    grid-template-columns: 100px 1fr 150px 68px 100px 50px 50px 50px 120px;
-    grid-template-areas: 'format overview buttons rating size seeders leechers completed age';
+    grid-template-columns: 1fr 72px 105px 52px 52px 52px 120px;
+    grid-template-areas: 'overview rating size seeders leechers completed age';
 }
 
 .torrent-search--list__sticky-row td {
@@ -160,79 +160,75 @@
 
 .torrent-search--list__poster {
     grid-area: poster;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0.4rem;
 }
 
 .torrent-search--list__poster-img {
-    /* TMDb posters should always be a ratio of 1.5 */
-    width: 54px;
-    height: 81px;
+    width: 60px;
+    height: 90px;
+    object-fit: cover;
     border-radius: 5px;
-}
-
-.torrent-search--list__format {
-    grid-area: format;
-}
-
-.torrent-search--list__format > div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    row-gap: 4px;
-}
-
-.torrent-search--list__resolution-and-type {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--torrent-row-format-bg);
-    color: var(--torrent-row-format-fg);
-    border-radius: 8px;
-    padding: 2px 6px;
-    text-align: center;
-}
-
-.torrent-search--list__type,
-.torrent-search--list__resolution {
-    font-size: 12px;
-    white-space: nowrap;
+    display: block;
 }
 
 .torrent-search--list__overview {
     grid-area: overview;
-    display: grid;
-    place-items: center left;
-}
-
-.torrent-search--list__overview > div {
-    display: grid;
-    grid-template-areas: 'name name' 'uploader icons';
-    grid-template-columns: auto 1fr;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.torrent-search--list__name {
-    grid-area: name;
-    font-size: 16px;
-    font-weight: bold;
-    color: var(--torrent-row-fg);
-    padding: 8px 0 4px 0;
-}
-
-.torrent-search--list__name:visited {
-    color: var(--torrent-row-visited-fg);
-}
-
-.torrent-search--list__uploader {
-    grid-area: uploader;
-    margin-right: 12px;
-    font-size: 12px;
-}
-
-.torrent-search--list__buttons {
-    grid-area: buttons;
     display: flex;
-    align-items: center;
-    color: var(--torrent-row-buttons-fg);
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.6rem 0.4rem;
+    min-width: 0;
+}
+
+.tsl__name {
+    font-size: 1.3rem !important;
+}
+
+.tsl__small-icon {
+    font-size: 1.1rem;
+    opacity: 0.7;
+}
+
+.tsl__na {
+    opacity: 0.4;
+}
+
+// Scale up tt-card inner elements when inside the torrent list
+.torrent-search--list__overview {
+    .tt-card__tags {
+        font-size: 1.15rem;
+    }
+
+    .tt-card__badge {
+        font-size: 1.1rem;
+    }
+
+    .tt-card__action-badge {
+        font-size: 1.15rem;
+    }
+
+    .tt-card__uploader {
+        font-size: 1.15rem;
+    }
+
+    .tt-card__icon-btn {
+        font-size: 1.2rem;
+    }
+}
+
+.torrent-search--list__rating,
+.torrent-search--list__size,
+.torrent-search--list__age {
+    font-size: 1.1rem;
+}
+
+.torrent-search--list__seeders,
+.torrent-search--list__leechers,
+.torrent-search--list__completed {
+    font-size: 1.1rem;
 }
 
 .torrent-search--list__rating {
@@ -295,36 +291,24 @@
         flex-grow: 1;
     }
 
-    .torrent-search--list__poster-header,
-    .torrent-search--list__format-header,
-    .torrent-search--list__actions-header {
+    .torrent-search--list__poster-header {
         display: none;
     }
 
     .torrent-search--list__row {
         grid-template-areas:
-            'poster format format overview overview overview overview overview overview'
-            'age age size size rating seeders leechers completed buttons';
-        grid-template-columns: 60px 40px 60px 30px 80px 80px 80px 80px 1fr;
+            'poster overview overview overview overview overview overview overview'
+            'poster age size rating seeders leechers completed completed';
+        grid-template-columns: 70px 1fr 105px 72px 52px 52px 52px 52px;
         grid-template-rows: repeat(2, auto);
     }
 
     .torrent-search--list__no-poster-row {
         grid-template-areas:
-            'format overview overview overview overview overview overview'
-            'age size rating seeders leechers completed buttons';
-        grid-template-columns: 100px 30px 80px 80px 80px 80px 1fr;
+            'overview overview overview overview overview overview overview'
+            'age size rating seeders leechers completed completed';
+        grid-template-columns: 1fr 105px 72px 52px 52px 52px 52px;
         grid-template-rows: repeat(2, auto);
-    }
-
-    .torrent-search--list__buttons > div {
-        display: flex;
-        column-gap: 1.5rem;
-        padding-left: 40px;
-    }
-
-    .torrent-search--list__buttons {
-        place-content: center left;
     }
 
     .torrent-search--list__age {
@@ -335,49 +319,18 @@
 @media only screen and (max-width: 767px) {
     .torrent-search--list__row {
         grid-template-areas:
-            'poster poster poster format format buttons buttons buttons buttons buttons buttons buttons'
-            'overview overview overview overview overview overview overview overview overview overview overview overview'
-            'age age age age size size size size rating rating rating rating'
-            'seeders seeders seeders seeders leechers leechers leechers  leechers completed completed completed completed';
-        grid-template-columns: repeat(12, 1fr);
+            'poster overview overview overview overview overview overview'
+            'poster age size rating seeders leechers completed';
+        grid-template-columns: 60px 1fr 90px 60px 44px 44px 44px;
         grid-template-rows: auto;
     }
 
     .torrent-search--list__no-poster-row {
         grid-template-areas:
-            'format buttons buttons'
-            'overview overview overview'
-            'age size rating'
-            'seeders leechers completed';
-        grid-template-columns: repeat(3, 1fr);
+            'overview overview overview overview overview overview'
+            'age size rating seeders leechers completed';
+        grid-template-columns: 1fr 90px 60px 44px 44px 44px;
         grid-template-rows: auto;
-    }
-
-    .torrent-search--list__format {
-        place-items: center left;
-    }
-
-    .torrent-search--list__overview > div {
-        grid-template-areas: 'name name' 'uploader icons';
-        grid-template-columns: auto 1fr;
-        grid-template-rows: auto;
-        column-gap: 1rem;
-    }
-
-    .torrent-search--list__uploader {
-        padding: 8px 0;
-    }
-
-    .torrent-search--list__buttons {
-        width: 100%;
-    }
-
-    .torrent-search--list__buttons > div {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        width: 100%;
-        padding-left: 0;
     }
 
     .torrent-search--list__rating,

@@ -54,17 +54,13 @@
             {{ __('torrent.dead-torrents') }}
         </li>
     </menu>
-    <div class="data-table-wrapper">
-        <table class="data-table">
-            <tbody>
-                @foreach ($torrents as $torrent)
-                    <x-torrent.row
-                        :$torrent
-                        :meta="$torrent->meta"
-                        :personalFreeleech="$personal_freeleech"
-                    />
-                @endforeach
-            </tbody>
-        </table>
+    <div class="tt-list">
+        @foreach ($torrents as $torrent)
+            <x-torrent.top-torrent-card
+                :$torrent
+                :meta="$torrent->meta"
+                :personalFreeleech="$personal_freeleech"
+            />
+        @endforeach
     </div>
 </section>
