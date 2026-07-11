@@ -29,10 +29,10 @@ class AutoBonGiveawayStart extends Command
             return;
         }
 
-        $amount    = (int) config('bon_giveaway.amount');
-        $duration  = (int) config('bon_giveaway.duration_minutes');
-        $startNum  = (int) config('bon_giveaway.start_num');
-        $endNum    = (int) config('bon_giveaway.end_num');
+        $amount = (int) config('bon_giveaway.amount');
+        $duration = (int) config('bon_giveaway.duration_minutes');
+        $startNum = (int) config('bon_giveaway.start_num');
+        $endNum = (int) config('bon_giveaway.end_num');
         $reminders = (int) config('bon_giveaway.reminders');
         $botUserId = (int) config('bon_giveaway.bot_user_id');
 
@@ -45,7 +45,7 @@ class AutoBonGiveawayStart extends Command
             return;
         }
 
-        $winningNumber   = random_int($startNum, $endNum);
+        $winningNumber = random_int($startNum, $endNum);
         $durationSeconds = $duration * 60;
         $reminderInterval = $reminders > 0
             ? (int) floor($durationSeconds / ($reminders + 1))
@@ -54,14 +54,14 @@ class AutoBonGiveawayStart extends Command
         $chatroomId = $this->chat->systemChatroom();
 
         $giveaway = BonGiveaway::create([
-            'amount'                   => $amount,
-            'winning_number'           => $winningNumber,
-            'start_num'                => $startNum,
-            'end_num'                  => $endNum,
-            'chatroom_id'              => $chatroomId,
-            'last_message_id'          => $this->latestMessageId($chatroomId),
+            'amount'                    => $amount,
+            'winning_number'            => $winningNumber,
+            'start_num'                 => $startNum,
+            'end_num'                   => $endNum,
+            'chatroom_id'               => $chatroomId,
+            'last_message_id'           => $this->latestMessageId($chatroomId),
             'reminder_interval_seconds' => $reminderInterval,
-            'next_reminder_at'         => $reminderInterval > 0
+            'next_reminder_at'          => $reminderInterval > 0
                 ? now()->addSeconds($reminderInterval)
                 : null,
             'starts_at' => now(),
@@ -69,7 +69,7 @@ class AutoBonGiveawayStart extends Command
         ]);
 
         $this->chat->systemMessage(
-            sprintf(
+            \sprintf(
                 '[b][color=#ffc00a]🎁 AUTO GIVEAWAY![/color][/b] MalayaBits memberikan [b][color=#ffc00a]%s BON[/color][/b]! '
                 .'Taip nombor [b][color=red]%d–%d[/color][/b] dalam chat untuk menyertai.',
                 number_format($amount),
@@ -79,7 +79,7 @@ class AutoBonGiveawayStart extends Command
         );
 
         $this->chat->systemMessage(
-            sprintf(
+            \sprintf(
                 '⏳ Giveaway tamat dalam [b][color=green]%d minit[/color][/b]. '
                 .'Pemenang = yang paling hampir dengan nombor rahsia. Semoga berjaya!',
                 $duration

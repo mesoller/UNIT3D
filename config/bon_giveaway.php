@@ -15,7 +15,7 @@ return [
     */
 
     // User ID whose BON bank funds the giveaway prize
-    'bot_user_id'      => 4,
+    'bot_user_id' => 4,
 
     'amount'           => 10000,
     'duration_minutes' => 30,

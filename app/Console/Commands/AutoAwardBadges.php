@@ -18,7 +18,7 @@ class AutoAwardBadges extends Command
     public function handle(): void
     {
         $badges = Badge::all();
-        $now    = now();
+        $now = now();
         $awarded = 0;
 
         foreach ($badges as $badge) {

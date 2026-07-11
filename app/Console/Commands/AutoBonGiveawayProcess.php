@@ -49,14 +49,14 @@ class AutoBonGiveawayProcess extends Command
         }
 
         // End the giveaway if expired or all slots are filled
-        $totalSlots  = $giveaway->totalSlots();
-        $entryCount  = $giveaway->entries()->count();
+        $totalSlots = $giveaway->totalSlots();
+        $entryCount = $giveaway->entries()->count();
         $allSlotsFilled = $entryCount >= $totalSlots;
 
         if ($giveaway->isExpired() || $allSlotsFilled) {
             if ($allSlotsFilled) {
                 $this->chat->systemMessage(
-                    sprintf(
+                    \sprintf(
                         '[b][color=#ffc00a]Semua %d slot giveaway telah diisi![/color][/b] Giveaway ditamatkan lebih awal!',
                         $totalSlots
                     )
@@ -110,7 +110,7 @@ class AutoBonGiveawayProcess extends Command
         if ($giveaway->entries()->where('user_id', $userId)->exists()) {
             $existing = $giveaway->entries()->where('user_id', $userId)->value('entry_number');
             $this->chat->systemMessage(
-                sprintf(
+                \sprintf(
                     'Maaf [color=#d85e27]%s[/color], anda sudah masuk dengan nombor [color=red][b]%d[/b][/color]!',
                     $user->username,
                     $existing
@@ -123,7 +123,7 @@ class AutoBonGiveawayProcess extends Command
         // Out of range
         if ($number < $giveaway->start_num || $number > $giveaway->end_num) {
             $this->chat->systemMessage(
-                sprintf(
+                \sprintf(
                     'Maaf [color=#d85e27]%s[/color], nombor [color=red][b]%d[/b][/color] di luar julat! Sila pilih nombor antara [b]%d dan %d[/b].',
                     $user->username,
                     $number,
@@ -142,7 +142,7 @@ class AutoBonGiveawayProcess extends Command
                 ->value('users.username');
 
             $this->chat->systemMessage(
-                sprintf(
+                \sprintf(
                     'Maaf [color=#d85e27]%s[/color], nombor [color=red][b]%d[/b][/color] sudah diambil oleh [color=#32cd53]%s[/color]! Cuba nombor lain.',
                     $user->username,
                     $number,
@@ -160,7 +160,7 @@ class AutoBonGiveawayProcess extends Command
         ]);
 
         $this->chat->systemMessage(
-            sprintf(
+            \sprintf(
                 '✅ [color=#d85e27]%s[/color] telah menyertai giveaway dengan nombor [color=red][b]%d[/b][/color]! Semoga berjaya!',
                 $user->username,
                 $number
@@ -179,7 +179,7 @@ class AutoBonGiveawayProcess extends Command
         $timeLeft = $this->formatTime($secondsLeft);
 
         $this->chat->systemMessage(
-            sprintf(
+            \sprintf(
                 '[b][color=#ffc00a]⏰ PERINGATAN![/color][/b] Giveaway [b][color=#ffc00a]%s BON[/color][/b] — '
                 .'[b][color=green]%s[/color][/b] lagi! Taip nombor [b][color=red]%d–%d[/color][/b] untuk menyertai.',
                 number_format($giveaway->amount),
@@ -206,15 +206,15 @@ class AutoBonGiveawayProcess extends Command
 
         // Find the entry closest to the winning number (tie goes to the earliest entry)
         $winning = $giveaway->winning_number;
-        $winner  = $entries->sortBy([
+        $winner = $entries->sortBy([
             fn ($a, $b) => abs($a->entry_number - $winning) <=> abs($b->entry_number - $winning),
             fn ($a, $b) => $a->id <=> $b->id,   // earliest entry wins ties
         ])->first();
 
         // Transfer BON from bot user to winner
         $botUserId = (int) config('bon_giveaway.bot_user_id');
-        $botUser   = User::find($botUserId);
-        $amount    = $giveaway->amount;
+        $botUser = User::find($botUserId);
+        $amount = $giveaway->amount;
 
         DB::transaction(function () use ($winner, $botUser, $amount, $giveaway): void {
             $winner->user->increment('seedbonus', $amount);
@@ -241,12 +241,12 @@ class AutoBonGiveawayProcess extends Command
         $diff = abs($winner->entry_number - $winning);
 
         if ($diff === 0) {
-            $distanceText = sprintf(
+            $distanceText = \sprintf(
                 'tepat dengan nombor rahsia [b][color=green]%d[/color][/b]',
                 $winning
             );
         } else {
-            $distanceText = sprintf(
+            $distanceText = \sprintf(
                 'hanya [b][color=green]%d[/color][/b] angka jauh dari nombor rahsia [b][color=green]%d[/color][/b]',
                 $diff,
                 $winning
@@ -254,7 +254,7 @@ class AutoBonGiveawayProcess extends Command
         }
 
         $this->chat->systemMessage(
-            sprintf(
+            \sprintf(
                 '[b]🏆 TAHNIAH [color=red]%s[/color]![/b] Dengan tebakan [b][color=green]%d[/color][/b] (%s), '
                 .'anda memenangi [b][color=#ffc00a]%s BON[/color][/b]! BON telah dikreditkan ke akaun anda.',
                 $winner->user->username,
@@ -269,9 +269,9 @@ class AutoBonGiveawayProcess extends Command
 
     private function formatTime(int $seconds): string
     {
-        $hours   = intdiv($seconds, 3600);
+        $hours = intdiv($seconds, 3600);
         $minutes = intdiv($seconds % 3600, 60);
-        $secs    = $seconds % 60;
+        $secs = $seconds % 60;
 
         $parts = [];
 

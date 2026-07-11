@@ -17,7 +17,7 @@ class FilmClubController extends Controller
 
     public function index(Request $request): \Illuminate\Contracts\View\View
     {
-        $user      = $request->user();
+        $user = $request->user();
         $nextMonth = now()->addMonth()->format('Y-m');
 
         $filmOfMonth = FilmClubMonth::current();
@@ -58,7 +58,7 @@ class FilmClubController extends Controller
     {
         $q = trim((string) $request->input('q', ''));
 
-        if (strlen($q) < 2) {
+        if (\strlen($q) < 2) {
             return response()->json([]);
         }
 
@@ -69,10 +69,10 @@ class FilmClubController extends Controller
             ->get(['id', 'title', 'release_date', 'poster']);
 
         return response()->json($results->map(fn ($m) => [
-            'id'           => $m->id,
-            'title'        => $m->title,
-            'year'         => $m->release_date?->format('Y'),
-            'poster_url'   => $m->poster ? tmdb_image('poster_small', $m->poster) : null,
+            'id'         => $m->id,
+            'title'      => $m->title,
+            'year'       => $m->release_date?->format('Y'),
+            'poster_url' => $m->poster ? tmdb_image('poster_small', $m->poster) : null,
         ]));
     }
 
@@ -82,7 +82,7 @@ class FilmClubController extends Controller
             'tmdb_movie_id' => ['required', 'integer', 'exists:tmdb_movies,id'],
         ]);
 
-        $user      = $request->user();
+        $user = $request->user();
         $nextMonth = now()->addMonth()->format('Y-m');
 
         if (FilmClubSuggestion::where('user_id', $user->id)->where('for_month', $nextMonth)->exists()) {
@@ -124,7 +124,7 @@ class FilmClubController extends Controller
 
     public function vote(Request $request, FilmClubSuggestion $suggestion): RedirectResponse
     {
-        $user      = $request->user();
+        $user = $request->user();
         $nextMonth = now()->addMonth()->format('Y-m');
 
         if ($suggestion->for_month !== $nextMonth) {
@@ -157,7 +157,7 @@ class FilmClubController extends Controller
         ]);
 
         $suggestion = FilmClubSuggestion::findOrFail($request->suggestion_id);
-        $voteCount  = FilmClubVote::where('suggestion_id', $suggestion->id)->count();
+        $voteCount = FilmClubVote::where('suggestion_id', $suggestion->id)->count();
 
         FilmClubMonth::updateOrCreate(
             ['year_month' => $request->year_month],
