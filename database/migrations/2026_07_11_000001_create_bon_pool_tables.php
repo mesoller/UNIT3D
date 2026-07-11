@@ -6,8 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class () extends Migration {
     public function up(): void
     {
         Schema::create('bon_pool', function (Blueprint $table): void {
@@ -18,7 +17,7 @@ return new class extends Migration
         });
 
         // Seed singleton row
-        \DB::table('bon_pool')->insert([
+        DB::table('bon_pool')->insert([
             'id'               => 1,
             'cycle_started_at' => now(),
             'freeleech_until'  => null,

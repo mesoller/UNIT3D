@@ -144,9 +144,9 @@ class HomeController extends Controller
                         ->orWhereNull('expires_at');
                 })->latest()->first();
             }),
-            'bonPool'        => BonPool::instance(),
-            'bonPoolTarget'  => (float) config('bon_pool.target'),
-            'bonPoolReward'  => (int) config('bon_pool.reward_days'),
+            'bonPool'       => BonPool::instance(),
+            'bonPoolTarget' => (float) config('bon_pool.target'),
+            'bonPoolReward' => (int) config('bon_pool.reward_days'),
         ]);
     }
 }

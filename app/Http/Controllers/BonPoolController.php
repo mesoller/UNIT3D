@@ -14,11 +14,11 @@ class BonPoolController extends Controller
 {
     public function index(): \Illuminate\Contracts\View\View
     {
-        $pool        = BonPool::instance();
-        $target      = (float) config('bon_pool.target');
-        $rewardDays  = (int) config('bon_pool.reward_days');
-        $cycleTotal  = $pool->cycleTotal();
-        $percent     = $target > 0 ? min(100, round(($cycleTotal / $target) * 100, 1)) : 0;
+        $pool = BonPool::instance();
+        $target = (float) config('bon_pool.target');
+        $rewardDays = (int) config('bon_pool.reward_days');
+        $cycleTotal = $pool->cycleTotal();
+        $percent = $target > 0 ? min(100, round(($cycleTotal / $target) * 100, 1)) : 0;
 
         $recent = BonPoolContribution::with('user')
             ->where('created_at', '>=', $pool->cycle_started_at)
@@ -54,7 +54,7 @@ class BonPoolController extends Controller
             'anonymous' => ['sometimes', 'boolean'],
         ]);
 
-        $user   = $request->user();
+        $user = $request->user();
         $amount = (float) $request->input('amount');
 
         if ($user->seedbonus < $amount) {
@@ -70,8 +70,8 @@ class BonPoolController extends Controller
                 'anonymous' => (bool) $request->boolean('anonymous'),
             ]);
 
-            $pool    = BonPool::instance();
-            $target  = (float) config('bon_pool.target');
+            $pool = BonPool::instance();
+            $target = (float) config('bon_pool.target');
 
             if ($pool->cycleTotal() >= $target) {
                 $rewardDays = (int) config('bon_pool.reward_days');

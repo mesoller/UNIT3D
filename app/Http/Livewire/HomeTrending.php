@@ -24,7 +24,7 @@ class HomeTrending extends Component
     private function works(string $metaType, string $interval): Collection
     {
         $metaIdColumn = $metaType === 'tv_meta' ? 'tmdb_tv_id' : 'tmdb_movie_id';
-        $relation     = $metaType === 'tv_meta' ? 'tv' : 'movie';
+        $relation = $metaType === 'tv_meta' ? 'tv' : 'movie';
 
         return cache()->flexible(
             "home-trending-{$metaType}-{$interval}",
