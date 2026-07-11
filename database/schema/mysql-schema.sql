@@ -174,6 +174,42 @@ CREATE TABLE `automatic_torrent_freeleeches` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `badge_collections`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `badge_collections` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `subtitle` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sort_order` smallint unsigned NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `badge_collections_slug_unique` (`slug`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `badges`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `badges` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `category` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `icon` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `color` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `criteria_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `criteria_value` decimal(15,2) NOT NULL DEFAULT '0.00',
+  `sort_order` smallint unsigned NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `badges_slug_unique` (`slug`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `bans`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -1689,6 +1725,31 @@ CREATE TABLE `sessions` (
   CONSTRAINT `sessions_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `shop_badges`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `shop_badges` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `badge_collection_id` bigint unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `series` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `icon` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `color` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `supply` int unsigned NOT NULL,
+  `buy_price` decimal(10,2) NOT NULL,
+  `sell_price` decimal(10,2) NOT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT '1',
+  `sort_order` smallint unsigned NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `shop_badges_slug_unique` (`slug`),
+  KEY `shop_badges_badge_collection_id_foreign` (`badge_collection_id`),
+  CONSTRAINT `shop_badges_badge_collection_id_foreign` FOREIGN KEY (`badge_collection_id`) REFERENCES `badge_collections` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `subscriptions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -2390,6 +2451,23 @@ CREATE TABLE `user_audibles` (
   CONSTRAINT `user_audibles_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `user_badges`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user_badges` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int unsigned NOT NULL,
+  `badge_id` bigint unsigned NOT NULL,
+  `awarded_at` timestamp NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_badges_user_id_badge_id_unique` (`user_id`,`badge_id`),
+  KEY `user_badges_badge_id_foreign` (`badge_id`),
+  CONSTRAINT `user_badges_badge_id_foreign` FOREIGN KEY (`badge_id`) REFERENCES `badges` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `user_badges_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `user_echoes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -2616,6 +2694,24 @@ CREATE TABLE `user_settings` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_settings_user_id_unique` (`user_id`),
   CONSTRAINT `user_settings_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `user_shop_badges`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user_shop_badges` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int unsigned NOT NULL,
+  `shop_badge_id` bigint unsigned NOT NULL,
+  `purchase_price` decimal(10,2) NOT NULL,
+  `purchased_at` timestamp NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_shop_badges_user_id_shop_badge_id_unique` (`user_id`,`shop_badge_id`),
+  KEY `user_shop_badges_shop_badge_id_foreign` (`shop_badge_id`),
+  CONSTRAINT `user_shop_badges_shop_badge_id_foreign` FOREIGN KEY (`shop_badge_id`) REFERENCES `shop_badges` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `user_shop_badges_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `users`;
@@ -3170,3 +3266,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (367,'2025_11_18_08
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (368,'2026_07_11_000001_create_bon_pool_tables',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (369,'2026_07_11_000003_create_film_club_tables',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (370,'2026_07_11_000004_create_bon_giveaway_tables',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (371,'2026_07_11_000005_create_badges_tables',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (372,'2026_07_11_000006_create_shop_badge_tables',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (373,'2026_07_11_000007_add_subtitle_to_badge_collections',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (374,'2026_07_11_000008_add_series_to_shop_badges',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (375,'2026_07_11_000009_change_shop_badge_prices_to_decimal',1);
