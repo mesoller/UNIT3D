@@ -268,6 +268,48 @@ CREATE TABLE `bon_exchanges` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `bon_giveaway_entries`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `bon_giveaway_entries` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `giveaway_id` bigint unsigned NOT NULL,
+  `user_id` int unsigned NOT NULL,
+  `entry_number` int unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `bon_giveaway_entries_giveaway_id_user_id_unique` (`giveaway_id`,`user_id`),
+  UNIQUE KEY `bon_giveaway_entries_giveaway_id_entry_number_unique` (`giveaway_id`,`entry_number`),
+  KEY `bon_giveaway_entries_user_id_foreign` (`user_id`),
+  CONSTRAINT `bon_giveaway_entries_giveaway_id_foreign` FOREIGN KEY (`giveaway_id`) REFERENCES `bon_giveaways` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `bon_giveaway_entries_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `bon_giveaways`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `bon_giveaways` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `amount` int unsigned NOT NULL,
+  `winning_number` int unsigned NOT NULL,
+  `start_num` int unsigned NOT NULL,
+  `end_num` int unsigned NOT NULL,
+  `chatroom_id` int unsigned NOT NULL,
+  `last_message_id` bigint unsigned NOT NULL DEFAULT '0',
+  `reminder_interval_seconds` int unsigned NOT NULL,
+  `next_reminder_at` timestamp NULL DEFAULT NULL,
+  `starts_at` timestamp NOT NULL,
+  `ends_at` timestamp NOT NULL,
+  `ended_at` timestamp NULL DEFAULT NULL,
+  `winner_user_id` int unsigned DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `bon_giveaways_winner_user_id_foreign` (`winner_user_id`),
+  CONSTRAINT `bon_giveaways_winner_user_id_foreign` FOREIGN KEY (`winner_user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `bon_pool`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -3127,3 +3169,4 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (366,'2025_11_08_09
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (367,'2025_11_18_080804_echoes_audibles_unique_keys',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (368,'2026_07_11_000001_create_bon_pool_tables',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (369,'2026_07_11_000003_create_film_club_tables',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (370,'2026_07_11_000004_create_bon_giveaway_tables',1);
