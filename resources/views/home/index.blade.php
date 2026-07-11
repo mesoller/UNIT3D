@@ -3,19 +3,27 @@
 @section('page', 'page__home')
 
 @section('main')
+    {{-- Fixed top order: Article → Chat → BON Pool → Trending --}}
+    @if (in_array('news', $blocks))
+        @include('blocks.news')
+    @endif
+
+    @if (in_array('chat', $blocks))
+        @include('blocks.chat')
+        @vite('resources/js/unit3d/chat.js')
+    @endif
+
     @include('blocks.bon-pool')
 
+    <livewire:home-trending lazy />
+
+    {{-- Remaining user-configured blocks (news & chat skipped — already shown above) --}}
     @foreach ($blocks as $block)
         @switch($block)
             @case('news')
-                @include('blocks.news')
-
-                @break
             @case('chat')
-                @include('blocks.chat')
-                @vite('resources/js/unit3d/chat.js')
-
                 @break
+
             @case('featured')
                 @include('blocks.featured')
 

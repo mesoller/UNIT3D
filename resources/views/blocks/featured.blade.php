@@ -32,8 +32,17 @@
                 </div>
             </div>
         </header>
-        <div>
-            <ul
+        <div class="featured-notice">
+            <span class="featured-notice__item">
+                <i class="{{ config('other.font-awesome') }} fa-star text-gold"></i>
+                Semua torrent yang terpapar adalah <strong>Freeleech</strong> — muat turun tidak dikira!
+            </span>
+            <span class="featured-notice__item">
+                <i class="{{ config('other.font-awesome') }} fa-arrow-up text-green"></i>
+                Muat naik dari torrent-torrent ini mendapat ganjaran <strong>Double Upload</strong>!
+            </span>
+        </div>
+        <ul
                 class="featured-carousel"
                 x-ref="featured"
                 x-init="

@@ -51,7 +51,7 @@ class HomeController extends Controller
             'user'   => $user,
             'blocks' => collect(
                 [
-                    'news', 'chat', 'featured', 'random_media', 'poll',
+                    'news', 'chat', 'featured', 'poll',
                     'top_torrents', 'top_users', 'latest_topics', 'latest_posts',
                     'latest_comments', 'online'
                 ]
