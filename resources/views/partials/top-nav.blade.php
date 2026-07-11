@@ -207,6 +207,12 @@
                         {{ __('common.internal') }}
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('bon_pool.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-users"></i>
+                        BON Pool
+                    </a>
+                </li>
             </ul>
         </li>
         @if (config('donation.is_enabled'))

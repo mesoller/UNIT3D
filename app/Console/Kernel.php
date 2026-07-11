@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Console;
 
 use App\Console\Commands\AutoBonAllocation;
+use App\Console\Commands\AutoDisableBonPoolFreeleech;
 use App\Console\Commands\AutoCacheRandomMediaIds;
 use App\Console\Commands\AutoCacheUserLeechCounts;
 use App\Console\Commands\AutoCorrectHistory;
@@ -103,6 +104,7 @@ class Kernel extends ConsoleKernel
         $schedule->command(EmailBlacklistUpdate::class)->weekends();
         $schedule->command(AutoResetUserFlushes::class)->daily();
         $schedule->command(AutoRemoveTimedTorrentBuffs::class)->hourly();
+        $schedule->command(AutoDisableBonPoolFreeleech::class)->hourly();
         $schedule->command(AutoRefundDownload::class)->daily();
         $schedule->command(ClearResetsCommand::class)->daily();
         $schedule->command(AutoSyncTorrentsToMeilisearch::class)->everyFifteenMinutes();

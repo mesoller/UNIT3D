@@ -126,6 +126,7 @@ class ProcessAnnounce implements ShouldQueue
             || $freeleechToken
             || $isFeatured
             || config('other.freeleech')
+            || \App\Models\BonPool::isFreeleechActive()
         ) {
             $creditedDownloadedDelta = 0;
         } elseif ($this->torrent->percentFree >= 1) {

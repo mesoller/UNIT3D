@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\BonPool;
 use App\Models\Comment;
 use App\Models\FeaturedTorrent;
 use App\Models\Group;
@@ -93,7 +94,7 @@ class HomeController extends Controller
             ),
             'articles' => Article::query()
                 ->latest()
-                ->limit(3)
+                ->limit(1)
                 ->withExists(['unreads' => fn ($query) => $query->whereBelongsTo($user)])
                 ->get(),
             'topics' => Topic::query()
@@ -143,6 +144,9 @@ class HomeController extends Controller
                         ->orWhereNull('expires_at');
                 })->latest()->first();
             }),
+            'bonPool'        => BonPool::instance(),
+            'bonPoolTarget'  => (float) config('bon_pool.target'),
+            'bonPoolReward'  => (int) config('bon_pool.reward_days'),
         ]);
     }
 }

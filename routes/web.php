@@ -106,6 +106,12 @@ Route::middleware('language')->group(function (): void {
             Route::get('/user-icons/{user:username}', [App\Http\Controllers\AuthenticatedImageController::class, 'userIcon'])->name('user_icon');
         });
 
+        // BON Pool
+        Route::prefix('pool')->name('bon_pool.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\BonPoolController::class, 'index'])->name('index');
+            Route::post('/', [App\Http\Controllers\BonPoolController::class, 'store'])->name('store');
+        });
+
         // Donation System
         Route::prefix('donations')->name('donations.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\DonationController::class, 'index'])->name('index');

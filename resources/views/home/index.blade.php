@@ -3,6 +3,8 @@
 @section('page', 'page__home')
 
 @section('main')
+    @include('blocks.bon-pool')
+
     @foreach ($blocks as $block)
         @switch($block)
             @case('news')

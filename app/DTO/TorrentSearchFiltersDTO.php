@@ -312,7 +312,7 @@ readonly class TorrentSearchFiltersDTO
                 $this->free !== [],
                 fn ($query) => $query
                     ->when(
-                        !(config('other.freeleech') || $this->user->group->is_freeleech),
+                        !(config('other.freeleech') || \App\Models\BonPool::isFreeleechActive() || $this->user->group->is_freeleech),
                         fn ($query) => $query->where(
                             fn ($query) => $query
                                 ->whereIntegerInRaw('free', (array) $this->free)
@@ -631,7 +631,7 @@ readonly class TorrentSearchFiltersDTO
         }
 
         if ($this->free !== []) {
-            if (!(config('other.freeleech') || $this->user->group->is_freeleech)) {
+            if (!(config('other.freeleech') || \App\Models\BonPool::isFreeleechActive() || $this->user->group->is_freeleech)) {
                 if (\in_array(100, $this->free, false)) {
                     $filters[] = [
                         'free IN '.json_encode(array_map('intval', $this->free)),
