@@ -17,6 +17,8 @@ declare(strict_types=1);
 namespace App\Console;
 
 use App\Console\Commands\AutoBonAllocation;
+use App\Console\Commands\AutoBonGiveawayProcess;
+use App\Console\Commands\AutoBonGiveawayStart;
 use App\Console\Commands\AutoDisableBonPoolFreeleech;
 use App\Console\Commands\AutoCacheRandomMediaIds;
 use App\Console\Commands\AutoCacheUserLeechCounts;
@@ -105,6 +107,8 @@ class Kernel extends ConsoleKernel
         $schedule->command(AutoResetUserFlushes::class)->daily();
         $schedule->command(AutoRemoveTimedTorrentBuffs::class)->hourly();
         $schedule->command(AutoDisableBonPoolFreeleech::class)->hourly();
+        $schedule->command(AutoBonGiveawayStart::class)->everySixHours()->withoutOverlapping();
+        $schedule->command(AutoBonGiveawayProcess::class)->everyMinute()->withoutOverlapping();
         $schedule->command(AutoRefundDownload::class)->daily();
         $schedule->command(ClearResetsCommand::class)->daily();
         $schedule->command(AutoSyncTorrentsToMeilisearch::class)->everyFifteenMinutes();
