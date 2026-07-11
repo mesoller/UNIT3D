@@ -119,6 +119,12 @@
                         Kelab Filem
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('badges.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-shield-halved"></i>
+                        Lencana
+                    </a>
+                </li>
             </ul>
         </li>
         <li class="top-nav__dropdown">

@@ -711,6 +711,19 @@ final class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Get the badges earned by the user.
+     *
+     * @return BelongsToMany<Badge, $this>
+     */
+    public function badges(): BelongsToMany
+    {
+        return $this->belongsToMany(Badge::class, 'user_badges')
+            ->withPivot('awarded_at')
+            ->withTimestamps()
+            ->orderBy('sort_order');
+    }
+
+    /**
      * Get the torrents featured by the user.
      *
      * @return HasMany<FeaturedTorrent, $this>

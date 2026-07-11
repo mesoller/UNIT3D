@@ -111,6 +111,7 @@ class UserController extends Controller
                 ->where('achiever_id', '=', $user->id)
                 ->whereNotNull('unlocked_at')
                 ->get(),
+            'userBadges' => $user->badges()->withPivot('awarded_at')->get(),
             'peers' => Peer::query()
                 ->selectRaw('SUM(seeder = FALSE AND active = TRUE) as leeching')
                 ->selectRaw('SUM(seeder = TRUE AND active = TRUE) as seeding')

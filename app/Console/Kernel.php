@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Console;
 
+use App\Console\Commands\AutoAwardBadges;
 use App\Console\Commands\AutoBonAllocation;
 use App\Console\Commands\AutoBonGiveawayProcess;
 use App\Console\Commands\AutoBonGiveawayStart;
@@ -107,6 +108,7 @@ class Kernel extends ConsoleKernel
         $schedule->command(AutoResetUserFlushes::class)->daily();
         $schedule->command(AutoRemoveTimedTorrentBuffs::class)->hourly();
         $schedule->command(AutoDisableBonPoolFreeleech::class)->hourly();
+        $schedule->command(AutoAwardBadges::class)->daily()->withoutOverlapping();
         $schedule->command(AutoBonGiveawayStart::class)->everySixHours()->withoutOverlapping();
         $schedule->command(AutoBonGiveawayProcess::class)->everyMinute()->withoutOverlapping();
         $schedule->command(AutoRefundDownload::class)->daily();

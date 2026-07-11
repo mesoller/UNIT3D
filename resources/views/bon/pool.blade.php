@@ -1,7 +1,7 @@
 @extends('layout.with-main-and-sidebar')
 
 @section('title')
-    <title>BON Pool - {{ config('other.title') }}</title>
+    <title>{{ __('bon.pool-title') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
@@ -9,7 +9,7 @@
 @endsection
 
 @section('breadcrumbs')
-    <li class="breadcrumb--active">BON Pool</li>
+    <li class="breadcrumb--active">{{ __('bon.pool-title') }}</li>
 @endsection
 
 @section('page', 'page__bon-pool')
@@ -18,7 +18,7 @@
     <section class="panelV2">
         <h2 class="panel__heading">
             <i class="{{ config('other.font-awesome') }} fa-users"></i>
-            BON Pool
+            {{ __('bon.pool-title') }}
         </h2>
 
         {{-- Stat Cards --}}
@@ -28,7 +28,7 @@
                     <i class="{{ config('other.font-awesome') }} fa-coins"></i>
                 </div>
                 <div class="bon-stat-card__body">
-                    <span class="bon-stat-card__label">Current Pool</span>
+                    <span class="bon-stat-card__label">{{ __('bon.pool-current') }}</span>
                     <span class="bon-stat-card__value">{{ number_format($cycleTotal) }}</span>
                 </div>
             </div>
@@ -38,7 +38,7 @@
                     <i class="{{ config('other.font-awesome') }} fa-bullseye"></i>
                 </div>
                 <div class="bon-stat-card__body">
-                    <span class="bon-stat-card__label">Target Goal</span>
+                    <span class="bon-stat-card__label">{{ __('bon.pool-target-goal') }}</span>
                     <span class="bon-stat-card__value">{{ number_format($target) }}</span>
                 </div>
             </div>
@@ -48,8 +48,8 @@
                     <i class="{{ config('other.font-awesome') }} fa-trophy"></i>
                 </div>
                 <div class="bon-stat-card__body">
-                    <span class="bon-stat-card__label">Reward</span>
-                    <span class="bon-stat-card__value">{{ $rewardDays }} Days FL</span>
+                    <span class="bon-stat-card__label">{{ __('bon.pool-reward') }}</span>
+                    <span class="bon-stat-card__value">{{ __('bon.pool-days-fl', ['days' => $rewardDays]) }}</span>
                 </div>
             </div>
         </div>
@@ -67,12 +67,12 @@
         @if ($pool->freeleech_until && $pool->freeleech_until->isFuture())
             <div class="bon-pool-active">
                 <i class="{{ config('other.font-awesome') }} fa-circle-check"></i>
-                Global Freeleech is ACTIVE! Expires {{ $pool->freeleech_until->diffForHumans() }}.
+                {{ __('bon.pool-active-message', ['time' => $pool->freeleech_until->diffForHumans()]) }}
             </div>
         @else
             <div class="bon-pool-notice">
                 <i class="{{ config('other.font-awesome') }} fa-circle-info"></i>
-                When the goal is reached, the pool will reset and a {{ $rewardDays }}-day global freeleech will automatically activate for everyone!
+                {{ __('bon.pool-notice', ['days' => $rewardDays]) }}
             </div>
         @endif
 
@@ -80,7 +80,7 @@
         <div class="bon-pool-form">
             <h3 class="bon-pool-form__heading">
                 <i class="{{ config('other.font-awesome') }} fa-hand-holding-dollar"></i>
-                Contribute to the Pool
+                {{ __('bon.pool-contribute-heading') }}
             </h3>
 
             @if (session('success'))
@@ -114,23 +114,23 @@
                                 required
                             />
                             <label class="form__label form__label--floating" for="bon-amount">
-                                BON Amount
+                                {{ __('bon.pool-bon-amount') }}
                             </label>
                         </p>
                         <p class="bon-pool-form__balance">
-                            Your balance: <strong>{{ number_format(auth()->user()->seedbonus, 2) }} BON</strong>
+                            {{ __('bon.pool-your-balance') }}: <strong>{{ number_format(auth()->user()->seedbonus, 2) }} BON</strong>
                         </p>
                     </div>
 
                     <label class="bon-pool-form__checkbox-wrap">
                         <input type="checkbox" name="anonymous" value="1" {{ old('anonymous') ? 'checked' : '' }} />
                         <i class="{{ config('other.font-awesome') }} fa-user-secret"></i>
-                        Anonymous
+                        {{ __('bon.pool-anonymous') }}
                     </label>
 
                     <button type="submit" class="bon-pool-form__submit">
                         <i class="{{ config('other.font-awesome') }} fa-plus"></i>
-                        Add to Pool
+                        {{ __('bon.pool-add') }}
                     </button>
                 </div>
             </form>
@@ -140,15 +140,15 @@
         <div class="bon-pool-recent">
             <h3 class="bon-pool-recent__heading">
                 <i class="{{ config('other.font-awesome') }} fa-clock-rotate-left"></i>
-                Recent Contributions
+                {{ __('bon.pool-recent') }}
             </h3>
 
             <table class="bon-pool-recent__table">
                 <thead class="bon-pool-recent__thead">
                     <tr>
-                        <th><i class="{{ config('other.font-awesome') }} fa-user"></i> Username</th>
-                        <th><i class="{{ config('other.font-awesome') }} fa-coins"></i> Amount</th>
-                        <th><i class="{{ config('other.font-awesome') }} fa-clock"></i> Time</th>
+                        <th><i class="{{ config('other.font-awesome') }} fa-user"></i> {{ __('bon.pool-col-username') }}</th>
+                        <th><i class="{{ config('other.font-awesome') }} fa-coins"></i> {{ __('bon.pool-col-amount') }}</th>
+                        <th><i class="{{ config('other.font-awesome') }} fa-clock"></i> {{ __('bon.pool-col-time') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -156,7 +156,7 @@
                         <tr class="bon-pool-recent__row">
                             <td class="bon-pool-recent__cell">
                                 @if ($contribution->anonymous || $contribution->user === null)
-                                    <span style="color: rgba(255,255,255,0.4)">Anonymous</span>
+                                    <span style="color: rgba(255,255,255,0.4)">{{ __('bon.pool-anonymous') }}</span>
                                 @else
                                     <a class="bon-pool-recent__user-link" href="{{ route('users.show', ['user' => $contribution->user]) }}">
                                         {{ $contribution->user->username }}
@@ -173,7 +173,7 @@
                     @empty
                         <tr class="bon-pool-recent__row">
                             <td class="bon-pool-recent__cell" colspan="3" style="text-align:center; color: rgba(255,255,255,0.3);">
-                                No contributions yet. Be the first!
+                                {{ __('bon.pool-no-contributions') }}
                             </td>
                         </tr>
                     @endforelse
@@ -187,7 +187,7 @@
     <section class="panelV2 bon-top">
         <header class="panel__heading">
             <i class="{{ config('other.font-awesome') }} fa-ranking-star"></i>
-            Top Contributors
+            {{ __('bon.pool-top-contributors') }}
         </header>
         <ul class="bon-top__list">
             @forelse ($topContributors as $i => $contrib)
@@ -201,14 +201,14 @@
                                 {{ $contrib->user->username }}
                             </a>
                         @else
-                            <span style="color: rgba(255,255,255,0.4)">Anonymous</span>
+                            <span style="color: rgba(255,255,255,0.4)">{{ __('bon.pool-anonymous') }}</span>
                         @endif
                     </span>
                     <span class="bon-top__amount">{{ number_format($contrib->total) }}</span>
                 </li>
             @empty
                 <li class="bon-top__item" style="color: rgba(255,255,255,0.3); font-size: 0.85rem;">
-                    No contributors yet.
+                    {{ __('bon.pool-no-contributors') }}
                 </li>
             @endforelse
         </ul>

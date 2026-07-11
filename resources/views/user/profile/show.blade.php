@@ -390,6 +390,37 @@
             </section>
         @endif
 
+        @if ($userBadges->count() > 0)
+            <section class="panelV2 profile-collapsible profile-badges-section" x-data="{ open: true }">
+                <header class="panel__header profile-collapsible__header" @click="open = !open">
+                    <h2 class="panel__heading">
+                        <i class="{{ config('other.font-awesome') }} fa-shield-halved"></i>
+                        Lencana
+                        <span style="font-weight:400; font-size:0.85rem; opacity:0.6; margin-left:0.4rem">({{ $userBadges->count() }})</span>
+                    </h2>
+                    <i class="{{ config('other.font-awesome') }} fa-chevron-down profile-collapsible__chevron" :class="{ 'profile-collapsible__chevron--open': open }"></i>
+                </header>
+                <div x-show="open" x-cloak x-transition>
+                    <div class="profile-badges-grid">
+                        @foreach ($userBadges->take(20) as $badge)
+                            <a class="profile-badge-chip"
+                               href="{{ route('badges.index') }}"
+                               title="{{ $badge->description }} — Diperoleh {{ \Carbon\Carbon::parse($badge->pivot->awarded_at)->diffForHumans() }}"
+                               style="--badge-color: {{ $badge->color }}">
+                                <i class="{{ config('other.font-awesome') }} {{ $badge->icon }}"></i>
+                                {{ $badge->name }}
+                            </a>
+                        @endforeach
+                    </div>
+                    @if ($userBadges->count() > 20)
+                        <p class="profile-badges-more">
+                            <a href="{{ route('badges.index') }}">+ {{ $userBadges->count() - 20 }} lagi lencana</a>
+                        </p>
+                    @endif
+                </div>
+            </section>
+        @endif
+
         {{-- Statistics Grid --}}
         <div class="profile-panels-grid">
             {{-- Traffic Statistics --}}

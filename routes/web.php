@@ -112,6 +112,9 @@ Route::middleware('language')->group(function (): void {
             Route::post('/', [App\Http\Controllers\BonPoolController::class, 'store'])->name('store');
         });
 
+        // Badges
+        Route::get('/badges', [App\Http\Controllers\BadgeController::class, 'index'])->name('badges.index');
+
         // Film Club
         Route::prefix('film-club')->name('film_club.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\FilmClubController::class, 'index'])->name('index');
