@@ -113,7 +113,7 @@ class UserController extends Controller
                 ->get(),
             'userBadges'     => $user->badges()->withPivot('awarded_at')->get(),
             'userShopBadges' => $user->shopBadges()->with('shopBadge.collection')->get(),
-            'peers'      => Peer::query()
+            'peers'          => Peer::query()
                 ->selectRaw('SUM(seeder = FALSE AND active = TRUE) as leeching')
                 ->selectRaw('SUM(seeder = TRUE AND active = TRUE) as seeding')
                 ->selectRaw('SUM(active = FALSE) as inactive')

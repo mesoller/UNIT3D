@@ -43,7 +43,7 @@ class ShopBadgeController extends Controller
         }
 
         if ((float) $user->seedbonus < $shopBadge->buy_price) {
-            return back()->withErrors('BON anda tidak mencukupi. Anda memerlukan ' . number_format($shopBadge->buy_price, 2) . ' BON.');
+            return back()->withErrors('BON anda tidak mencukupi. Anda memerlukan '.number_format($shopBadge->buy_price, 2).' BON.');
         }
 
         DB::transaction(function () use ($user, $shopBadge): void {
@@ -57,7 +57,7 @@ class ShopBadgeController extends Controller
             ]);
         });
 
-        return back()->with('success', 'Tahniah! Anda telah berjaya membeli lencana "' . $shopBadge->name . '" dengan ' . number_format($shopBadge->buy_price, 2) . ' BON.');
+        return back()->with('success', 'Tahniah! Anda telah berjaya membeli lencana "'.$shopBadge->name.'" dengan '.number_format($shopBadge->buy_price, 2).' BON.');
     }
 
     public function sell(Request $request, ShopBadge $shopBadge): RedirectResponse
@@ -77,6 +77,6 @@ class ShopBadgeController extends Controller
             $user->increment('seedbonus', $shopBadge->sell_price);
         });
 
-        return back()->with('success', 'Lencana "' . $shopBadge->name . '" telah dijual. ' . number_format($shopBadge->sell_price, 2) . ' BON telah dikreditkan ke akaun anda.');
+        return back()->with('success', 'Lencana "'.$shopBadge->name.'" telah dijual. '.number_format($shopBadge->sell_price, 2).' BON telah dikreditkan ke akaun anda.');
     }
 }
