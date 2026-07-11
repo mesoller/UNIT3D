@@ -114,6 +114,9 @@ Route::middleware('language')->group(function (): void {
 
         // Badges
         Route::get('/badges', [App\Http\Controllers\BadgeController::class, 'index'])->name('badges.index');
+        Route::get('/badges/shop', [App\Http\Controllers\ShopBadgeController::class, 'index'])->name('badges.shop');
+        Route::post('/badges/shop/{shopBadge}/buy', [App\Http\Controllers\ShopBadgeController::class, 'buy'])->name('badges.shop.buy');
+        Route::post('/badges/shop/{shopBadge}/sell', [App\Http\Controllers\ShopBadgeController::class, 'sell'])->name('badges.shop.sell');
 
         // Film Club
         Route::prefix('film-club')->name('film_club.')->group(function (): void {

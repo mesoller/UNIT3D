@@ -724,6 +724,16 @@ final class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Get the shop badges owned by the user.
+     *
+     * @return HasMany<UserShopBadge, $this>
+     */
+    public function shopBadges(): HasMany
+    {
+        return $this->hasMany(UserShopBadge::class);
+    }
+
+    /**
      * Get the torrents featured by the user.
      *
      * @return HasMany<FeaturedTorrent, $this>

@@ -76,4 +76,56 @@
             </div>
         </section>
     @endforeach
+
+    {{-- Purchasable / Shop Badges --}}
+    @php $allShopBadges = $collections->flatMap->shopBadges; @endphp
+    @if ($allShopBadges->isNotEmpty())
+        <section class="panelV2 badge-category">
+            <header class="panel__heading">
+                <i class="{{ config('other.font-awesome') }} fa-store"></i>
+                Collectibles
+                <span class="badge-category__count">
+                    {{ $allShopBadges->filter(fn ($b) => $ownedShopIds->has($b->id))->count() }} / {{ $allShopBadges->count() }}
+                </span>
+                <a href="{{ route('badges.shop') }}" class="badge-category__shop-link">
+                    <i class="{{ config('other.font-awesome') }} fa-arrow-right"></i>
+                    Pergi ke Kedai
+                </a>
+            </header>
+
+            <div class="badge-grid">
+                @foreach ($collections as $collection)
+                    @foreach ($collection->shopBadges as $badge)
+                        @php $owned = $ownedShopIds->has($badge->id); @endphp
+                        <div class="badge-card badge-card--shop {{ $owned ? 'badge-card--earned' : 'badge-card--locked' }}"
+                             style="--badge-color: {{ $badge->color }}">
+                            <div class="badge-card__icon-wrap">
+                                <i class="{{ config('other.font-awesome') }} {{ $badge->icon }} badge-card__icon"></i>
+                            </div>
+                            <div class="badge-card__body">
+                                <span class="badge-card__name">{{ $badge->name }}</span>
+                                <span class="badge-card__desc">{{ $badge->description }}</span>
+                                <span class="badge-card__price-tag">
+                                    <i class="{{ config('other.font-awesome') }} fa-coins"></i>
+                                    {{ number_format($badge->buy_price, 2) }} BON
+                                    · {{ $badge->isUnlimited() ? 'Tanpa had' : number_format($badge->slotsRemaining()) . ' / ' . number_format($badge->supply) . ' unit' }}
+                                </span>
+                                @if ($owned)
+                                    <span class="badge-card__earned-date">
+                                        <i class="{{ config('other.font-awesome') }} fa-check-circle"></i>
+                                        Dimiliki
+                                    </span>
+                                @else
+                                    <a href="{{ route('badges.shop') }}" class="badge-card__buy-link">
+                                        <i class="{{ config('other.font-awesome') }} fa-cart-shopping"></i>
+                                        Beli di Kedai
+                                    </a>
+                                @endif
+                            </div>
+                        </div>
+                    @endforeach
+                @endforeach
+            </div>
+        </section>
+    @endif
 @endsection

@@ -390,6 +390,32 @@
             </section>
         @endif
 
+        @if ($userShopBadges->count() > 0)
+            <section class="panelV2 profile-collapsible profile-badges-section" x-data="{ open: true }">
+                <header class="panel__header profile-collapsible__header" @click="open = !open">
+                    <h2 class="panel__heading">
+                        <i class="{{ config('other.font-awesome') }} fa-store"></i>
+                        Koleksi Lencana
+                        <span style="font-weight:400; font-size:0.85rem; opacity:0.6; margin-left:0.4rem">({{ $userShopBadges->count() }})</span>
+                    </h2>
+                    <i class="{{ config('other.font-awesome') }} fa-chevron-down profile-collapsible__chevron" :class="{ 'profile-collapsible__chevron--open': open }"></i>
+                </header>
+                <div x-show="open" x-cloak x-transition>
+                    <div class="profile-badges-grid">
+                        @foreach ($userShopBadges as $ownership)
+                            <a class="profile-badge-chip"
+                               href="{{ route('badges.shop') }}"
+                               title="{{ $ownership->shopBadge->name }} — {{ $ownership->shopBadge->collection->name }} — Dibeli {{ $ownership->purchased_at->diffForHumans() }}"
+                               style="--badge-color: {{ $ownership->shopBadge->color }}">
+                                <i class="{{ config('other.font-awesome') }} {{ $ownership->shopBadge->icon }}"></i>
+                                {{ $ownership->shopBadge->name }}
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+            </section>
+        @endif
+
         @if ($userBadges->count() > 0)
             <section class="panelV2 profile-collapsible profile-badges-section" x-data="{ open: true }">
                 <header class="panel__header profile-collapsible__header" @click="open = !open">

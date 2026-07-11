@@ -125,6 +125,12 @@
                         Lencana
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('badges.shop') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-store"></i>
+                        Kedai Lencana
+                    </a>
+                </li>
             </ul>
         </li>
         <li class="top-nav__dropdown">
