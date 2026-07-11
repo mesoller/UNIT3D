@@ -268,6 +268,33 @@ CREATE TABLE `bon_exchanges` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `bon_pool`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `bon_pool` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `cycle_started_at` timestamp NOT NULL,
+  `freeleech_until` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `bon_pool_contributions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `bon_pool_contributions` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int unsigned DEFAULT NULL,
+  `amount` decimal(20,2) unsigned NOT NULL,
+  `anonymous` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `bon_pool_contributions_user_id_foreign` (`user_id`),
+  CONSTRAINT `bon_pool_contributions_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `bon_transactions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -3047,3 +3074,4 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (364,'2025_09_08_00
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (365,'2025_09_25_110038_alter_reports_create_assignee',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (366,'2025_11_08_094209_rename_warnings_torrent_to_torrent_id',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (367,'2025_11_18_080804_echoes_audibles_unique_keys',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (368,'2026_07_11_000001_create_bon_pool_tables',1);
