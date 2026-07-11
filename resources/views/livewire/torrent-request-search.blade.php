@@ -410,37 +410,61 @@
     </section>
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('stat.stats') }}</h2>
-        <dl class="key-value">
-            <div class="key-value__group">
-                <dt>{{ __('request.requests') }}:</dt>
-                <dd>{{ number_format($torrentRequestStat->total) }}</dd>
-            </div>
-            <div class="key-value__group">
-                <dt>{{ __('request.filled') }}:</dt>
-                <dd>{{ number_format($torrentRequestStat->filled) }}</dd>
-            </div>
-            <div class="key-value__group">
-                <dt>{{ __('request.unfilled') }}:</dt>
-                <dd>{{ number_format($torrentRequestStat->unfilled) }}</dd>
-            </div>
-            <div class="key-value__group">
-                <dt>{{ __('request.total-bounty') }}:</dt>
-                <dd>{{ number_format($torrentRequestBountyStat->total) }} {{ __('bon.bon') }}</dd>
-            </div>
-            <div class="key-value__group">
-                <dt>{{ __('request.bounty-claimed') }}:</dt>
-                <dd>
-                    {{ number_format($torrentRequestBountyStat->claimed) }}
-                    {{ __('bon.bon') }}
-                </dd>
-            </div>
-            <div class="key-value__group">
-                <dt>{{ __('request.bounty-unclaimed') }}:</dt>
-                <dd>
-                    {{ number_format($torrentRequestBountyStat->unclaimed) }}
-                    {{ __('bon.bon') }}
-                </dd>
-            </div>
-        </dl>
+        <ul class="request-stats">
+            <li class="request-stats__item">
+                <span class="request-stats__icon-box">
+                    <i class="{{ config('other.font-awesome') }} fa-clipboard-list"></i>
+                </span>
+                <div class="request-stats__body">
+                    <span class="request-stats__label">{{ __('request.requests') }}</span>
+                    <span class="request-stats__value">{{ number_format($torrentRequestStat->total) }}</span>
+                </div>
+            </li>
+            <li class="request-stats__item">
+                <span class="request-stats__icon-box">
+                    <i class="{{ config('other.font-awesome') }} fa-check-circle"></i>
+                </span>
+                <div class="request-stats__body">
+                    <span class="request-stats__label">{{ __('request.filled') }}</span>
+                    <span class="request-stats__value">{{ number_format($torrentRequestStat->filled) }}</span>
+                </div>
+            </li>
+            <li class="request-stats__item">
+                <span class="request-stats__icon-box">
+                    <i class="{{ config('other.font-awesome') }} fa-circle-xmark"></i>
+                </span>
+                <div class="request-stats__body">
+                    <span class="request-stats__label">{{ __('request.unfilled') }}</span>
+                    <span class="request-stats__value">{{ number_format($torrentRequestStat->unfilled) }}</span>
+                </div>
+            </li>
+            <li class="request-stats__item">
+                <span class="request-stats__icon-box">
+                    <i class="{{ config('other.font-awesome') }} fa-coins"></i>
+                </span>
+                <div class="request-stats__body">
+                    <span class="request-stats__label">{{ __('request.total-bounty') }}</span>
+                    <span class="request-stats__value">{{ number_format($torrentRequestBountyStat->total) }} {{ __('bon.bon') }}</span>
+                </div>
+            </li>
+            <li class="request-stats__item">
+                <span class="request-stats__icon-box">
+                    <i class="{{ config('other.font-awesome') }} fa-hand-holding-dollar"></i>
+                </span>
+                <div class="request-stats__body">
+                    <span class="request-stats__label">{{ __('request.bounty-claimed') }}</span>
+                    <span class="request-stats__value">{{ number_format($torrentRequestBountyStat->claimed) }} {{ __('bon.bon') }}</span>
+                </div>
+            </li>
+            <li class="request-stats__item">
+                <span class="request-stats__icon-box">
+                    <i class="{{ config('other.font-awesome') }} fa-gift"></i>
+                </span>
+                <div class="request-stats__body">
+                    <span class="request-stats__label">{{ __('request.bounty-unclaimed') }}</span>
+                    <span class="request-stats__value">{{ number_format($torrentRequestBountyStat->unclaimed) }} {{ __('bon.bon') }}</span>
+                </div>
+            </li>
+        </ul>
     </section>
 </div>

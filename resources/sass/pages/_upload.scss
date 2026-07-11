@@ -1,0 +1,226 @@
+// ── Upload Torrent Page ──────────────────────────────────────────────────────
+
+.upload-page {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+// Hero header card
+.upload-hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    flex-wrap: wrap;
+
+    &__left {
+        display: flex;
+        align-items: center;
+        gap: 1.1rem;
+    }
+
+    &__icon-wrap {
+        width: 56px;
+        height: 56px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(34, 197, 94, 0.15);
+        border-radius: 12px;
+        color: #4ade80;
+        font-size: 1.6rem;
+    }
+
+    &__text {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+    }
+
+    &__title {
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin: 0;
+        color: var(--body-fg);
+    }
+
+    &__subtitle {
+        font-size: 0.88rem;
+        color: rgba(255, 255, 255, 0.45);
+        margin: 0;
+    }
+
+    &__guide-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-size: 0.88rem;
+        font-weight: 500;
+        color: #60a5fa;
+        background-color: rgba(59, 130, 246, 0.12);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+        text-decoration: none;
+        white-space: nowrap;
+        transition: background-color 0.15s, opacity 0.15s;
+
+        &:hover {
+            background-color: rgba(59, 130, 246, 0.2);
+            text-decoration: none;
+            color: #60a5fa;
+        }
+    }
+}
+
+// Upload form — no extra gap between sections (upload-page handles it)
+.upload-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+// Collapsible section panels
+.upload-section {
+    padding: 0;
+    overflow: hidden;
+
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 0.85rem 1.25rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        text-align: left;
+        color: var(--body-fg);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        transition: background-color 0.15s;
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.025);
+        }
+    }
+
+    &__header-left {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+    }
+
+    &__icon {
+        width: 34px;
+        height: 34px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 7px;
+        font-size: 0.95rem;
+
+        &--blue {
+            background-color: rgba(59, 130, 246, 0.15);
+            color: #60a5fa;
+        }
+
+        &--purple {
+            background-color: rgba(139, 92, 246, 0.15);
+            color: #a78bfa;
+        }
+
+        &--red {
+            background-color: rgba(239, 68, 68, 0.15);
+            color: #f87171;
+        }
+
+        &--green {
+            background-color: rgba(34, 197, 94, 0.15);
+            color: #4ade80;
+        }
+
+        &--orange {
+            background-color: rgba(251, 146, 60, 0.15);
+            color: #fb923c;
+        }
+    }
+
+    &__title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--body-fg);
+    }
+
+    &__chevron {
+        font-size: 0.85rem;
+        opacity: 0.5;
+        flex-shrink: 0;
+    }
+
+    &__body {
+        padding: 1.25rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+
+        &--checkboxes {
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            gap: 0.5rem 2rem;
+        }
+    }
+}
+
+// Upload actions row (submit button)
+.upload-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+
+    &__submit {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.65rem 1.75rem;
+        background-color: #22c55e;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: opacity 0.15s;
+
+        &:hover {
+            opacity: 0.85;
+            background-color: #22c55e;
+            color: #fff;
+        }
+
+        i {
+            font-size: 0.9rem;
+        }
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .upload-hero {
+        flex-direction: column;
+        align-items: flex-start;
+
+        &__guide-btn {
+            align-self: flex-start;
+        }
+    }
+
+    .upload-section {
+        &__body {
+            padding: 1rem;
+        }
+    }
+}
