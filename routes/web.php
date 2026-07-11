@@ -112,6 +112,15 @@ Route::middleware('language')->group(function (): void {
             Route::post('/', [App\Http\Controllers\BonPoolController::class, 'store'])->name('store');
         });
 
+        // Film Club
+        Route::prefix('film-club')->name('film_club.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\FilmClubController::class, 'index'])->name('index');
+            Route::get('/search', [App\Http\Controllers\FilmClubController::class, 'search'])->name('search');
+            Route::post('/suggest', [App\Http\Controllers\FilmClubController::class, 'store'])->name('store');
+            Route::post('/vote/{suggestion}', [App\Http\Controllers\FilmClubController::class, 'vote'])->name('vote');
+            Route::post('/winner', [App\Http\Controllers\FilmClubController::class, 'setWinner'])->name('set_winner');
+        });
+
         // Donation System
         Route::prefix('donations')->name('donations.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\DonationController::class, 'index'])->name('index');

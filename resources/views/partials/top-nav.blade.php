@@ -113,6 +113,12 @@
                         </a>
                     </li>
                 @endif
+                <li>
+                    <a href="{{ route('film_club.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-film"></i>
+                        Kelab Filem
+                    </a>
+                </li>
             </ul>
         </li>
         <li class="top-nav__dropdown">

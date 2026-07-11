@@ -1,0 +1,715 @@
+// ── Feature: Film of the Month ────────────────────────────────────────────────
+.fc-feature {
+    overflow: hidden;
+
+    &__backdrop {
+        width: 100%;
+        height: 220px;
+        background-size: cover;
+        background-position: center top;
+        position: relative;
+
+        &::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.75));
+        }
+    }
+
+    &__body {
+        display: flex;
+        gap: 1.5rem;
+        padding: 1.25rem;
+
+        @media (max-width: 640px) {
+            flex-direction: column;
+        }
+    }
+
+    &__poster-col {
+        flex-shrink: 0;
+    }
+
+    &__poster {
+        width: 160px;
+        border-radius: 8px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+        display: block;
+
+        @media (max-width: 640px) {
+            width: 120px;
+        }
+    }
+
+    &__info {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    &__title {
+        font-size: 2.7rem;
+        font-weight: 700;
+        color: var(--body-fg);
+        margin: 0;
+        line-height: 1.2;
+    }
+
+    &__year {
+        font-size: 2.1rem;
+        font-weight: 400;
+        color: rgba(255,255,255,0.55);
+    }
+
+    &__badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        align-items: center;
+    }
+
+    &__tmdb-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        background: #01b4e4;
+        color: #fff;
+        font-size: 1.35rem;
+        font-weight: 700;
+        padding: 0.2rem 0.6rem;
+        border-radius: 4px;
+        text-decoration: none;
+
+        &:hover { background: #0099c4; color: #fff; }
+    }
+
+    &__rating {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        background: rgba(251,191,36,0.15);
+        color: #fbbf24;
+        font-size: 1.35rem;
+        font-weight: 600;
+        padding: 0.2rem 0.6rem;
+        border-radius: 4px;
+    }
+
+    &__meta-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        background: rgba(255,255,255,0.07);
+        color: rgba(255,255,255,0.55);
+        font-size: 1.35rem;
+        padding: 0.2rem 0.6rem;
+        border-radius: 4px;
+    }
+
+    &__overview {
+        font-size: 1.5rem;
+        color: rgba(255,255,255,0.7);
+        line-height: 1.65;
+        margin: 0;
+    }
+
+    &__section-heading {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1.575rem;
+        font-weight: 600;
+        color: var(--body-fg);
+        margin: 0 0 0.5rem;
+
+        i { color: #fbbf24; }
+    }
+
+    &__torrent-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+    }
+
+    &__torrent-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    &__torrent-chip {
+        font-size: 1.17rem;
+        padding: 0.15rem 0.45rem;
+        border-radius: 3px;
+        background: rgba(255,255,255,0.08);
+        color: rgba(255,255,255,0.6);
+        white-space: nowrap;
+
+        &--res {
+            background: rgba(59,130,246,0.15);
+            color: #60a5fa;
+        }
+    }
+
+    &__torrent-link {
+        font-size: 1.35rem;
+        color: var(--body-fg);
+        text-decoration: none;
+        flex: 1;
+        min-width: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        &:hover { text-decoration: underline; }
+    }
+
+    &__torrent-seeds {
+        font-size: 1.23rem;
+        color: rgba(255,255,255,0.4);
+        white-space: nowrap;
+    }
+
+    &__discuss {
+        a {
+            color: #60a5fa;
+            &:hover { text-decoration: underline; }
+        }
+    }
+
+    &__credit {
+        font-size: 1.35rem;
+        color: rgba(255,255,255,0.45);
+        margin: 0;
+
+        a { color: rgba(255,255,255,0.7); &:hover { text-decoration: underline; } }
+        strong { color: var(--body-fg); }
+    }
+}
+
+// ── Voting Section ────────────────────────────────────────────────────────────
+.fc-voting {
+    &__month-badge {
+        margin-left: 0.5rem;
+        font-size: 1.2rem;
+        font-weight: 400;
+        text-transform: none;
+        letter-spacing: 0;
+        color: #fbbf24;
+        background: rgba(251,191,36,0.1);
+        border: 1px solid rgba(251,191,36,0.3);
+        border-radius: 20px;
+        padding: 0.1rem 0.55rem;
+    }
+
+    &__slot-count {
+        font-size: 1.275rem;
+        color: rgba(255,255,255,0.4);
+    }
+}
+
+.fc-suggestions {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.fc-suggestion-card {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    position: relative;
+    transition: background-color 0.2s;
+
+    &:last-child { border-bottom: none; }
+    &:hover { background: rgba(255,255,255,0.02); }
+
+    &--voted {
+        background: rgba(251,191,36,0.04);
+    }
+
+    &__rank {
+        flex-shrink: 0;
+        width: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: rgba(255,255,255,0.2);
+        padding: 0.75rem 0 0.75rem 0.75rem;
+    }
+
+    &__poster {
+        flex-shrink: 0;
+        width: 54px;
+        height: 81px;
+        object-fit: cover;
+        border-radius: 4px;
+        margin: 0.75rem 0.75rem;
+        align-self: center;
+    }
+
+    &__body {
+        flex: 1;
+        min-width: 0;
+        padding: 0.75rem 0.75rem 0.75rem 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+
+    &__title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--body-fg);
+        margin: 0;
+        line-height: 1.3;
+    }
+
+    &__year {
+        font-size: 1.32rem;
+        font-weight: 400;
+        color: rgba(255,255,255,0.4);
+    }
+
+    &__overview {
+        font-size: 1.275rem;
+        color: rgba(255,255,255,0.5);
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    &__footer {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-top: auto;
+    }
+
+    &__by {
+        font-size: 1.2rem;
+        color: rgba(255,255,255,0.35);
+
+        a { color: rgba(255,255,255,0.5); &:hover { text-decoration: underline; } }
+    }
+
+    &__votes {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        font-size: 1.275rem;
+        font-weight: 600;
+        color: #f97316;
+
+        i { font-size: 1.2rem; }
+    }
+
+    &__action {
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
+        padding: 0.75rem;
+    }
+
+    &__vote-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.4rem 0.85rem;
+        background: #f97316;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-size: 1.32rem;
+        font-weight: 600;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: background-color 0.2s;
+
+        &:hover { background: #ea580c; }
+    }
+
+    &__voted-badge {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        font-size: 1.23rem;
+        font-weight: 600;
+        color: #fbbf24;
+        white-space: nowrap;
+    }
+
+    &__voted-other {
+        font-size: 1.23rem;
+        color: rgba(255,255,255,0.25);
+        white-space: nowrap;
+    }
+
+    &__winner-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        background: rgba(251,191,36,0.1);
+        border: 1px solid rgba(251,191,36,0.25);
+        border-radius: 6px;
+        color: #fbbf24;
+        font-size: 1.23rem;
+        cursor: pointer;
+        transition: background-color 0.2s;
+
+        &:hover { background: rgba(251,191,36,0.2); }
+    }
+}
+
+// ── Sidebar: Suggest ──────────────────────────────────────────────────────────
+.fc-suggest-panel {
+    &__btn {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.65rem 1rem;
+        background: #f97316;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-size: 1.5rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s;
+
+        &:hover { background: #ea580c; }
+    }
+
+    &__done,
+    &__full {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        text-align: center;
+        font-size: 1.35rem;
+        color: rgba(255,255,255,0.5);
+        padding: 0.75rem;
+
+        i { font-size: 2.1rem; color: #4ade80; }
+
+        p { margin: 0; }
+    }
+
+    &__full i { color: rgba(255,255,255,0.3); }
+}
+
+// ── Movie Search Dropdown ─────────────────────────────────────────────────────
+.fc-search-results {
+    position: relative;
+    background: var(--panel-bg, #1a1a2e);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 6px;
+    margin-top: 0.3rem;
+    overflow: hidden;
+    z-index: 10;
+
+    &__loading {
+        padding: 0.6rem 1rem;
+        font-size: 1.275rem;
+        color: rgba(255,255,255,0.4);
+    }
+}
+
+.fc-search-result {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    transition: background-color 0.15s;
+
+    &:hover { background: rgba(255,255,255,0.06); }
+
+    &:not(:last-child) { border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+    &__poster {
+        width: 30px;
+        height: 45px;
+        object-fit: cover;
+        border-radius: 3px;
+        flex-shrink: 0;
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.1rem;
+        min-width: 0;
+    }
+
+    &__title {
+        font-size: 1.35rem;
+        font-weight: 500;
+        color: var(--body-fg);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &__year {
+        font-size: 1.17rem;
+        color: rgba(255,255,255,0.4);
+    }
+}
+
+// ── Selected Movie Preview ────────────────────────────────────────────────────
+.fc-selected-movie {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.65rem 0.75rem;
+    background: rgba(251,191,36,0.08);
+    border: 1px solid rgba(251,191,36,0.25);
+    border-radius: 6px;
+    margin-top: 0.5rem;
+
+    &__poster {
+        width: 36px;
+        height: 54px;
+        object-fit: cover;
+        border-radius: 3px;
+        flex-shrink: 0;
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.1rem;
+        font-size: 1.35rem;
+
+        strong { color: var(--body-fg); }
+        span   { color: rgba(255,255,255,0.45); font-size: 1.23rem; }
+    }
+}
+
+// ── Rules Sidebar ─────────────────────────────────────────────────────────────
+.fc-rules {
+    &__body {
+        font-size: 1.32rem;
+        color: rgba(255,255,255,0.65);
+        line-height: 1.6;
+
+        p { margin: 0 0 0.75rem; }
+    }
+
+    &__heading {
+        font-size: 1.2rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: rgba(255,255,255,0.35);
+        margin: 0.75rem 0 0.35rem;
+    }
+
+    &__list {
+        margin: 0;
+        padding-left: 1.25rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+
+        li { color: rgba(255,255,255,0.6); }
+    }
+}
+
+// ── Past Winners Sidebar ──────────────────────────────────────────────────────
+.fc-past {
+    &__list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        padding: 0.55rem 1rem;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+
+        &:last-child { border-bottom: none; }
+    }
+
+    &__poster {
+        width: 30px;
+        height: 45px;
+        object-fit: cover;
+        border-radius: 3px;
+        flex-shrink: 0;
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.1rem;
+        min-width: 0;
+    }
+
+    &__title {
+        font-size: 1.32rem;
+        font-weight: 500;
+        color: var(--body-fg);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &__month {
+        font-size: 1.17rem;
+        color: rgba(255,255,255,0.35);
+    }
+}
+
+// ── Dialog ────────────────────────────────────────────────────────────────────
+.fc-dialog {
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    background: var(--body-bg, #111);
+    color: var(--body-fg);
+    padding: 0;
+    width: min(460px, 94vw);
+    max-height: 90vh;
+    overflow-y: auto;
+
+    &::backdrop {
+        background: rgba(0,0,0,0.7);
+    }
+
+    &__inner {
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+    }
+
+    &__title {
+        font-size: 1.725rem;
+        font-weight: 700;
+        color: var(--body-fg);
+        margin: 0;
+
+        i { margin-right: 0.3rem; }
+    }
+
+    &__desc {
+        font-size: 1.32rem;
+        color: rgba(255,255,255,0.5);
+        margin: 0;
+    }
+
+    &__field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        position: relative;
+    }
+
+    &__label {
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: rgba(255,255,255,0.35);
+    }
+
+    &__actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.65rem;
+        padding-top: 0.25rem;
+    }
+
+    &__cancel {
+        padding: 0.45rem 1rem;
+        background: transparent;
+        border: 1px solid rgba(255,255,255,0.15);
+        border-radius: 6px;
+        color: rgba(255,255,255,0.55);
+        font-size: 1.35rem;
+        cursor: pointer;
+        transition: border-color 0.2s;
+
+        &:hover { border-color: rgba(255,255,255,0.3); color: var(--body-fg); }
+    }
+
+    &__confirm {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.45rem 1rem;
+        background: #f97316;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-size: 1.35rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s;
+
+        &:hover { background: #ea580c; }
+        &:disabled { opacity: 0.4; cursor: not-allowed; }
+    }
+}
+
+// ── Alerts ────────────────────────────────────────────────────────────────────
+.fc-alert {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 0.75rem 1.25rem;
+    padding: 0.65rem 1rem;
+    border-radius: 7px;
+    font-size: 1.38rem;
+
+    &--success {
+        background: rgba(34,197,94,0.1);
+        border: 1px solid rgba(34,197,94,0.25);
+        color: #4ade80;
+    }
+
+    &--error {
+        background: rgba(239,68,68,0.1);
+        border: 1px solid rgba(239,68,68,0.25);
+        color: #f87171;
+    }
+}
+
+// ── Empty state ───────────────────────────────────────────────────────────────
+.fc-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 2rem 1.25rem;
+    text-align: center;
+    color: rgba(255,255,255,0.35);
+
+    i { color: rgba(255,255,255,0.15); }
+    p { margin: 0; font-size: 1.35rem; }
+}
+
+// ── Utility ───────────────────────────────────────────────────────────────────
+.text-gold  { color: #fbbf24; }
+.text-green { color: #4ade80; }
+[x-cloak]   { display: none !important; }
