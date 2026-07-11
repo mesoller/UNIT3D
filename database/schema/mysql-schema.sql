@@ -607,6 +607,57 @@ CREATE TABLE `files` (
   CONSTRAINT `files_torrent_id_foreign` FOREIGN KEY (`torrent_id`) REFERENCES `torrents` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `film_club_months`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `film_club_months` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `tmdb_movie_id` int unsigned NOT NULL,
+  `year_month` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `winning_user_id` int unsigned DEFAULT NULL,
+  `total_votes` int unsigned NOT NULL DEFAULT '0',
+  `forum_topic_id` bigint unsigned DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `film_club_months_year_month_unique` (`year_month`),
+  KEY `film_club_months_winning_user_id_foreign` (`winning_user_id`),
+  CONSTRAINT `film_club_months_winning_user_id_foreign` FOREIGN KEY (`winning_user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `film_club_suggestions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `film_club_suggestions` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int unsigned NOT NULL,
+  `tmdb_movie_id` int unsigned NOT NULL,
+  `for_month` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `film_club_suggestions_tmdb_movie_id_for_month_unique` (`tmdb_movie_id`,`for_month`),
+  KEY `film_club_suggestions_user_id_foreign` (`user_id`),
+  CONSTRAINT `film_club_suggestions_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `film_club_votes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `film_club_votes` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int unsigned NOT NULL,
+  `suggestion_id` bigint unsigned NOT NULL,
+  `for_month` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `film_club_votes_user_id_for_month_unique` (`user_id`,`for_month`),
+  KEY `film_club_votes_suggestion_id_foreign` (`suggestion_id`),
+  CONSTRAINT `film_club_votes_suggestion_id_foreign` FOREIGN KEY (`suggestion_id`) REFERENCES `film_club_suggestions` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `film_club_votes_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `follows`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -3075,3 +3126,4 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (365,'2025_09_25_11
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (366,'2025_11_08_094209_rename_warnings_torrent_to_torrent_id',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (367,'2025_11_18_080804_echoes_audibles_unique_keys',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (368,'2026_07_11_000001_create_bon_pool_tables',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (369,'2026_07_11_000003_create_film_club_tables',1);
