@@ -245,4 +245,5 @@ return [
     'view-trailer'             => 'View trailer',
     'votes'                    => 'Votes',
     'year-range'               => 'Year range',
+    'upload'                   => 'Upload Files',
 ];

@@ -157,4 +157,26 @@ return [
      */
 
     'attributes' => [],
+
+    'accepted_if'      => ':attribute mesti diterima apabila :other adalah :value.',
+    'current_password' => 'Kata laluan tidak betul.',
+    'declined'         => ':attribute mesti ditolak.',
+    'declined_if'      => ':attribute mesti ditolak apabila :other adalah :value.',
+    'ends_with'        => ':attribute mesti berakhir dengan salah satu daripada yang berikut: :values.',
+    'enum'             => ':attribute yang dipilih tidak sah.',
+    'mac_address'      => ':attribute mesti merupakan alamat MAC yang sah.',
+    'multiple_of'      => ':attribute mesti merupakan gandaan :value.',
+    'password'         => [
+        'letters'      => ':attribute mesti mengandungi sekurang-kurangnya satu huruf.',
+        'mixed'        => ':attribute mesti mengandungi sekurang-kurangnya satu huruf besar dan satu huruf kecil.',
+        'numbers'      => ':attribute mesti mengandungi sekurang-kurangnya satu nombor.',
+        'symbols'      => ':attribute mesti mengandungi sekurang-kurangnya satu simbol.',
+        'uncompromised' => ':attribute yang diberikan telah muncul dalam kebocoran data. Sila pilih :attribute yang lain.',
+    ],
+    'prohibited'       => 'Medan :attribute dilarang.',
+    'prohibited_if'    => 'Medan :attribute dilarang apabila :other adalah :value.',
+    'prohibited_unless' => 'Medan :attribute dilarang melainkan :other berada dalam :values.',
+    'prohibits'        => 'Medan :attribute melarang :other daripada hadir.',
+    'email_list'       => 'Maaf, domain e-mel ini tidak dibenarkan digunakan di laman ini. Sila lihat senarai putih e-mel laman.',
+    'recaptcha'        => 'Sila lengkapkan ReCaptcha.',
 ];

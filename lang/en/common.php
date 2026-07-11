@@ -240,4 +240,7 @@ return [
     'your' => 'Your',
     'your-comment' => 'Your comment',
     'test' => 'test',
+    'today' => 'Today',
+    'this-week' => 'This Week',
+    'this-month' => 'This Month',
 ];

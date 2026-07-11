@@ -230,4 +230,7 @@ return [
     'deleted_at' => 'Dipadam pada',
     'total'      => 'Jumlah',
     'trending'   => 'Trending',
+    'today'      => 'Hari Ini',
+    'this-week'  => 'Minggu Ini',
+    'this-month' => 'Bulan Ini',
 ];

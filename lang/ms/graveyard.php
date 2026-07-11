@@ -29,4 +29,7 @@ return [
     'resurrect-complete' => '\'Torrent resurrection\' siap! Anda akan diberikan ganjaran secara automatik apabila keperluan \'seedtime\' dipenuhi.',
     'resurrect-date' => 'Tarikh \'resurrect\'',
     'resurrect-failed-own' => 'Torrent \'resurrection\' gagal! Anda tidak boleh \'resurrect\' muat naik anda sendiri.',
+    'resurrect-failed-pending' => 'Kebangkitan torrent gagal! Torrent ini sudah menunggu kebangkitan.',
+    'rewarded' => 'Diberi ganjaran',
+    'seedtime-goal' => 'Sasaran masa seeding',
 ];
