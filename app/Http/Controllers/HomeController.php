@@ -19,6 +19,7 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\BonPool;
 use App\Models\Comment;
+use App\Models\Donation;
 use App\Models\FeaturedTorrent;
 use App\Models\Group;
 use App\Models\Poll;
@@ -147,6 +148,17 @@ class HomeController extends Controller
             'bonPool'       => BonPool::instance(),
             'bonPoolTarget' => (float) config('bon_pool.target'),
             'bonPoolReward' => (int) config('bon_pool.reward_days'),
+            'topDonors'     => cache()->flexible('top_donors', $expiresAt, fn () => Donation::query()
+                ->with(['user:id,username,image,group_id', 'user.group:id,color,icon,effect', 'package:id,name,cost,position'])
+                ->where('status', 1)
+                ->where(function ($query): void {
+                    $query->whereNull('ends_at')->orWhere('ends_at', '>=', now()->toDateString());
+                })
+                ->get()
+                ->sortByDesc(fn ($d) => (float) $d->package->cost)
+                ->unique('user_id')
+                ->take(5)
+                ->values()),
         ]);
     }
 }

@@ -1,3 +1,15 @@
+// ── Two-column row (BON Pool + Top Donors) ──────────────────────────────────
+.home-two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    align-items: start;
+
+    @media (max-width: 767px) {
+        grid-template-columns: 1fr;
+    }
+}
+
 // ── Top Torrents active tab — yellow ────────────────────────────────────────
 .blocks__top-torrents .panel__tab--active,
 .blocks__uploaders .panel__tab--active {
@@ -417,5 +429,113 @@
         .topic-listing__post-stats {
             flex-direction: row;
         }
+    }
+
+}
+
+// Top Donors widget — standalone (not nested under page__home)
+.top-donors-widget {
+    .top-donors-widget__heading {
+        background: linear-gradient(90deg, rgba(251, 191, 36, 0.12) 0%, transparent 60%);
+        border-bottom: 1px solid rgba(251, 191, 36, 0.2);
+    }
+
+    .top-donors-widget__list {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .top-donors-widget__row {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.65rem 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        transition: background 0.15s;
+
+        &:last-child { border-bottom: none; }
+        &:hover { background: rgba(255, 255, 255, 0.03); }
+    }
+
+    .top-donors-widget__rank {
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        font-size: 0.72rem;
+        font-weight: 700;
+
+        &--1 { background: rgba(255, 215, 0, 0.15); color: #ffd700; border: 1px solid rgba(255, 215, 0, 0.35); }
+        &--2 { background: rgba(192, 192, 192, 0.15); color: #c0c0c0; border: 1px solid rgba(192, 192, 192, 0.3); }
+        &--3 { background: rgba(205, 127, 50, 0.15); color: #cd7f32; border: 1px solid rgba(205, 127, 50, 0.3); }
+        &--4, &--5 { background: rgba(255, 255, 255, 0.05); color: rgba(255, 255, 255, 0.35); border: 1px solid rgba(255, 255, 255, 0.1); }
+    }
+
+    .top-donors-widget__avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        object-fit: cover;
+        flex-shrink: 0;
+        border: 1.5px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .top-donors-widget__meta {
+        display: flex;
+        flex-direction: column;
+        gap: 0.1rem;
+        flex: 1;
+        min-width: 0;
+    }
+
+    .top-donors-widget__username {
+        font-size: 1rem;
+        font-weight: 600;
+        text-decoration: none;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        i { margin-right: 0.2rem; font-size: 0.78rem; }
+        &:hover { text-decoration: underline; }
+    }
+
+    .top-donors-widget__package {
+        font-size: 0.72rem;
+        opacity: 0.45;
+        white-space: nowrap;
+    }
+
+    .top-donors-widget__status {
+        flex-shrink: 0;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+
+        &--lifetime {
+            background: rgba(251, 191, 36, 0.12);
+            color: #fbbf24;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+        }
+
+        &--active {
+            background: rgba(34, 197, 94, 0.1);
+            color: #4ade80;
+            border: 1px solid rgba(34, 197, 94, 0.25);
+        }
+    }
+
+    .top-donors-widget__empty {
+        padding: 1.5rem 1rem;
+        opacity: 0.4;
+        font-size: 0.875rem;
+        text-align: center;
     }
 }

@@ -13,7 +13,10 @@
         @vite('resources/js/unit3d/chat.js')
     @endif
 
-    @include('blocks.bon-pool')
+    <div class="home-two-col">
+        @include('blocks.bon-pool')
+        @include('blocks.top-donors')
+    </div>
 
     <livewire:home-trending lazy />
 
