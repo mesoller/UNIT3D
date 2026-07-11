@@ -32,7 +32,21 @@ class DonationController extends Controller
         $packages = DonationPackage::where('is_active', '=', true)->orderBy('position')->get();
         $gateways = DonationGateway::where('is_active', '=', true)->orderBy('position')->get();
 
-        return view('donation.index', ['packages' => $packages, 'gateways' => $gateways]);
+        $monthlyGoal = (float) config('donation.monthly_goal', 0);
+        $monthlyCollected = (float) Donation::where('donations.status', ModerationStatus::APPROVED)
+            ->whereMonth('donations.created_at', now()->month)
+            ->whereYear('donations.created_at', now()->year)
+            ->join('donation_packages', 'donations.package_id', '=', 'donation_packages.id')
+            ->sum('donation_packages.cost');
+        $monthlyPercent = $monthlyGoal > 0 ? min(100, round(($monthlyCollected / $monthlyGoal) * 100)) : 0;
+
+        return view('donation.index', [
+            'packages'         => $packages,
+            'gateways'         => $gateways,
+            'monthlyGoal'      => $monthlyGoal,
+            'monthlyCollected' => $monthlyCollected,
+            'monthlyPercent'   => $monthlyPercent,
+        ]);
     }
 
     /**

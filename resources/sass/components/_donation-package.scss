@@ -1,124 +1,203 @@
-:root {
-    --donation-border-color: #e0e0e0;
-    --donation-box-shadow-color: rgba(0, 0, 0, 0.1);
-    --donation-primary-text-color: #333;
-    --donation-secondary-text-color: #666;
-    --donation-background-color: transparent;
-    --donation-price-days-color: #f44336;
-}
-
-.donation-packages {
+// ── Donate Hero ───────────────────────────────────────────────────────────────
+.don-hero {
     display: flex;
-    flex-wrap: wrap;
-    gap: 30px; /* Adjust the gap as needed */
-    justify-content: center; /* Center the last row if it has fewer than four packages */
-}
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
 
-.donation-package__wrapper {
-    flex: 1 1 calc(25% - 30px); /* Adjust the width to fit four packages in a row */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    border: 1px solid var(--donation-border-color);
-    border-radius: 5px;
-    box-shadow: 0 0 10px var(--donation-box-shadow-color);
-    transition: all 0.3s;
-    margin-bottom: 20px;
-    box-sizing: border-box;
-    background-color: var(--donation-background-color);
-    max-width: calc(
-        25% - 30px
-    ); /* Ensure the packages do not take full width */
-}
+    &__icon-wrap {
+        width: 50px;
+        height: 50px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(251, 191, 36, 0.15);
+        border-radius: 10px;
+        color: #fbbf24;
+        font-size: 3rem;
+    }
 
-/* Responsive adjustments */
-@media (max-width: 1200px) {
-    .donation-package__wrapper {
-        flex: 1 1 calc(33.333% - 30px); /* Three packages per row */
-        max-width: calc(33.333% - 30px);
+    &__text {
+        display: flex;
+        flex-direction: column;
+        gap: 0.15rem;
+    }
+
+    &__title {
+        font-size: 2.6rem;
+        font-weight: 700;
+        color: var(--body-fg);
+        margin: 0;
+    }
+
+    &__subtitle {
+        font-size: 1.76rem;
+        color: rgba(255, 255, 255, 0.55);
+        margin: 0;
+    }
+
+    &__desc {
+        font-size: 1.64rem;
+        color: rgba(255, 255, 255, 0.38);
+        margin: 0.2rem 0 0;
     }
 }
 
-@media (max-width: 900px) {
-    .donation-package__wrapper {
-        flex: 1 1 calc(50% - 30px); /* Two packages per row */
-        max-width: calc(50% - 30px);
-    }
+// ── Donation Cards Grid ───────────────────────────────────────────────────────
+.don-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(max(210px, 22%), 1fr));
+    gap: 1rem;
+    padding: 0 1.25rem 1.25rem;
 }
 
-@media (max-width: 600px) {
-    .donation-package__wrapper {
-        flex: 1 1 calc(100% - 30px); /* One package per row */
-        max-width: calc(100% - 30px);
-    }
-}
-
-.donation-package {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-.donation-package__header {
+.don-card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 20px;
-}
-
-.donation-package__name {
-    font-size: 22px;
-    font-weight: 800;
-    color: var(--donation-primary-text-color);
-    text-decoration: underline;
-}
-
-.donation-package__price-days {
-    display: flex;
-    align-items: center;
-    margin-top: 5px;
-}
-
-.donation-package__days {
-    font-size: 15px;
-    font-weight: 100;
-    color: var(--donation-price-days-color);
-}
-
-.donation-package__price {
-    font-size: 15px;
-    font-weight: 100;
-    color: var(--donation-price-days-color);
-}
-
-.donation-package__separator {
-    margin: 0 5px;
-}
-
-.donation-package__description {
-    font-size: 14px;
-    color: var(--donation-secondary-text-color);
-    margin-top: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 10px;
+    padding: 1.5rem 1.25rem 1.25rem;
     text-align: center;
-    font-style: italic;
+    gap: 0.7rem;
+
+    &__icon-circle {
+        width: 52px;
+        height: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(251, 191, 36, 0.15);
+        border-radius: 50%;
+        color: #fbbf24;
+        font-size: 2.6rem;
+    }
+
+    &__name {
+        font-size: 2.1rem;
+        font-weight: 700;
+        color: var(--body-fg);
+        margin: 0;
+    }
+
+    &__badge {
+        display: inline-block;
+        background-color: rgba(249, 115, 22, 0.12);
+        color: #fb923c;
+        border: 1px solid rgba(249, 115, 22, 0.28);
+        border-radius: 20px;
+        padding: 0.2rem 0.8rem;
+        font-size: 1.56rem;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+    &__desc {
+        font-size: 1.64rem;
+        color: rgba(255, 255, 255, 0.42);
+        font-style: italic;
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    &__benefits {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        gap: 0.38rem;
+
+        li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            font-size: 1.64rem;
+            color: rgba(255, 255, 255, 0.68);
+
+            i {
+                color: #fbbf24;
+                flex-shrink: 0;
+                margin-top: 0.18rem;
+                font-size: 1.5rem;
+            }
+        }
+    }
+
+    &__btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        width: 100%;
+        margin-top: auto;
+        padding: 0.6rem;
+        background-color: #f97316;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-size: 1.76rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s;
+
+        &:hover {
+            background-color: #ea580c;
+        }
+    }
 }
 
-.donation-package__benefits-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+// ── Monthly Progress Sidebar ──────────────────────────────────────────────────
+.don-progress {
+    padding: 0;
 
-.benefits-list {
-    text-align: left;
-    padding-left: 20px;
-}
+    &__body {
+        padding: 1rem 1.25rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.65rem;
+    }
 
-.donation-package__footer {
-    margin-top: auto;
-    display: flex;
-    justify-content: center;
-    width: 100%;
+    &__percent {
+        font-size: 3.2rem;
+        font-weight: 700;
+        color: #fbbf24;
+        line-height: 1;
+    }
+
+    &__amounts {
+        font-size: 1.76rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.65);
+    }
+
+    &__bar-wrap {
+        width: 36px;
+        height: 180px;
+        background: rgba(255, 255, 255, 0.07);
+        border-radius: 18px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
+
+    &__bar-fill {
+        width: 100%;
+        background: linear-gradient(to top, #d97706, #fbbf24);
+        border-radius: 18px;
+        transition: height 0.6s ease;
+        min-height: 6px;
+    }
+
+    &__goal-label {
+        font-size: 1.52rem;
+        color: rgba(255, 255, 255, 0.35);
+        text-align: center;
+    }
 }
