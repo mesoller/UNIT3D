@@ -183,6 +183,7 @@ CREATE TABLE `badge_collections` (
   `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `subtitle` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `completion_image` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `sort_order` smallint unsigned NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -2468,6 +2469,23 @@ CREATE TABLE `user_badges` (
   CONSTRAINT `user_badges_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `user_completed_collections`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user_completed_collections` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int unsigned NOT NULL,
+  `badge_collection_id` bigint unsigned NOT NULL,
+  `completed_at` timestamp NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_completed_collections_user_id_badge_collection_id_unique` (`user_id`,`badge_collection_id`),
+  KEY `user_completed_collections_badge_collection_id_foreign` (`badge_collection_id`),
+  CONSTRAINT `user_completed_collections_badge_collection_id_foreign` FOREIGN KEY (`badge_collection_id`) REFERENCES `badge_collections` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `user_completed_collections_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `user_echoes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -3271,3 +3289,5 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (372,'2026_07_11_00
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (373,'2026_07_11_000007_add_subtitle_to_badge_collections',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (374,'2026_07_11_000008_add_series_to_shop_badges',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (375,'2026_07_11_000009_change_shop_badge_prices_to_decimal',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (376,'2026_07_13_000001_create_user_completed_collections_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (377,'2026_07_13_000002_add_completion_image_to_badge_collections',1);
