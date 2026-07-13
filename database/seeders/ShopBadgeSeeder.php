@@ -15,9 +15,10 @@ class ShopBadgeSeeder extends Seeder
         $boomer = BadgeCollection::updateOrCreate(
             ['slug' => 'boomer-collection'],
             [
-                'name'        => 'Boomer Collection',
-                'description' => 'Koleksi lencana edisi terhad bertema klasik dan nostalgia.',
-                'sort_order'  => 10,
+                'name'             => 'Boomer Collection',
+                'description'      => 'Koleksi lencana edisi terhad bertema klasik dan nostalgia.',
+                'completion_image' => 'boomer-collection.png',
+                'sort_order'       => 10,
             ]
         );
 
@@ -120,9 +121,10 @@ class ShopBadgeSeeder extends Seeder
         $alien = BadgeCollection::updateOrCreate(
             ['slug' => 'alien-collection'],
             [
-                'name'        => 'Alien Collection',
-                'description' => 'Koleksi lencana edisi terhad bertema alien dan luar angkasa.',
-                'sort_order'  => 30,
+                'name'             => 'Alien Collection',
+                'description'      => 'Koleksi lencana edisi terhad bertema alien dan luar angkasa.',
+                'completion_image' => 'alien-collection.png',
+                'sort_order'       => 30,
             ]
         );
 
@@ -241,9 +243,10 @@ class ShopBadgeSeeder extends Seeder
         $postman = BadgeCollection::updateOrCreate(
             ['slug' => 'postman-collection'],
             [
-                'name'        => 'Postman Collection',
-                'description' => 'Koleksi lencana bertema pos dan penghantaran klasik.',
-                'sort_order'  => 20,
+                'name'             => 'Postman Collection',
+                'description'      => 'Koleksi lencana bertema pos dan penghantaran klasik.',
+                'completion_image' => 'postman-collection.png',
+                'sort_order'       => 20,
             ]
         );
 
@@ -263,12 +266,61 @@ class ShopBadgeSeeder extends Seeder
             ]
         );
 
+        ShopBadge::updateOrCreate(
+            ['slug' => 'confetti'],
+            [
+                'badge_collection_id' => $postman->id,
+                'name'                => 'Confetti',
+                'description'         => 'Lencana Confetti eksklusif daripada Postman Collection. Hanya 10 unit tersedia!',
+                'icon'                => 'fa-wand-magic-sparkles',
+                'color'               => '#f472b6',
+                'supply'              => 10,
+                'buy_price'           => 25000.00,
+                'sell_price'          => 25000.00,
+                'is_active'           => true,
+                'sort_order'          => 20,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'teddy-bear'],
+            [
+                'badge_collection_id' => $postman->id,
+                'name'                => 'Teddy Bear',
+                'description'         => 'Lencana Teddy Bear eksklusif daripada Postman Collection. Hanya 10 unit tersedia!',
+                'icon'                => 'fa-paw',
+                'color'               => '#92400e',
+                'supply'              => 10,
+                'buy_price'           => 250000.00,
+                'sell_price'          => 250000.00,
+                'is_active'           => true,
+                'sort_order'          => 30,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'lumps-of-coal'],
+            [
+                'badge_collection_id' => $postman->id,
+                'name'                => 'Lumps of Coal',
+                'description'         => 'Lencana Lumps of Coal eksklusif daripada Postman Collection. Hanya 10 unit tersedia!',
+                'icon'                => 'fa-cubes-stacked',
+                'color'               => '#374151',
+                'supply'              => 10,
+                'buy_price'           => 12500.00,
+                'sell_price'          => 12500.00,
+                'is_active'           => true,
+                'sort_order'          => 40,
+            ]
+        );
+
         $anonymous = BadgeCollection::updateOrCreate(
             ['slug' => 'anonymous-collection'],
             [
-                'name'        => 'Anonymous Collection',
-                'description' => 'Koleksi lencana edisi terhad bertema identiti rahsia dan misteri.',
-                'sort_order'  => 40,
+                'name'             => 'Anonymous Collection',
+                'description'      => 'Koleksi lencana edisi terhad bertema identiti rahsia dan misteri.',
+                'completion_image' => 'anonymous-collection.png',
+                'sort_order'       => 40,
             ]
         );
 
@@ -386,9 +438,10 @@ class ShopBadgeSeeder extends Seeder
         $astronaut = BadgeCollection::updateOrCreate(
             ['slug' => 'astronaut-collection'],
             [
-                'name'        => 'Astronaut Collection',
-                'description' => 'Koleksi lencana edisi terhad bertema angkasawan dan penerokaan luar angkasa.',
-                'sort_order'  => 50,
+                'name'             => 'Astronaut Collection',
+                'description'      => 'Koleksi lencana edisi terhad bertema angkasawan dan penerokaan luar angkasa.',
+                'completion_image' => 'astronaut-collection.png',
+                'sort_order'       => 50,
             ]
         );
 
@@ -506,9 +559,10 @@ class ShopBadgeSeeder extends Seeder
         $bartender = BadgeCollection::updateOrCreate(
             ['slug' => 'bartender-collection'],
             [
-                'name'        => 'Bartender Collection',
-                'description' => 'Koleksi lencana edisi terhad bertema minuman dan kehidupan malam.',
-                'sort_order'  => 60,
+                'name'             => 'Bartender Collection',
+                'description'      => 'Koleksi lencana edisi terhad bertema minuman dan kehidupan malam.',
+                'completion_image' => 'bartender-collection.png',
+                'sort_order'       => 60,
             ]
         );
 
@@ -610,9 +664,10 @@ class ShopBadgeSeeder extends Seeder
         $beachBum = BadgeCollection::updateOrCreate(
             ['slug' => 'beach-bum-collection'],
             [
-                'name'        => 'Beach Bum Collection',
-                'description' => 'Koleksi lencana edisi terhad bertema pantai dan percutian tepi laut.',
-                'sort_order'  => 70,
+                'name'             => 'Beach Bum Collection',
+                'description'      => 'Koleksi lencana edisi terhad bertema pantai dan percutian tepi laut.',
+                'completion_image' => 'beach-bum-collection.png',
+                'sort_order'       => 70,
             ]
         );
 
@@ -714,9 +769,10 @@ class ShopBadgeSeeder extends Seeder
         $beatCop = BadgeCollection::updateOrCreate(
             ['slug' => 'beat-cop-collection'],
             [
-                'name'        => 'Beat Cop Collection',
-                'description' => 'Koleksi lencana edisi terhad bertema polis dan penguatkuasaan undang-undang.',
-                'sort_order'  => 80,
+                'name'             => 'Beat Cop Collection',
+                'description'      => 'Koleksi lencana edisi terhad bertema polis dan penguatkuasaan undang-undang.',
+                'completion_image' => 'beat-cop-collection.png',
+                'sort_order'       => 80,
             ]
         );
 
@@ -909,6 +965,551 @@ class ShopBadgeSeeder extends Seeder
                 'sell_price'          => 200.00,
                 'is_active'           => true,
                 'sort_order'          => 10,
+            ]
+        );
+
+        // ── Celebrity Collection ─────────────────────────────────────────────
+        $celebrity = BadgeCollection::updateOrCreate(
+            ['slug' => 'celebrity-collection'],
+            [
+                'name'             => 'Celebrity Collection',
+                'description'      => 'Koleksi eksklusif bertema selebriti.',
+                'completion_image' => 'celebrity-collection.png',
+                'sort_order'       => 90,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'dumplings'],
+            [
+                'badge_collection_id' => $celebrity->id,
+                'name'                => 'Dumplings',
+                'description'         => 'Lencana Dumplings eksklusif daripada Celebrity Collection. Hanya 10 unit tersedia!',
+                'icon'                => 'fa-bowl-food',
+                'color'               => '#f59e0b',
+                'supply'              => 10,
+                'buy_price'           => 75000.00,
+                'sell_price'          => 75000.00,
+                'is_active'           => true,
+                'sort_order'          => 10,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'fox'],
+            [
+                'badge_collection_id' => $celebrity->id,
+                'name'                => 'Fox',
+                'description'         => 'Lencana Fox eksklusif daripada Celebrity Collection. Bekalan tanpa had!',
+                'icon'                => 'fa-fox',
+                'color'               => '#f97316',
+                'supply'              => 0,
+                'buy_price'           => 250000.00,
+                'sell_price'          => 250000.00,
+                'is_active'           => true,
+                'sort_order'          => 20,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'monkey'],
+            [
+                'badge_collection_id' => $celebrity->id,
+                'name'                => 'Monkey',
+                'description'         => 'Lencana Monkey eksklusif daripada Celebrity Collection. Bekalan tanpa had!',
+                'icon'                => 'fa-monkey',
+                'color'               => '#78716c',
+                'supply'              => 0,
+                'buy_price'           => 250000.00,
+                'sell_price'          => 250000.00,
+                'is_active'           => true,
+                'sort_order'          => 30,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'dominoes'],
+            [
+                'badge_collection_id' => $celebrity->id,
+                'name'                => 'Dominoes',
+                'description'         => 'Lencana Dominoes eksklusif daripada Celebrity Collection. Hanya 10 unit tersedia!',
+                'icon'                => 'fa-dice',
+                'color'               => '#e5e7eb',
+                'supply'              => 10,
+                'buy_price'           => 225000.00,
+                'sell_price'          => 225000.00,
+                'is_active'           => true,
+                'sort_order'          => 40,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'hockey-skate'],
+            [
+                'badge_collection_id' => $celebrity->id,
+                'name'                => 'Hockey Skate',
+                'description'         => 'Lencana Hockey Skate eksklusif daripada Celebrity Collection. Hanya 10 unit tersedia!',
+                'icon'                => 'fa-skating',
+                'color'               => '#94a3b8',
+                'supply'              => 10,
+                'buy_price'           => 225000.00,
+                'sell_price'          => 225000.00,
+                'is_active'           => true,
+                'sort_order'          => 50,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'case-of-plutonium'],
+            [
+                'badge_collection_id' => $celebrity->id,
+                'name'                => 'Case of Plutonium',
+                'description'         => 'Lencana Case of Plutonium eksklusif daripada Celebrity Collection. Hanya 10 unit tersedia!',
+                'icon'                => 'fa-radiation',
+                'color'               => '#84cc16',
+                'supply'              => 10,
+                'buy_price'           => 550000.00,
+                'sell_price'          => 550000.00,
+                'is_active'           => true,
+                'sort_order'          => 60,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'garden-gnome'],
+            [
+                'badge_collection_id' => $celebrity->id,
+                'name'                => 'Garden Gnome',
+                'description'         => 'Lencana Garden Gnome eksklusif daripada Celebrity Collection. Hanya 10 unit tersedia!',
+                'icon'                => 'fa-hat-wizard',
+                'color'               => '#ef4444',
+                'supply'              => 10,
+                'buy_price'           => 550000.00,
+                'sell_price'          => 550000.00,
+                'is_active'           => true,
+                'sort_order'          => 70,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'dinosaur-skeleton'],
+            [
+                'badge_collection_id' => $celebrity->id,
+                'name'                => 'Dinosaur Skeleton',
+                'description'         => 'Lencana Dinosaur Skeleton eksklusif daripada Celebrity Collection. Hanya 10 unit tersedia!',
+                'icon'                => 'fa-skull',
+                'color'               => '#d4d4d4',
+                'supply'              => 10,
+                'buy_price'           => 550000.00,
+                'sell_price'          => 550000.00,
+                'is_active'           => true,
+                'sort_order'          => 80,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'diamonds'],
+            [
+                'badge_collection_id' => $celebrity->id,
+                'name'                => 'Diamonds',
+                'description'         => 'Lencana Diamonds eksklusif daripada Celebrity Collection. Bekalan tanpa had!',
+                'icon'                => 'fa-gem',
+                'color'               => '#a5f3fc',
+                'supply'              => 0,
+                'buy_price'           => 499000.00,
+                'sell_price'          => 499000.00,
+                'is_active'           => true,
+                'sort_order'          => 90,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'las-vegas-sign'],
+            [
+                'badge_collection_id' => $celebrity->id,
+                'name'                => 'Las Vegas Sign',
+                'description'         => 'Lencana Las Vegas Sign eksklusif daripada Celebrity Collection. Bekalan tanpa had!',
+                'icon'                => 'fa-signs-post',
+                'color'               => '#fbbf24',
+                'supply'              => 0,
+                'buy_price'           => 99000.00,
+                'sell_price'          => 99000.00,
+                'is_active'           => true,
+                'sort_order'          => 100,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'blackboard'],
+            [
+                'badge_collection_id' => $celebrity->id,
+                'name'                => 'Blackboard',
+                'description'         => 'Lencana Blackboard eksklusif daripada Celebrity Collection. Hanya 10 unit tersedia!',
+                'icon'                => 'fa-chalkboard',
+                'color'               => '#6b7280',
+                'supply'              => 10,
+                'buy_price'           => 50000.00,
+                'sell_price'          => 50000.00,
+                'is_active'           => true,
+                'sort_order'          => 110,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'nunchaku'],
+            [
+                'badge_collection_id' => $celebrity->id,
+                'name'                => 'Nunchaku',
+                'description'         => 'Lencana Nunchaku eksklusif daripada Celebrity Collection. Hanya 10 unit tersedia!',
+                'icon'                => 'fa-link',
+                'color'               => '#d1d5db',
+                'supply'              => 10,
+                'buy_price'           => 125000.00,
+                'sell_price'          => 125000.00,
+                'is_active'           => true,
+                'sort_order'          => 120,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'bag-of-sand'],
+            [
+                'badge_collection_id' => $celebrity->id,
+                'name'                => 'Bag of Sand',
+                'description'         => 'Lencana Bag of Sand eksklusif daripada Celebrity Collection. Hanya 10 unit tersedia!',
+                'icon'                => 'fa-bag-shopping',
+                'color'               => '#d4a96a',
+                'supply'              => 10,
+                'buy_price'           => 50000.00,
+                'sell_price'          => 50000.00,
+                'is_active'           => true,
+                'sort_order'          => 130,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'power-drill'],
+            [
+                'badge_collection_id' => $celebrity->id,
+                'name'                => 'Power Drill',
+                'description'         => 'Lencana Power Drill eksklusif daripada Celebrity Collection. Hanya 10 unit tersedia!',
+                'icon'                => 'fa-screwdriver',
+                'color'               => '#f97316',
+                'supply'              => 10,
+                'buy_price'           => 225000.00,
+                'sell_price'          => 225000.00,
+                'is_active'           => true,
+                'sort_order'          => 140,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'chopsticks'],
+            [
+                'badge_collection_id' => $celebrity->id,
+                'name'                => 'Chopsticks',
+                'description'         => 'Lencana Chopsticks eksklusif daripada Celebrity Collection. Hanya 10 unit tersedia!',
+                'icon'                => 'fa-utensils',
+                'color'               => '#a8a29e',
+                'supply'              => 10,
+                'buy_price'           => 50000.00,
+                'sell_price'          => 50000.00,
+                'is_active'           => true,
+                'sort_order'          => 150,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'shopping-cart'],
+            [
+                'badge_collection_id' => $celebrity->id,
+                'name'                => 'Shopping Cart',
+                'description'         => 'Lencana Shopping Cart eksklusif daripada Celebrity Collection. Hanya 10 unit tersedia!',
+                'icon'                => 'fa-cart-shopping',
+                'color'               => '#94a3b8',
+                'supply'              => 10,
+                'buy_price'           => 125000.00,
+                'sell_price'          => 125000.00,
+                'is_active'           => true,
+                'sort_order'          => 160,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'fish-bones'],
+            [
+                'badge_collection_id' => $celebrity->id,
+                'name'                => 'Fish Bones',
+                'description'         => 'Lencana Fish Bones eksklusif daripada Celebrity Collection. Hanya 10 unit tersedia!',
+                'icon'                => 'fa-fish',
+                'color'               => '#9ca3af',
+                'supply'              => 10,
+                'buy_price'           => 125000.00,
+                'sell_price'          => 125000.00,
+                'is_active'           => true,
+                'sort_order'          => 170,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'penguin'],
+            [
+                'badge_collection_id' => $celebrity->id,
+                'name'                => 'Penguin',
+                'description'         => 'Lencana Penguin eksklusif daripada Celebrity Collection. Bekalan tanpa had!',
+                'icon'                => 'fa-crow',
+                'color'               => '#475569',
+                'supply'              => 0,
+                'buy_price'           => 250000.00,
+                'sell_price'          => 250000.00,
+                'is_active'           => true,
+                'sort_order'          => 180,
+            ]
+        );
+
+        // ── Chef Collection ──────────────────────────────────────────────────
+        $chef = BadgeCollection::updateOrCreate(
+            ['slug' => 'chef-collection'],
+            [
+                'name'             => 'Chef Collection',
+                'description'      => 'Koleksi eksklusif bertema chef dan masakan.',
+                'completion_image' => 'chef-collection.png',
+                'sort_order'       => 100,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'pizza'],
+            [
+                'badge_collection_id' => $chef->id,
+                'name'                => 'Pizza',
+                'description'         => 'Lencana Pizza eksklusif daripada Chef Collection. Hanya 20 unit tersedia!',
+                'icon'                => 'fa-pizza-slice',
+                'color'               => '#f97316',
+                'supply'              => 20,
+                'buy_price'           => 70000.00,
+                'sell_price'          => 70000.00,
+                'is_active'           => true,
+                'sort_order'          => 10,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'piece-of-cheese'],
+            [
+                'badge_collection_id' => $chef->id,
+                'name'                => 'Piece of Cheese',
+                'description'         => 'Lencana Piece of Cheese eksklusif daripada Chef Collection. Hanya 20 unit tersedia!',
+                'icon'                => 'fa-cheese',
+                'color'               => '#fbbf24',
+                'supply'              => 20,
+                'buy_price'           => 42500.00,
+                'sell_price'          => 42500.00,
+                'is_active'           => true,
+                'sort_order'          => 20,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'supersized-fries'],
+            [
+                'badge_collection_id' => $chef->id,
+                'name'                => 'Supersized Fries',
+                'description'         => 'Lencana Supersized Fries eksklusif daripada Chef Collection. Hanya 20 unit tersedia!',
+                'icon'                => 'fa-burger',
+                'color'               => '#f59e0b',
+                'supply'              => 20,
+                'buy_price'           => 7500.00,
+                'sell_price'          => 7500.00,
+                'is_active'           => true,
+                'sort_order'          => 30,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'donut'],
+            [
+                'badge_collection_id' => $chef->id,
+                'name'                => 'Donut',
+                'description'         => 'Lencana Donut eksklusif daripada Chef Collection. Hanya 20 unit tersedia!',
+                'icon'                => 'fa-ring',
+                'color'               => '#f9a8d4',
+                'supply'              => 20,
+                'buy_price'           => 18500.00,
+                'sell_price'          => 18500.00,
+                'is_active'           => true,
+                'sort_order'          => 40,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'slider'],
+            [
+                'badge_collection_id' => $chef->id,
+                'name'                => 'Slider',
+                'description'         => 'Lencana Slider eksklusif daripada Chef Collection. Hanya 20 unit tersedia!',
+                'icon'                => 'fa-burger',
+                'color'               => '#d97706',
+                'supply'              => 20,
+                'buy_price'           => 14000.00,
+                'sell_price'          => 14000.00,
+                'is_active'           => true,
+                'sort_order'          => 50,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'sushi'],
+            [
+                'badge_collection_id' => $chef->id,
+                'name'                => 'Sushi',
+                'description'         => 'Lencana Sushi eksklusif daripada Chef Collection. Hanya 20 unit tersedia!',
+                'icon'                => 'fa-fish-fins',
+                'color'               => '#94a3b8',
+                'supply'              => 20,
+                'buy_price'           => 60000.00,
+                'sell_price'          => 60000.00,
+                'is_active'           => true,
+                'sort_order'          => 60,
+            ]
+        );
+
+        // ── Coach Collection ─────────────────────────────────────────────────
+        $coach = BadgeCollection::updateOrCreate(
+            ['slug' => 'coach-collection'],
+            [
+                'name'             => 'Coach Collection',
+                'description'      => 'Koleksi eksklusif bertema jurulatih sukan.',
+                'completion_image' => 'coach-collection.png',
+                'sort_order'       => 110,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'tennis-ball'],
+            [
+                'badge_collection_id' => $coach->id,
+                'name'                => 'Tennis Ball',
+                'description'         => 'Lencana Tennis Ball eksklusif daripada Coach Collection. Hanya 30 unit tersedia!',
+                'icon'                => 'fa-baseball',
+                'color'               => '#84cc16',
+                'supply'              => 30,
+                'buy_price'           => 120000.00,
+                'sell_price'          => 120000.00,
+                'is_active'           => true,
+                'sort_order'          => 10,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'baseball-glove'],
+            [
+                'badge_collection_id' => $coach->id,
+                'name'                => 'Baseball Glove',
+                'description'         => 'Lencana Baseball Glove eksklusif daripada Coach Collection. Hanya 30 unit tersedia!',
+                'icon'                => 'fa-hand-back-fist',
+                'color'               => '#b45309',
+                'supply'              => 30,
+                'buy_price'           => 60000.00,
+                'sell_price'          => 60000.00,
+                'is_active'           => true,
+                'sort_order'          => 20,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'bicycle-wheel'],
+            [
+                'badge_collection_id' => $coach->id,
+                'name'                => 'Bicycle Wheel',
+                'description'         => 'Lencana Bicycle Wheel eksklusif daripada Coach Collection. Hanya 30 unit tersedia!',
+                'icon'                => 'fa-circle-dot',
+                'color'               => '#6b7280',
+                'supply'              => 30,
+                'buy_price'           => 90000.00,
+                'sell_price'          => 90000.00,
+                'is_active'           => true,
+                'sort_order'          => 30,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'curling-rock'],
+            [
+                'badge_collection_id' => $coach->id,
+                'name'                => 'Curling Rock',
+                'description'         => 'Lencana Curling Rock eksklusif daripada Coach Collection. Hanya 30 unit tersedia!',
+                'icon'                => 'fa-circle',
+                'color'               => '#94a3b8',
+                'supply'              => 30,
+                'buy_price'           => 150000.00,
+                'sell_price'          => 150000.00,
+                'is_active'           => true,
+                'sort_order'          => 40,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'football-helmet'],
+            [
+                'badge_collection_id' => $coach->id,
+                'name'                => 'Football Helmet',
+                'description'         => 'Lencana Football Helmet eksklusif daripada Coach Collection. Hanya 30 unit tersedia!',
+                'icon'                => 'fa-helmet-safety',
+                'color'               => '#6b7280',
+                'supply'              => 30,
+                'buy_price'           => 120000.00,
+                'sell_price'          => 120000.00,
+                'is_active'           => true,
+                'sort_order'          => 50,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'figure-skate'],
+            [
+                'badge_collection_id' => $coach->id,
+                'name'                => 'Figure Skate',
+                'description'         => 'Lencana Figure Skate eksklusif daripada Coach Collection. Hanya 30 unit tersedia!',
+                'icon'                => 'fa-skating',
+                'color'               => '#93c5fd',
+                'supply'              => 30,
+                'buy_price'           => 90000.00,
+                'sell_price'          => 90000.00,
+                'is_active'           => true,
+                'sort_order'          => 60,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'basketball-jersey'],
+            [
+                'badge_collection_id' => $coach->id,
+                'name'                => 'Basketball Jersey',
+                'description'         => 'Lencana Basketball Jersey eksklusif daripada Coach Collection. Hanya 30 unit tersedia!',
+                'icon'                => 'fa-shirt',
+                'color'               => '#f97316',
+                'supply'              => 30,
+                'buy_price'           => 30000.00,
+                'sell_price'          => 30000.00,
+                'is_active'           => true,
+                'sort_order'          => 70,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'goalposts'],
+            [
+                'badge_collection_id' => $coach->id,
+                'name'                => 'Goalposts',
+                'description'         => 'Lencana Goalposts eksklusif daripada Coach Collection. Hanya 30 unit tersedia!',
+                'icon'                => 'fa-goal-net',
+                'color'               => '#d1d5db',
+                'supply'              => 30,
+                'buy_price'           => 60000.00,
+                'sell_price'          => 60000.00,
+                'is_active'           => true,
+                'sort_order'          => 80,
             ]
         );
     }

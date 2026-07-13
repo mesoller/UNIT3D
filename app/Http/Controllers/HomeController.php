@@ -18,6 +18,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\BonPool;
+use App\Models\BonPoolContribution;
 use App\Models\Comment;
 use App\Models\Donation;
 use App\Models\FeaturedTorrent;
@@ -145,9 +146,18 @@ class HomeController extends Controller
                         ->orWhereNull('expires_at');
                 })->latest()->first();
             }),
-            'bonPool'       => BonPool::instance(),
-            'bonPoolTarget' => (float) config('bon_pool.target'),
-            'bonPoolReward' => (int) config('bon_pool.reward_days'),
+            'bonPool'           => $bonPool = BonPool::instance(),
+            'bonPoolTarget'     => (float) config('bon_pool.target'),
+            'bonPoolReward'     => (int) config('bon_pool.reward_days'),
+            'bonPoolTopDonors'  => cache()->flexible('bon_pool_top_donors', $expiresAt, fn () => BonPoolContribution::query()
+                ->with(['user:id,username,image,group_id', 'user.group:id,color,icon'])
+                ->where('created_at', '>=', $bonPool->cycle_started_at)
+                ->where('anonymous', false)
+                ->selectRaw('user_id, SUM(amount) as total')
+                ->groupBy('user_id')
+                ->orderByDesc('total')
+                ->limit(5)
+                ->get()),
             'topDonors'     => cache()->flexible('top_donors', $expiresAt, fn () => Donation::query()
                 ->with(['user:id,username,image,group_id', 'user.group:id,color,icon,effect', 'package:id,name,cost,position'])
                 ->where('status', 1)
@@ -157,7 +167,7 @@ class HomeController extends Controller
                 ->get()
                 ->sortByDesc(fn ($d) => (float) $d->package->cost)
                 ->unique('user_id')
-                ->take(5)
+                ->take(6)
                 ->values()),
         ]);
     }

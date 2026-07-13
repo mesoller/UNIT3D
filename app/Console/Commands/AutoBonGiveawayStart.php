@@ -78,11 +78,15 @@ class AutoBonGiveawayStart extends Command
             )
         );
 
+        $durationLabel = $duration >= 60
+            ? \sprintf('%g jam', $duration / 60)
+            : \sprintf('%d minit', $duration);
+
         $this->chat->systemMessage(
             \sprintf(
-                '⏳ Giveaway tamat dalam [b][color=green]%d minit[/color][/b]. '
+                '⏳ Giveaway tamat dalam [b][color=green]%s[/color][/b]. '
                 .'Pemenang = yang paling hampir dengan nombor rahsia. Semoga berjaya!',
-                $duration
+                $durationLabel
             )
         );
 

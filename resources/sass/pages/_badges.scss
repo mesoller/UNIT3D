@@ -247,6 +247,30 @@
             color: var(--badge-color);
             font-size: 0.85rem;
         }
+
+        &--completed {
+            padding: 0.5rem 1rem 0.5rem 0.65rem;
+            border-width: 2px;
+            box-shadow: 0 0 10px color-mix(in srgb, var(--badge-color) 25%, transparent);
+            cursor: default;
+            gap: 0.55rem;
+        }
+
+        &__completed-icons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: color-mix(in srgb, var(--badge-color) 18%, transparent);
+            border: 1px solid color-mix(in srgb, var(--badge-color) 40%, transparent);
+            flex-shrink: 0;
+
+            i {
+                font-size: 0.9rem;
+            }
+        }
     }
 
     .profile-badges-empty {

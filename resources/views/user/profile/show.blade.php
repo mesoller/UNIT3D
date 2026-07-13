@@ -390,6 +390,45 @@
             </section>
         @endif
 
+        @if ($completedCollections->count() > 0)
+            <section class="panelV2 profile-collapsible profile-badges-section" x-data="{ open: true }">
+                <header class="panel__header profile-collapsible__header" @click="open = !open">
+                    <h2 class="panel__heading">
+                        <i class="{{ config('other.font-awesome') }} fa-trophy"></i>
+                        Koleksi Lengkap
+                        <span style="font-weight:400; font-size:0.85rem; opacity:0.6; margin-left:0.4rem">({{ $completedCollections->count() }})</span>
+                    </h2>
+                    <i class="{{ config('other.font-awesome') }} fa-chevron-down profile-collapsible__chevron" :class="{ 'profile-collapsible__chevron--open': open }"></i>
+                </header>
+                <div x-show="open" x-cloak x-transition>
+                    <div class="profile-badges-grid">
+                        @foreach ($completedCollections as $completion)
+                            <span
+                                class="profile-badge-chip profile-badge-chip--completed"
+                                title="{{ $completion->collection->name }} — Set Lengkap! Disiapkan {{ $completion->completed_at->diffForHumans() }}"
+                                style="--badge-color: #ffd700;">
+                                @if ($completion->collection->completion_image)
+                                    <img
+                                        src="{{ asset('img/badges/completed/' . $completion->collection->completion_image) }}"
+                                        alt="{{ $completion->collection->name }}"
+                                        style="width:32px; height:32px; object-fit:contain; flex-shrink:0;"
+                                    >
+                                @else
+                                    <span class="profile-badge-chip__completed-icons">
+                                        <i class="{{ config('other.font-awesome') }} fa-trophy"></i>
+                                    </span>
+                                @endif
+                                <span>
+                                    <span style="display:block; font-size:0.65rem; opacity:0.6; text-transform:uppercase; letter-spacing:0.06em; line-height:1.2;">Set Lengkap</span>
+                                    {{ $completion->collection->name }}
+                                </span>
+                            </span>
+                        @endforeach
+                    </div>
+                </div>
+            </section>
+        @endif
+
         @if ($userShopBadges->count() > 0)
             <section class="panelV2 profile-collapsible profile-badges-section" x-data="{ open: true }">
                 <header class="panel__header profile-collapsible__header" @click="open = !open">

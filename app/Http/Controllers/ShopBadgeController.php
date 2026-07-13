@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BadgeCollection;
 use App\Models\ShopBadge;
+use App\Models\UserCompletedCollection;
 use App\Models\UserShopBadge;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -57,6 +58,18 @@ class ShopBadgeController extends Controller
             ]);
         });
 
+        // Check if user just completed the full collection
+        $collection = $shopBadge->collection;
+        $activeIds  = $collection->shopBadges()->where('is_active', true)->pluck('id');
+        $ownedCount = UserShopBadge::where('user_id', $user->id)->whereIn('shop_badge_id', $activeIds)->count();
+
+        if ($ownedCount === $activeIds->count() && $activeIds->count() > 0) {
+            UserCompletedCollection::firstOrCreate(
+                ['user_id' => $user->id, 'badge_collection_id' => $collection->id],
+                ['completed_at' => now()]
+            );
+        }
+
         return back()->with('success', 'Tahniah! Anda telah berjaya membeli lencana "'.$shopBadge->name.'" dengan '.number_format($shopBadge->buy_price, 2).' BON.');
     }
 
@@ -75,6 +88,11 @@ class ShopBadgeController extends Controller
         DB::transaction(function () use ($user, $shopBadge, $ownership): void {
             $ownership->delete();
             $user->increment('seedbonus', $shopBadge->sell_price);
+
+            // Selling a badge breaks the completed set
+            UserCompletedCollection::where('user_id', $user->id)
+                ->where('badge_collection_id', $shopBadge->badge_collection_id)
+                ->delete();
         });
 
         return back()->with('success', 'Lencana "'.$shopBadge->name.'" telah dijual. '.number_format($shopBadge->sell_price, 2).' BON telah dikreditkan ke akaun anda.');

@@ -18,7 +18,7 @@ return [
     'bot_user_id' => 4,
 
     'amount'           => 10000,
-    'duration_minutes' => 30,
+    'duration_minutes' => 180,
     'start_num'        => 1,
     'end_num'          => 100,
     'reminders'        => 2,
