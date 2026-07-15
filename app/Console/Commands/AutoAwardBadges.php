@@ -23,10 +23,10 @@ class AutoAwardBadges extends Command
 
         foreach ($badges as $badge) {
             $eligibleUserIds = match ($badge->criteria_type) {
-                'anniversary'          => $this->eligibleForAnniversary((int) $badge->criteria_value),
-                'bon_pool'             => $this->eligibleForBonPool((int) $badge->criteria_value),
-                'mutual_follow_exact'  => $this->eligibleForMutualFollowExact((int) $badge->criteria_value),
-                default                => collect(),
+                'anniversary'         => $this->eligibleForAnniversary((int) $badge->criteria_value),
+                'bon_pool'            => $this->eligibleForBonPool((int) $badge->criteria_value),
+                'mutual_follow_exact' => $this->eligibleForMutualFollowExact((int) $badge->criteria_value),
+                default               => collect(),
             };
 
             $alreadyHave = UserBadge::where('badge_id', $badge->id)

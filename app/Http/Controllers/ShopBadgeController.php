@@ -60,7 +60,7 @@ class ShopBadgeController extends Controller
 
         // Check if user just completed the full collection
         $collection = $shopBadge->collection;
-        $activeIds  = $collection->shopBadges()->where('is_active', true)->pluck('id');
+        $activeIds = $collection->shopBadges()->where('is_active', true)->pluck('id');
         $ownedCount = UserShopBadge::where('user_id', $user->id)->whereIn('shop_badge_id', $activeIds)->count();
 
         if ($ownedCount === $activeIds->count() && $activeIds->count() > 0) {

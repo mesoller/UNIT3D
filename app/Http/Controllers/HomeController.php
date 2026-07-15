@@ -146,10 +146,10 @@ class HomeController extends Controller
                         ->orWhereNull('expires_at');
                 })->latest()->first();
             }),
-            'bonPool'           => $bonPool = BonPool::instance(),
-            'bonPoolTarget'     => (float) config('bon_pool.target'),
-            'bonPoolReward'     => (int) config('bon_pool.reward_days'),
-            'bonPoolTopDonors'  => cache()->flexible('bon_pool_top_donors', $expiresAt, fn () => BonPoolContribution::query()
+            'bonPool'          => $bonPool = BonPool::instance(),
+            'bonPoolTarget'    => (float) config('bon_pool.target'),
+            'bonPoolReward'    => (int) config('bon_pool.reward_days'),
+            'bonPoolTopDonors' => cache()->flexible('bon_pool_top_donors', $expiresAt, fn () => BonPoolContribution::query()
                 ->with(['user:id,username,image,group_id', 'user.group:id,color,icon'])
                 ->where('created_at', '>=', $bonPool->cycle_started_at)
                 ->where('anonymous', false)
@@ -158,7 +158,7 @@ class HomeController extends Controller
                 ->orderByDesc('total')
                 ->limit(5)
                 ->get()),
-            'topDonors'     => cache()->flexible('top_donors', $expiresAt, fn () => Donation::query()
+            'topDonors' => cache()->flexible('top_donors', $expiresAt, fn () => Donation::query()
                 ->with(['user:id,username,image,group_id', 'user.group:id,color,icon,effect', 'package:id,name,cost,position'])
                 ->where('status', 1)
                 ->where(function ($query): void {
