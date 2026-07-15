@@ -81,6 +81,17 @@ class BadgeSeeder extends Seeder
                 'criteria_value' => 1,
                 'sort_order'     => 510,
             ],
+            [
+                'slug'           => 'myself-yourself',
+                'name'           => 'Myself; Yourself',
+                'description'    => 'Just you and your one mutual friend.',
+                'category'       => 'special',
+                'icon'           => 'fa-user-group',
+                'color'          => '#ec4899',
+                'criteria_type'  => 'mutual_follow_exact',
+                'criteria_value' => 1,
+                'sort_order'     => 520,
+            ],
         ];
 
         foreach ($badges as $badge) {

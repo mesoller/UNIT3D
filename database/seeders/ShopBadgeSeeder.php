@@ -1512,5 +1512,112 @@ class ShopBadgeSeeder extends Seeder
                 'sort_order'          => 80,
             ]
         );
+
+        // ── Crime Boss Collection ────────────────────────────────────────────
+        $crimeBoss = BadgeCollection::updateOrCreate(
+            ['slug' => 'crime-boss-collection'],
+            [
+                'name'             => 'Crime Boss Collection',
+                'description'      => 'Koleksi eksklusif bertema bos jenayah dan dunia bawah tanah.',
+                'completion_image' => 'crime-boss-collection.png',
+                'sort_order'       => 120,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'money-bag'],
+            [
+                'badge_collection_id' => $crimeBoss->id,
+                'name'                => 'Money Bag',
+                'description'         => 'Lencana Money Bag eksklusif daripada Crime Boss Collection. Hanya 15 unit tersedia!',
+                'icon'                => 'fa-sack-dollar',
+                'color'               => '#ca8a04',
+                'supply'              => 15,
+                'buy_price'           => 5000.00,
+                'sell_price'          => 5000.00,
+                'is_active'           => true,
+                'sort_order'          => 10,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'brass-knuckles'],
+            [
+                'badge_collection_id' => $crimeBoss->id,
+                'name'                => 'Brass Knuckles',
+                'description'         => 'Lencana Brass Knuckles eksklusif daripada Crime Boss Collection. Hanya 15 unit tersedia!',
+                'icon'                => 'fa-hand-fist',
+                'color'               => '#b45309',
+                'supply'              => 15,
+                'buy_price'           => 35000.00,
+                'sell_price'          => 35000.00,
+                'is_active'           => true,
+                'sort_order'          => 20,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'ace-of-spades'],
+            [
+                'badge_collection_id' => $crimeBoss->id,
+                'name'                => 'Ace of Spades',
+                'description'         => 'Lencana Ace of Spades eksklusif daripada Crime Boss Collection. Hanya 15 unit tersedia!',
+                'icon'                => 'fa-playing-cards',
+                'color'               => '#e5e7eb',
+                'supply'              => 15,
+                'buy_price'           => 35000.00,
+                'sell_price'          => 35000.00,
+                'is_active'           => true,
+                'sort_order'          => 30,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'cigar'],
+            [
+                'badge_collection_id' => $crimeBoss->id,
+                'name'                => 'Cigar',
+                'description'         => 'Lencana Cigar eksklusif daripada Crime Boss Collection. Hanya 15 unit tersedia!',
+                'icon'                => 'fa-smoking',
+                'color'               => '#78716c',
+                'supply'              => 15,
+                'buy_price'           => 5000.00,
+                'sell_price'          => 5000.00,
+                'is_active'           => true,
+                'sort_order'          => 40,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'dice'],
+            [
+                'badge_collection_id' => $crimeBoss->id,
+                'name'                => 'Dice',
+                'description'         => 'Lencana Dice eksklusif daripada Crime Boss Collection. Hanya 15 unit tersedia!',
+                'icon'                => 'fa-dice',
+                'color'               => '#e5e7eb',
+                'supply'              => 15,
+                'buy_price'           => 4000.00,
+                'sell_price'          => 4000.00,
+                'is_active'           => true,
+                'sort_order'          => 50,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'spinning-top'],
+            [
+                'badge_collection_id' => $crimeBoss->id,
+                'name'                => 'Spinning Top',
+                'description'         => 'Lencana Spinning Top eksklusif daripada Crime Boss Collection. Hanya 15 unit tersedia!',
+                'icon'                => 'fa-spinner',
+                'color'               => '#94a3b8',
+                'supply'              => 15,
+                'buy_price'           => 2500.00,
+                'sell_price'          => 2500.00,
+                'is_active'           => true,
+                'sort_order'          => 60,
+            ]
+        );
     }
 }

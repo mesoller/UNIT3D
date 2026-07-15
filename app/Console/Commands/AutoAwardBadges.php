@@ -23,9 +23,10 @@ class AutoAwardBadges extends Command
 
         foreach ($badges as $badge) {
             $eligibleUserIds = match ($badge->criteria_type) {
-                'anniversary' => $this->eligibleForAnniversary((int) $badge->criteria_value),
-                'bon_pool'    => $this->eligibleForBonPool((int) $badge->criteria_value),
-                default       => collect(),
+                'anniversary'          => $this->eligibleForAnniversary((int) $badge->criteria_value),
+                'bon_pool'             => $this->eligibleForBonPool((int) $badge->criteria_value),
+                'mutual_follow_exact'  => $this->eligibleForMutualFollowExact((int) $badge->criteria_value),
+                default                => collect(),
             };
 
             $alreadyHave = UserBadge::where('badge_id', $badge->id)
@@ -60,6 +61,19 @@ class AutoAwardBadges extends Command
             ->select('user_id')
             ->groupBy('user_id')
             ->havingRaw('COUNT(*) >= ?', [$minCount])
+            ->pluck('user_id');
+    }
+
+    // Users with exactly $count mutual follows (A follows B AND B follows A)
+    private function eligibleForMutualFollowExact(int $count): \Illuminate\Support\Collection
+    {
+        return DB::table('follows as f1')
+            ->join('follows as f2', fn ($join) => $join
+                ->on('f1.user_id', '=', 'f2.target_id')
+                ->on('f1.target_id', '=', 'f2.user_id'))
+            ->select('f1.user_id')
+            ->groupBy('f1.user_id')
+            ->havingRaw('COUNT(*) = ?', [$count])
             ->pluck('user_id');
     }
 }
