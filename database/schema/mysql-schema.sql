@@ -2391,6 +2391,24 @@ CREATE TABLE `torrents` (
   CONSTRAINT `torrents_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `treats`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `treats` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `icon` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `level` tinyint unsigned NOT NULL,
+  `cost` int unsigned NOT NULL,
+  `sort_order` smallint unsigned NOT NULL DEFAULT '0',
+  `is_active` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `types`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -2730,6 +2748,23 @@ CREATE TABLE `user_shop_badges` (
   KEY `user_shop_badges_shop_badge_id_foreign` (`shop_badge_id`),
   CONSTRAINT `user_shop_badges_shop_badge_id_foreign` FOREIGN KEY (`shop_badge_id`) REFERENCES `shop_badges` (`id`) ON DELETE CASCADE,
   CONSTRAINT `user_shop_badges_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `user_treats`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user_treats` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int unsigned NOT NULL,
+  `treat_id` bigint unsigned NOT NULL,
+  `purchased_at` timestamp NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_treats_user_id_treat_id_unique` (`user_id`,`treat_id`),
+  KEY `user_treats_treat_id_foreign` (`treat_id`),
+  CONSTRAINT `user_treats_treat_id_foreign` FOREIGN KEY (`treat_id`) REFERENCES `treats` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `user_treats_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `users`;
@@ -3291,3 +3326,5 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (374,'2026_07_11_00
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (375,'2026_07_11_000009_change_shop_badge_prices_to_decimal',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (376,'2026_07_13_000001_create_user_completed_collections_table',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (377,'2026_07_13_000002_add_completion_image_to_badge_collections',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (378,'2026_07_17_000001_create_treats_tables',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (379,'2026_07_18_000001_add_image_to_treats_table',1);
