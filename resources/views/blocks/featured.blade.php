@@ -35,11 +35,11 @@
         <div class="featured-notice">
             <span class="featured-notice__item">
                 <i class="{{ config('other.font-awesome') }} fa-star text-gold"></i>
-                Semua torrent yang terpapar adalah <strong>Freeleech</strong> — muat turun tidak dikira!
+                {!! __('blocks.featured-notice-freeleech') !!}
             </span>
             <span class="featured-notice__item">
                 <i class="{{ config('other.font-awesome') }} fa-arrow-up text-green"></i>
-                Muat naik dari torrent-torrent ini mendapat ganjaran <strong>Double Upload</strong>!
+                {!! __('blocks.featured-notice-double-upload') !!}
             </span>
         </div>
         <ul

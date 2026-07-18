@@ -1,7 +1,7 @@
 <section class="panelV2 top-donors-widget">
     <header class="panel__heading top-donors-widget__heading">
         <i class="{{ config('other.font-awesome') }} fa-heart"></i>
-        Penyokong Teratas
+        {{ __('blocks.top-donors') }}
     </header>
 
     <div class="top-donors-widget__list">
@@ -42,7 +42,7 @@
                 </span>
             </div>
         @empty
-            <p class="top-donors-widget__empty">Tiada penyokong aktif buat masa ini.</p>
+            <p class="top-donors-widget__empty">{{ __('blocks.top-donors-empty') }}</p>
         @endforelse
     </div>
 </section>

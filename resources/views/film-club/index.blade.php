@@ -1,7 +1,7 @@
 @extends('layout.with-main-and-sidebar')
 
 @section('title')
-    Kelab Filem MalayaBits
+    {{ __('film-club.page-title') }}
 @endsection
 
 @section('page', 'page__film-club')
@@ -15,7 +15,7 @@
             <header class="panel__header">
                 <h2 class="panel__heading">
                     <i class="{{ config('other.font-awesome') }} fa-film"></i>
-                    Filem Kelab — {{ \Carbon\Carbon::createFromFormat('Y-m', $filmOfMonth->year_month)->translatedFormat('F Y') }}
+                    {{ __('film-club.film-of-month', ['month' => \Carbon\Carbon::createFromFormat('Y-m', $filmOfMonth->year_month)->translatedFormat('F Y')]) }}
                 </h2>
             </header>
 
@@ -84,7 +84,7 @@
                         <div class="fc-feature__watch">
                             <h3 class="fc-feature__section-heading">
                                 <i class="{{ config('other.font-awesome') }} fa-play-circle"></i>
-                                Tonton Sekarang!
+                                {{ __('film-club.watch-now') }}
                             </h3>
                             <ul class="fc-feature__torrent-list">
                                 @foreach ($torrents as $torrent)
@@ -118,29 +118,24 @@
                         <div class="fc-feature__discuss">
                             <h3 class="fc-feature__section-heading">
                                 <i class="{{ config('other.font-awesome') }} fa-comments"></i>
-                                Bincang
+                                {{ __('film-club.discuss') }}
                             </h3>
                             <p>
-                                Sertai perbincangan filem ini di
-                                <a href="{{ route('forums.topics.show', $filmOfMonth->topic->id) }}">
-                                    forum kami
-                                </a>.
+                                {!! __('film-club.discuss-body', [
+                                    'link' => '<a href="' . route('forums.topics.show', $filmOfMonth->topic->id) . '">' . __('film-club.discuss-forum-link') . '</a>',
+                                ]) !!}
                             </p>
                         </div>
                     @endif
 
                     {{-- Credit --}}
                     <p class="fc-feature__credit">
-                        Filem ini dicadangkan oleh
-                        @if ($filmOfMonth->suggestedBy)
-                            <a href="{{ route('users.show', $filmOfMonth->suggestedBy->username) }}">
-                                <strong>{{ $filmOfMonth->suggestedBy->username }}</strong>
-                            </a>
-                        @else
-                            <strong>Ahli Tanpa Nama</strong>
-                        @endif
-                        dan menang dengan
-                        <strong>{{ $filmOfMonth->total_votes }}</strong> undi.
+                        {!! __('film-club.credit', [
+                            'user'  => $filmOfMonth->suggestedBy
+                                ? '<a href="' . route('users.show', $filmOfMonth->suggestedBy->username) . '"><strong>' . e($filmOfMonth->suggestedBy->username) . '</strong></a>'
+                                : '<strong>' . __('film-club.anonymous-member') . '</strong>',
+                            'votes' => '<strong>' . $filmOfMonth->total_votes . '</strong>',
+                        ]) !!}
                     </p>
                 </div>
             </div>
@@ -149,7 +144,7 @@
         <section class="panelV2">
             <div class="panel__body fc-empty">
                 <i class="{{ config('other.font-awesome') }} fa-film fa-3x"></i>
-                <p>Tiada filem dipilih untuk bulan ini lagi. Nantikan pengumuman daripada pentadbir!</p>
+                <p>{{ __('film-club.no-film-this-month') }}</p>
             </div>
         </section>
     @endif
@@ -159,7 +154,7 @@
         <header class="panel__header">
             <h2 class="panel__heading">
                 <i class="{{ config('other.font-awesome') }} fa-vote-yea"></i>
-                Cadangan Bulan Hadapan
+                {{ __('film-club.suggestions-heading') }}
                 <span class="fc-voting__month-badge">
                     {{ \Carbon\Carbon::createFromFormat('Y-m', $nextMonth)->translatedFormat('F Y') }}
                 </span>
@@ -167,7 +162,7 @@
             <div class="panel__actions">
                 <div class="panel__action">
                     <span class="fc-voting__slot-count">
-                        {{ $totalSuggestions }}/{{ $maxSuggestions }} slot
+                        {{ __('film-club.slots', ['total' => $totalSuggestions, 'max' => $maxSuggestions]) }}
                     </span>
                 </div>
             </div>
@@ -190,7 +185,7 @@
         @if ($suggestions->isEmpty())
             <div class="panel__body fc-empty">
                 <i class="{{ config('other.font-awesome') }} fa-inbox fa-2x"></i>
-                <p>Belum ada cadangan. Jadilah yang pertama mencadangkan!</p>
+                <p>{{ __('film-club.no-suggestions') }}</p>
             </div>
         @else
             <div class="fc-suggestions">
@@ -225,7 +220,7 @@
 
                                 <div class="fc-suggestion-card__footer">
                                     <span class="fc-suggestion-card__by">
-                                        Oleh:
+                                        {{ __('film-club.by') }}
                                         <a href="{{ route('users.show', $suggestion->user->username) }}">
                                             {{ $suggestion->user->username }}
                                         </a>
@@ -234,7 +229,7 @@
                                     <span class="fc-suggestion-card__votes">
                                         <i class="{{ config('other.font-awesome') }} fa-heart"></i>
                                         {{ $suggestion->votes_count }}
-                                        {{ $suggestion->votes_count == 1 ? 'undi' : 'undi' }}
+                                        {{ trans_choice(__('film-club.vote-singular') . '|' . __('film-club.vote-plural'), $suggestion->votes_count) }}
                                     </span>
                                 </div>
                             </div>
@@ -243,10 +238,10 @@
                                 @if ((int) $userVotedSuggestionId === (int) $suggestion->id)
                                     <span class="fc-suggestion-card__voted-badge">
                                         <i class="{{ config('other.font-awesome') }} fa-check"></i>
-                                        Undi Anda
+                                        {{ __('film-club.your-vote') }}
                                     </span>
                                 @elseif ($userVotedSuggestionId !== null)
-                                    <span class="fc-suggestion-card__voted-other">Sudah Mengundi</span>
+                                    <span class="fc-suggestion-card__voted-other">{{ __('film-club.already-voted') }}</span>
                                 @else
                                     <form
                                         method="POST"
@@ -258,7 +253,7 @@
                                             type="submit"
                                         >
                                             <i class="{{ config('other.font-awesome') }} fa-heart"></i>
-                                            Undi
+                                            {{ __('film-club.vote') }}
                                         </button>
                                     </form>
                                 @endif
@@ -290,16 +285,16 @@
                 <div class="fc-dialog__inner">
                     <h3 class="fc-dialog__title">
                         <i class="{{ config('other.font-awesome') }} fa-trophy text-gold"></i>
-                        Tetapkan Filem Kelab Bulan Ini
+                        {{ __('film-club.set-winner-title') }}
                     </h3>
                     <p class="fc-dialog__desc">
-                        Filem ini akan ditetapkan sebagai Filem Kelab untuk bulan yang dipilih.
+                        {{ __('film-club.set-winner-desc') }}
                     </p>
                     <form method="POST" action="{{ route('film_club.set_winner') }}">
                         @csrf
                         <input type="hidden" name="suggestion_id" x-ref="winnerSuggId" value="">
                         <div class="fc-dialog__field">
-                            <label class="fc-dialog__label">Bulan</label>
+                            <label class="fc-dialog__label">{{ __('film-club.set-winner-month-label') }}</label>
                             <input
                                 class="form__text"
                                 type="month"
@@ -313,10 +308,10 @@
                                 class="fc-dialog__cancel"
                                 type="button"
                                 x-on:click="$refs.winnerModal.close()"
-                            >Batal</button>
+                            >{{ __('film-club.cancel') }}</button>
                             <button class="fc-dialog__confirm" type="submit">
                                 <i class="{{ config('other.font-awesome') }} fa-trophy"></i>
-                                Sahkan Pemenang
+                                {{ __('film-club.set-winner-confirm') }}
                             </button>
                         </div>
                     </form>
@@ -354,12 +349,12 @@
         @if ($userHasSuggested)
             <div class="panel__body fc-suggest-panel__done">
                 <i class="{{ config('other.font-awesome') }} fa-check-circle"></i>
-                <p>Anda sudah mencadangkan filem untuk bulan hadapan.</p>
+                <p>{{ __('film-club.already-suggested') }}</p>
             </div>
         @elseif ($totalSuggestions >= $maxSuggestions)
             <div class="panel__body fc-suggest-panel__full">
                 <i class="{{ config('other.font-awesome') }} fa-lock"></i>
-                <p>Slot cadangan untuk bulan hadapan telah penuh.</p>
+                <p>{{ __('film-club.suggestions-full') }}</p>
             </div>
         @else
             <div class="panel__body">
@@ -369,7 +364,7 @@
                     x-on:click="open = true"
                 >
                     <i class="{{ config('other.font-awesome') }} fa-plus"></i>
-                    Cadang Filem Bulan Hadapan
+                    {{ __('film-club.suggest-btn') }}
                 </button>
             </div>
 
@@ -377,7 +372,7 @@
                 <div class="fc-dialog__inner">
                     <h3 class="fc-dialog__title">
                         <i class="{{ config('other.font-awesome') }} fa-search text-gold"></i>
-                        Cari & Cadang Filem
+                        {{ __('film-club.suggest-title') }}
                     </h3>
 
                     <form method="POST" action="{{ route('film_club.store') }}">
@@ -385,11 +380,11 @@
                         <input type="hidden" name="tmdb_movie_id" x-bind:value="selected ? selected.id : ''">
 
                         <div class="fc-dialog__field">
-                            <label class="fc-dialog__label">Cari tajuk filem</label>
+                            <label class="fc-dialog__label">{{ __('film-club.search-label') }}</label>
                             <input
                                 class="form__text"
                                 type="text"
-                                placeholder="Contoh: Saving Private Ryan"
+                                placeholder="{{ __('film-club.search-placeholder') }}"
                                 x-model="query"
                                 x-on:input.debounce.300ms="search()"
                                 autocomplete="off"
@@ -435,14 +430,14 @@
                                 class="fc-dialog__cancel"
                                 type="button"
                                 x-on:click="reset()"
-                            >Batal</button>
+                            >{{ __('film-club.cancel') }}</button>
                             <button
                                 class="fc-dialog__confirm"
                                 type="submit"
                                 x-bind:disabled="!selected"
                             >
                                 <i class="{{ config('other.font-awesome') }} fa-paper-plane"></i>
-                                Hantar Cadangan
+                                {{ __('film-club.submit-suggestion') }}
                             </button>
                         </div>
                     </form>
@@ -456,29 +451,24 @@
         <header class="panel__header">
             <h2 class="panel__heading">
                 <i class="{{ config('other.font-awesome') }} fa-info-circle"></i>
-                Kelab Filem MalayaBits
+                {{ __('film-club.rules-heading') }}
             </h2>
         </header>
         <div class="panel__body fc-rules__body">
-            <p>
-                Setiap bulan, ahli berpeluang mencadangkan dan mengundi filem
-                pilihan untuk Kelab Filem. Filem pemenang akan dipaparkan sebagai
-                Filem Kelab bulan berikutnya.
-            </p>
+            <p>{{ __('film-club.rules-intro') }}</p>
 
-            <h4 class="fc-rules__heading">Peraturan Cadangan</h4>
+            <h4 class="fc-rules__heading">{{ __('film-club.suggestion-rules-heading') }}</h4>
             <ul class="fc-rules__list">
-                <li>Filem tidak boleh pernah menjadi Filem Kelab sebelum ini</li>
-                <li>Filem tidak boleh dicadangkan dalam tempoh 6 bulan lepas</li>
-                <li>Satu cadangan sahaja bagi setiap ahli sebulan</li>
-                <li>Maksimum 10 cadangan filem sebulan</li>
+                @foreach (__('film-club.suggestion-rules') as $rule)
+                    <li>{{ $rule }}</li>
+                @endforeach
             </ul>
 
-            <h4 class="fc-rules__heading">Peraturan Pengundian</h4>
+            <h4 class="fc-rules__heading">{{ __('film-club.voting-rules-heading') }}</h4>
             <ul class="fc-rules__list">
-                <li>Satu undi sahaja bagi setiap ahli sebulan</li>
-                <li>Pengundian dibuka sepanjang bulan semasa</li>
-                <li>Pentadbir akan mengesahkan pemenang pada akhir bulan</li>
+                @foreach (__('film-club.voting-rules') as $rule)
+                    <li>{{ $rule }}</li>
+                @endforeach
             </ul>
         </div>
     </section>
@@ -489,7 +479,7 @@
             <header class="panel__header">
                 <h2 class="panel__heading">
                     <i class="{{ config('other.font-awesome') }} fa-history"></i>
-                    Pemenang Lepas
+                    {{ __('film-club.past-winners') }}
                 </h2>
             </header>
             <ul class="fc-past__list">
@@ -507,7 +497,7 @@
                                 <span class="fc-past__title">{{ $winner->movie->title }}</span>
                                 <span class="fc-past__month">
                                     {{ \Carbon\Carbon::createFromFormat('Y-m', $winner->year_month)->translatedFormat('M Y') }}
-                                    · {{ $winner->total_votes }} undi
+                                    · {{ __('film-club.past-votes', ['votes' => $winner->total_votes]) }}
                                 </span>
                             </div>
                         </li>

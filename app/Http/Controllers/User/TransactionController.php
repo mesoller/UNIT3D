@@ -21,7 +21,9 @@ use App\Http\Requests\StoreTransactionRequest;
 use App\Models\BonExchange;
 use App\Models\BonTransactions;
 use App\Models\PersonalFreeleech;
+use App\Models\Treat;
 use App\Models\User;
+use App\Models\UserTreat;
 use App\Notifications\PersonalFreeleechCreated;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
@@ -46,11 +48,15 @@ class TransactionController extends Controller
     {
         abort_unless($request->user()->is($user), 403);
 
+        $ownedTreatIds = UserTreat::where('user_id', $user->id)->pluck('treat_id');
+
         return view('user.transaction.create', [
-            'user'     => $user,
-            'bon'      => $user->formatted_seedbonus,
-            'activefl' => $user->personalFreeleeches()->exists(),
-            'items'    => BonExchange::all(),
+            'user'          => $user,
+            'bon'           => $user->formatted_seedbonus,
+            'activefl'      => $user->personalFreeleeches()->exists(),
+            'items'         => BonExchange::all(),
+            'treats'        => Treat::where('is_active', true)->orderBy('level')->orderBy('sort_order')->get(),
+            'ownedTreatIds' => $ownedTreatIds,
         ]);
     }
 

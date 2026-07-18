@@ -71,6 +71,65 @@
             </table>
         </div>
     </section>
+
+    @if ($treats->count() > 0)
+        @php
+            $treatsByLevel = $treats->groupBy('level');
+        @endphp
+        <section class="panelV2">
+            <h2 class="panel__heading">
+                <i class="{{ config('other.font-awesome') }} fa-candy-cane"></i>
+                {{ __('bon.treats') }}
+            </h2>
+            <div class="panel__body">
+                <p class="treats-intro">{{ __('bon.treats-intro') }}</p>
+            </div>
+            @foreach ($treatsByLevel as $level => $levelTreats)
+                <div class="treats-level">
+                    <h3 class="treats-level__heading">
+                        @if ($level === 1)
+                            <i class="{{ config('other.font-awesome') }} fa-star"></i>
+                        @else
+                            <i class="{{ config('other.font-awesome') }} fa-star-half-stroke"></i>
+                        @endif
+                        {{ __('bon.treats-level', ['level' => $level]) }}
+                    </h3>
+                    <div class="treats-grid">
+                        @foreach ($levelTreats as $treat)
+                            <div class="treat-card {{ $ownedTreatIds->contains($treat->id) ? 'treat-card--owned' : '' }}">
+                                <div class="treat-card__icon">
+                                    @if ($treat->image)
+                                        <img src="{{ asset('img/treats/' . $treat->image) }}" alt="{{ $treat->name }}" style="width:4rem; height:4rem; object-fit:contain;">
+                                    @else
+                                        {{ $treat->icon }}
+                                    @endif
+                                </div>
+                                <div class="treat-card__name">{{ $treat->name }}</div>
+                                <div class="treat-card__desc">{{ $treat->description }}</div>
+                                @if ($ownedTreatIds->contains($treat->id))
+                                    <span class="treat-card__owned-badge">
+                                        <i class="{{ config('other.font-awesome') }} fa-check"></i>
+                                        {{ __('bon.treats-owned') }}
+                                    </span>
+                                @else
+                                    <form
+                                        method="POST"
+                                        action="{{ route('users.treats.store', ['user' => $user]) }}"
+                                    >
+                                        @csrf
+                                        <input type="hidden" name="treat_id" value="{{ $treat->id }}" />
+                                        <button class="form__button form__button--filled treat-card__btn">
+                                            {{ number_format($treat->cost) }} BON
+                                        </button>
+                                    </form>
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endforeach
+        </section>
+    @endif
 @endsection
 
 @section('sidebar')

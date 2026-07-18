@@ -5,7 +5,7 @@
     <header class="panel__header">
         <h2 class="panel__heading">
             <i class="{{ config('other.font-awesome') }} fa-fire"></i>
-            Trending
+            {{ __('blocks.trending') }}
         </h2>
         <div class="panel__actions">
             <div class="panel__action">
@@ -14,7 +14,7 @@
                     href="{{ route('trending.index') }}"
                 >
                     <i class="{{ config('other.font-awesome') }} fa-arrow-right"></i>
-                    Lihat Semua
+                    {{ __('blocks.trending-view-all') }}
                 </a>
             </div>
         </div>
@@ -24,51 +24,51 @@
         <div class="home-trending__tab-group">
             <span class="home-trending__group-label">
                 <i class="{{ config('other.font-awesome') }} fa-film"></i>
-                Movie
+                {{ __('blocks.trending-movie') }}
             </span>
             <button
                 class="home-trending__tab-btn"
                 :class="{ 'home-trending__tab-btn--active': tab === 'movie-day' }"
                 @click="tab = 'movie-day'"
                 type="button"
-            >Harian</button>
+            >{{ __('blocks.trending-daily') }}</button>
             <button
                 class="home-trending__tab-btn"
                 :class="{ 'home-trending__tab-btn--active': tab === 'movie-week' }"
                 @click="tab = 'movie-week'"
                 type="button"
-            >Mingguan</button>
+            >{{ __('blocks.trending-weekly') }}</button>
             <button
                 class="home-trending__tab-btn"
                 :class="{ 'home-trending__tab-btn--active': tab === 'movie-month' }"
                 @click="tab = 'movie-month'"
                 type="button"
-            >Bulanan</button>
+            >{{ __('blocks.trending-monthly') }}</button>
         </div>
 
         <div class="home-trending__tab-group">
             <span class="home-trending__group-label">
                 <i class="{{ config('other.font-awesome') }} fa-tv"></i>
-                TV Series
+                {{ __('blocks.trending-tv') }}
             </span>
             <button
                 class="home-trending__tab-btn"
                 :class="{ 'home-trending__tab-btn--active': tab === 'tv-day' }"
                 @click="tab = 'tv-day'"
                 type="button"
-            >Harian</button>
+            >{{ __('blocks.trending-daily') }}</button>
             <button
                 class="home-trending__tab-btn"
                 :class="{ 'home-trending__tab-btn--active': tab === 'tv-week' }"
                 @click="tab = 'tv-week'"
                 type="button"
-            >Mingguan</button>
+            >{{ __('blocks.trending-weekly') }}</button>
             <button
                 class="home-trending__tab-btn"
                 :class="{ 'home-trending__tab-btn--active': tab === 'tv-month' }"
                 @click="tab = 'tv-month'"
                 type="button"
-            >Bulanan</button>
+            >{{ __('blocks.trending-monthly') }}</button>
         </div>
     </div>
 
@@ -101,7 +101,7 @@
                     </figcaption>
                 </figure>
             @empty
-                <p class="home-trending__empty">Tiada data untuk tempoh ini.</p>
+                <p class="home-trending__empty">{{ __('blocks.trending-empty') }}</p>
             @endforelse
         </div>
     @endforeach

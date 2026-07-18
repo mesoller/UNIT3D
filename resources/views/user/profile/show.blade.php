@@ -429,6 +429,35 @@
             </section>
         @endif
 
+        @if ($userTreats->count() > 0)
+            <section class="panelV2 profile-collapsible profile-badges-section" x-data="{ open: true }">
+                <header class="panel__header profile-collapsible__header" @click="open = !open">
+                    <h2 class="panel__heading">
+                        <i class="{{ config('other.font-awesome') }} fa-candy-cane"></i>
+                        {{ __('bon.treats-title') }}
+                        <span style="font-weight:400; font-size:0.85rem; opacity:0.6; margin-left:0.4rem">({{ $userTreats->count() }})</span>
+                    </h2>
+                    <i class="{{ config('other.font-awesome') }} fa-chevron-down profile-collapsible__chevron" :class="{ 'profile-collapsible__chevron--open': open }"></i>
+                </header>
+                <div x-show="open" x-cloak x-transition>
+                    <div class="profile-treats-grid">
+                        @foreach ($userTreats->sortBy('treat.level')->sortBy('treat.sort_order') as $userTreat)
+                            <span
+                                class="profile-treat-chip"
+                                title="{{ $userTreat->treat->name }} — Level {{ $userTreat->treat->level }} — Purchased {{ $userTreat->purchased_at->diffForHumans() }}"
+                            >
+                                @if ($userTreat->treat->image)
+                                    <img src="{{ asset('img/treats/' . $userTreat->treat->image) }}" alt="{{ $userTreat->treat->name }}" style="width:2rem; height:2rem; object-fit:contain;">
+                                @else
+                                    {{ $userTreat->treat->icon }}
+                                @endif
+                            </span>
+                        @endforeach
+                    </div>
+                </div>
+            </section>
+        @endif
+
         @if ($userShopBadges->count() > 0)
             <section class="panelV2 profile-collapsible profile-badges-section" x-data="{ open: true }">
                 <header class="panel__header profile-collapsible__header" @click="open = !open">

@@ -20,10 +20,12 @@ return [
     'to-enable-editor' => 'to enable editor',
 
     // Featured torrents
-    'featured-by'             => 'Featured by',
-    'featured-torrents'       => 'Featured torrents',
-    'featured-torrents-intro' => 'Get them while you can!',
-    'featured-until'          => 'This is a featured torrent until',
+    'featured-by'                   => 'Featured by',
+    'featured-torrents'             => 'Featured torrents',
+    'featured-torrents-intro'       => 'Get them while you can!',
+    'featured-until'                => 'This is a featured torrent until',
+    'featured-notice-freeleech'     => 'All featured torrents are <strong>Freeleech</strong> — downloads don\'t count!',
+    'featured-notice-double-upload' => 'Uploads from these torrents earn <strong>Double Upload</strong> rewards!',
 
     // Latest torrents
     'top-torrents' => 'Top torrents',
@@ -47,4 +49,18 @@ return [
 
     // Top torrents
     'new-torrents' => 'New torrents',
+
+    // Top Donors
+    'top-donors'       => 'Top Supporters',
+    'top-donors-empty' => 'No active supporters at this time.',
+
+    // Trending
+    'trending'          => 'Trending',
+    'trending-view-all' => 'View All',
+    'trending-movie'    => 'Movie',
+    'trending-tv'       => 'TV Series',
+    'trending-daily'    => 'Daily',
+    'trending-weekly'   => 'Weekly',
+    'trending-monthly'  => 'Monthly',
+    'trending-empty'    => 'No data available for this period.',
 ];

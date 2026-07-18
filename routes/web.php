@@ -630,6 +630,11 @@ Route::middleware('language')->group(function (): void {
                 Route::post('/', [App\Http\Controllers\User\TransactionController::class, 'store'])->name('store');
             });
 
+            // Treats
+            Route::prefix('treats')->name('treats.')->group(function (): void {
+                Route::post('/', [App\Http\Controllers\User\TreatController::class, 'store'])->name('store');
+            });
+
             // Unregistered Info Hashes
             Route::prefix('unregistered-info-hashes')->name('unregistered_info_hashes.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\User\UnregisteredInfoHashController::class, 'index'])->name('index');
