@@ -1619,5 +1619,251 @@ class ShopBadgeSeeder extends Seeder
                 'sort_order'          => 60,
             ]
         );
+
+        // ── DJ Collection ─────────────────────────────────────────────────────
+        $djCollection = BadgeCollection::updateOrCreate(
+            ['slug' => 'dj-collection'],
+            [
+                'name'             => 'DJ Collection',
+                'description'      => 'Koleksi eksklusif bertema muzik dan DJ.',
+                'completion_image' => 'dj-collection.png',
+                'sort_order'       => 130,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'walkman'],
+            [
+                'badge_collection_id' => $djCollection->id,
+                'name'                => 'Walkman',
+                'description'         => 'Lencana Walkman eksklusif daripada DJ Collection. Hanya 15 unit tersedia!',
+                'icon'                => 'fa-headphones',
+                'color'               => '#94a3b8',
+                'supply'              => 15,
+                'buy_price'           => 5000.00,
+                'sell_price'          => 5000.00,
+                'is_active'           => true,
+                'sort_order'          => 10,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'headphones'],
+            [
+                'badge_collection_id' => $djCollection->id,
+                'name'                => 'Headphones',
+                'description'         => 'Lencana Headphones eksklusif daripada DJ Collection. Hanya 20 unit tersedia!',
+                'icon'                => 'fa-headphones-simple',
+                'color'               => '#64748b',
+                'supply'              => 20,
+                'buy_price'           => 65000.00,
+                'sell_price'          => 65000.00,
+                'is_active'           => true,
+                'sort_order'          => 20,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'record-player'],
+            [
+                'badge_collection_id' => $djCollection->id,
+                'name'                => 'Record Player',
+                'description'         => 'Lencana Record Player eksklusif daripada DJ Collection. Hanya 20 unit tersedia!',
+                'icon'                => 'fa-record-vinyl',
+                'color'               => '#1e293b',
+                'supply'              => 20,
+                'buy_price'           => 85000.00,
+                'sell_price'          => 85000.00,
+                'is_active'           => true,
+                'sort_order'          => 30,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'ipod'],
+            [
+                'badge_collection_id' => $djCollection->id,
+                'name'                => 'iPod',
+                'description'         => 'Lencana iPod eksklusif daripada DJ Collection. Hanya 20 unit tersedia!',
+                'icon'                => 'fa-mobile-retro',
+                'color'               => '#cbd5e1',
+                'supply'              => 20,
+                'buy_price'           => 100000.00,
+                'sell_price'          => 100000.00,
+                'is_active'           => true,
+                'sort_order'          => 40,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'large-speaker'],
+            [
+                'badge_collection_id' => $djCollection->id,
+                'name'                => 'Large Speaker',
+                'description'         => 'Lencana Large Speaker eksklusif daripada DJ Collection. Hanya 20 unit tersedia!',
+                'icon'                => 'fa-volume-high',
+                'color'               => '#475569',
+                'supply'              => 20,
+                'buy_price'           => 125000.00,
+                'sell_price'          => 125000.00,
+                'is_active'           => true,
+                'sort_order'          => 50,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'boombox'],
+            [
+                'badge_collection_id' => $djCollection->id,
+                'name'                => 'Boombox',
+                'description'         => 'Lencana Boombox eksklusif daripada DJ Collection. Tanpa had unit!',
+                'icon'                => 'fa-radio',
+                'color'               => '#94a3b8',
+                'supply'              => 0,
+                'buy_price'           => 33000.00,
+                'sell_price'          => 33000.00,
+                'is_active'           => true,
+                'sort_order'          => 60,
+            ]
+        );
+
+        // ── Dentist Collection ────────────────────────────────────────────────
+        $dentistCollection = BadgeCollection::updateOrCreate(
+            ['slug' => 'dentist-collection'],
+            [
+                'name'             => 'Dentist Collection',
+                'description'      => 'Koleksi eksklusif bertema pergigian dan doktor gigi.',
+                'completion_image' => 'dentist-collection.png',
+                'sort_order'       => 140,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'dental-drill'],
+            [
+                'badge_collection_id' => $dentistCollection->id,
+                'name'                => 'Dental Drill',
+                'description'         => 'Lencana Dental Drill eksklusif daripada Dentist Collection. Hanya 30 unit tersedia!',
+                'icon'                => 'fa-screwdriver',
+                'color'               => '#94a3b8',
+                'supply'              => 30,
+                'buy_price'           => 150000.00,
+                'sell_price'          => 150000.00,
+                'is_active'           => true,
+                'sort_order'          => 10,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'dental-x-ray'],
+            [
+                'badge_collection_id' => $dentistCollection->id,
+                'name'                => 'Dental X-Ray',
+                'description'         => 'Lencana Dental X-Ray eksklusif daripada Dentist Collection. Hanya 30 unit tersedia!',
+                'icon'                => 'fa-x-ray',
+                'color'               => '#e2e8f0',
+                'supply'              => 30,
+                'buy_price'           => 75000.00,
+                'sell_price'          => 75000.00,
+                'is_active'           => true,
+                'sort_order'          => 20,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'medical-mask'],
+            [
+                'badge_collection_id' => $dentistCollection->id,
+                'name'                => 'Medical Mask',
+                'description'         => 'Lencana Medical Mask eksklusif daripada Dentist Collection. Hanya 30 unit tersedia!',
+                'icon'                => 'fa-head-side-mask',
+                'color'               => '#94a3b8',
+                'supply'              => 30,
+                'buy_price'           => 75000.00,
+                'sell_price'          => 75000.00,
+                'is_active'           => true,
+                'sort_order'          => 30,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'dentist-chair'],
+            [
+                'badge_collection_id' => $dentistCollection->id,
+                'name'                => 'Dentist Chair',
+                'description'         => 'Lencana Dentist Chair eksklusif daripada Dentist Collection. Hanya 30 unit tersedia!',
+                'icon'                => 'fa-chair',
+                'color'               => '#64748b',
+                'supply'              => 30,
+                'buy_price'           => 150000.00,
+                'sell_price'          => 150000.00,
+                'is_active'           => true,
+                'sort_order'          => 40,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'dentures'],
+            [
+                'badge_collection_id' => $dentistCollection->id,
+                'name'                => 'Dentures',
+                'description'         => 'Lencana Dentures eksklusif daripada Dentist Collection. Hanya 30 unit tersedia!',
+                'icon'                => 'fa-tooth',
+                'color'               => '#e2e8f0',
+                'supply'              => 30,
+                'buy_price'           => 150000.00,
+                'sell_price'          => 150000.00,
+                'is_active'           => true,
+                'sort_order'          => 50,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'dental-mirror'],
+            [
+                'badge_collection_id' => $dentistCollection->id,
+                'name'                => 'Dental Mirror',
+                'description'         => 'Lencana Dental Mirror eksklusif daripada Dentist Collection. Hanya 30 unit tersedia!',
+                'icon'                => 'fa-magnifying-glass',
+                'color'               => '#94a3b8',
+                'supply'              => 30,
+                'buy_price'           => 50000.00,
+                'sell_price'          => 50000.00,
+                'is_active'           => true,
+                'sort_order'          => 60,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'orthodontic-pliers'],
+            [
+                'badge_collection_id' => $dentistCollection->id,
+                'name'                => 'Orthodontic Pliers',
+                'description'         => 'Lencana Orthodontic Pliers eksklusif daripada Dentist Collection. Hanya 30 unit tersedia!',
+                'icon'                => 'fa-scissors',
+                'color'               => '#78716c',
+                'supply'              => 30,
+                'buy_price'           => 50000.00,
+                'sell_price'          => 50000.00,
+                'is_active'           => true,
+                'sort_order'          => 70,
+            ]
+        );
+
+        ShopBadge::updateOrCreate(
+            ['slug' => 'dental-safety-glasses'],
+            [
+                'badge_collection_id' => $dentistCollection->id,
+                'name'                => 'Dental Safety Glasses',
+                'description'         => 'Lencana Dental Safety Glasses eksklusif daripada Dentist Collection. Hanya 30 unit tersedia!',
+                'icon'                => 'fa-glasses',
+                'color'               => '#94a3b8',
+                'supply'              => 30,
+                'buy_price'           => 50000.00,
+                'sell_price'          => 50000.00,
+                'is_active'           => true,
+                'sort_order'          => 80,
+            ]
+        );
     }
 }

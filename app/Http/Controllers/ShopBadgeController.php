@@ -8,12 +8,17 @@ use App\Models\BadgeCollection;
 use App\Models\ShopBadge;
 use App\Models\UserCompletedCollection;
 use App\Models\UserShopBadge;
+use App\Repositories\ChatRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ShopBadgeController extends Controller
 {
+    public function __construct(private readonly ChatRepository $chat)
+    {
+    }
+
     public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $collections = BadgeCollection::with(['shopBadges' => fn ($q) => $q->where('is_active', true)])
@@ -63,10 +68,41 @@ class ShopBadgeController extends Controller
         $activeIds = $collection->shopBadges()->where('is_active', true)->pluck('id');
         $ownedCount = UserShopBadge::where('user_id', $user->id)->whereIn('shop_badge_id', $activeIds)->count();
 
+        $completedSet = false;
+
         if ($ownedCount === $activeIds->count() && $activeIds->count() > 0) {
+            $wasAlreadyCompleted = UserCompletedCollection::where('user_id', $user->id)
+                ->where('badge_collection_id', $collection->id)
+                ->exists();
+
             UserCompletedCollection::firstOrCreate(
                 ['user_id' => $user->id, 'badge_collection_id' => $collection->id],
                 ['completed_at' => now()]
+            );
+
+            $completedSet = ! $wasAlreadyCompleted;
+        }
+
+        // Chatbox notification
+        $this->chat->systemMessage(
+            sprintf(
+                '🏆 [b][url=/users/%s/profile]%s[/url][/b] telah membeli lencana [b][url=/badges/shop]%s[/url][/b] daripada koleksi [b][url=/badges/shop]%s[/url][/b] dengan harga [b]%s BON[/b]!',
+                $user->username,
+                $user->username,
+                $shopBadge->name,
+                $collection->name,
+                number_format($shopBadge->buy_price),
+            )
+        );
+
+        if ($completedSet) {
+            $this->chat->systemMessage(
+                sprintf(
+                    '🎉 Tahniah [b][url=/users/%s/profile]%s[/url][/b] telah melengkapkan koleksi [b][url=/badges/shop]%s[/url][/b]! Set Lengkap! 🎉',
+                    $user->username,
+                    $user->username,
+                    $collection->name,
+                )
             );
         }
 
