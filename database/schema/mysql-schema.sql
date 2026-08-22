@@ -673,6 +673,20 @@ CREATE TABLE `featured_torrents` (
   CONSTRAINT `featured_torrents_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `ffm_entries`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `ffm_entries` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `tmdb_movie_id` int unsigned NOT NULL,
+  `position` smallint unsigned NOT NULL,
+  `award_year` smallint unsigned DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ffm_entries_tmdb_movie_id_unique` (`tmdb_movie_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `files`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -1656,6 +1670,49 @@ CREATE TABLE `resurrections` (
   KEY `graveyard_torrent_id_foreign` (`torrent_id`),
   CONSTRAINT `graveyard_torrent_id_foreign` FOREIGN KEY (`torrent_id`) REFERENCES `torrents` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `graveyard_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `review_thanks`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `review_thanks` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int unsigned NOT NULL,
+  `review_id` bigint unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `review_thanks_user_id_review_id_unique` (`user_id`,`review_id`),
+  KEY `review_thanks_review_id_foreign` (`review_id`),
+  CONSTRAINT `review_thanks_review_id_foreign` FOREIGN KEY (`review_id`) REFERENCES `reviews` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `review_thanks_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `reviews`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `reviews` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int unsigned NOT NULL,
+  `tmdb_movie_id` int unsigned DEFAULT NULL,
+  `tmdb_tv_id` int unsigned DEFAULT NULL,
+  `igdb_id` int unsigned DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `body` text COLLATE utf8mb4_unicode_ci,
+  `rating` tinyint unsigned NOT NULL,
+  `is_anonymous` tinyint(1) NOT NULL DEFAULT '0',
+  `is_spoiler` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `reviews_user_id_foreign` (`user_id`),
+  KEY `reviews_tmdb_movie_id_foreign` (`tmdb_movie_id`),
+  KEY `reviews_tmdb_tv_id_foreign` (`tmdb_tv_id`),
+  KEY `reviews_igdb_id_foreign` (`igdb_id`),
+  CONSTRAINT `reviews_igdb_id_foreign` FOREIGN KEY (`igdb_id`) REFERENCES `igdb_games` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `reviews_tmdb_movie_id_foreign` FOREIGN KEY (`tmdb_movie_id`) REFERENCES `tmdb_movies` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `reviews_tmdb_tv_id_foreign` FOREIGN KEY (`tmdb_tv_id`) REFERENCES `tmdb_tv` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `reviews_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `rss`;
@@ -3328,3 +3385,5 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (376,'2026_07_13_00
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (377,'2026_07_13_000002_add_completion_image_to_badge_collections',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (378,'2026_07_17_000001_create_treats_tables',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (379,'2026_07_18_000001_add_image_to_treats_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (380,'2026_07_18_000002_create_ffm_entries_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (381,'2026_08_22_000001_create_reviews_table',1);
