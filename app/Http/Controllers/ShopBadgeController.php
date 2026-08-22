@@ -85,8 +85,8 @@ class ShopBadgeController extends Controller
 
         // Chatbox notification
         $this->chat->systemMessage(
-            \sprintf(
-                '🏆 [b][url=/users/%s/profile]%s[/url][/b] telah membeli lencana [b][url=/badges/shop]%s[/url][/b] daripada koleksi [b][url=/badges/shop]%s[/url][/b] dengan harga [b]%s BON[/b]!',
+            sprintf(
+                '🏆 [b][url=/users/%s]%s[/url][/b] telah membeli lencana [b][url=/badges/shop]%s[/url][/b] daripada koleksi [b][url=/badges/shop]%s[/url][/b] dengan harga [b]%s BON[/b]!',
                 $user->username,
                 $user->username,
                 $shopBadge->name,
@@ -97,8 +97,8 @@ class ShopBadgeController extends Controller
 
         if ($completedSet) {
             $this->chat->systemMessage(
-                \sprintf(
-                    '🎉 Tahniah [b][url=/users/%s/profile]%s[/url][/b] telah melengkapkan koleksi [b][url=/badges/shop]%s[/url][/b]! Set Lengkap! 🎉',
+                sprintf(
+                    '🎉 Tahniah [b][url=/users/%s]%s[/url][/b] telah melengkapkan koleksi [b][url=/badges/shop]%s[/url][/b]! Set Lengkap! 🎉',
                     $user->username,
                     $user->username,
                     $collection->name,

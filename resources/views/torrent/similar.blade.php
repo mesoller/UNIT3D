@@ -49,4 +49,6 @@
             @break
     @endswitch
     @livewire('similar-torrent', ['category' => $category, 'tmdbId' => $tmdb, 'igdbId' => $igdb, 'work' => $meta])
+
+    @include('torrent.partials.review-section')
 @endsection

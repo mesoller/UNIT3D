@@ -18,6 +18,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\IgdbGame;
+use App\Models\Review;
 use App\Models\TmdbMovie;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
@@ -87,12 +88,23 @@ class SimilarTorrentController extends Controller
 
         $personalFreeleech = cache()->get('personal_freeleech:'.auth()->id());
 
+        $reviews = Review::with(['user.group', 'thanks'])
+            ->when($category->movie_meta, fn ($q) => $q->where('tmdb_movie_id', $tmdbId))
+            ->when($category->tv_meta, fn ($q) => $q->where('tmdb_tv_id', $tmdbId))
+            ->when($category->game_meta, fn ($q) => $q->where('igdb_id', $tmdbId))
+            ->latest()
+            ->get();
+
+        $userReview = $reviews->firstWhere('user_id', auth()->id());
+
         return view('torrent.similar', [
             'meta'               => $meta,
             'personal_freeleech' => $personalFreeleech,
             'category'           => $category,
             'tmdb'               => $tmdb ?? null,
             'igdb'               => $igdb ?? null,
+            'reviews'            => $reviews,
+            'userReview'         => $userReview,
         ]);
     }
 

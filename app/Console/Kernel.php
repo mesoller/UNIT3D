@@ -57,6 +57,7 @@ use App\Console\Commands\AutoUpsertPeers;
 use App\Console\Commands\AutoWarning;
 use App\Console\Commands\DeleteUnparticipatedConversations;
 use App\Console\Commands\EmailBlacklistUpdate;
+use App\Console\Commands\SyncFfmList;
 use App\Console\Commands\SyncPeers;
 use Illuminate\Auth\Console\ClearResetsCommand;
 use Illuminate\Console\Scheduling\Schedule;
@@ -84,6 +85,7 @@ class Kernel extends ConsoleKernel
         $schedule->command(AutoDeleteStoppedPeers::class)->everyTwoMinutes();
         $schedule->command(AutoUnbookmarkCompletedTorrents::class)->everyFifteenMinutes();
         $schedule->command(AutoGroup::class)->daily();
+        $schedule->command(SyncFfmList::class)->daily();
         $schedule->command(AutoNerdStat::class)->hourly();
         $schedule->command(AutoCacheRandomMediaIds::class)->hourly();
         $schedule->command(AutoRewardResurrection::class)->daily();

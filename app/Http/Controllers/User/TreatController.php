@@ -8,12 +8,17 @@ use App\Http\Controllers\Controller;
 use App\Models\Treat;
 use App\Models\User;
 use App\Models\UserTreat;
+use App\Repositories\ChatRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class TreatController extends Controller
 {
+    public function __construct(private readonly ChatRepository $chat)
+    {
+    }
+
     public function store(Request $request, User $user): RedirectResponse
     {
         abort_unless($request->user()->is($user), 403);
@@ -41,6 +46,17 @@ class TreatController extends Controller
             ]);
 
             $user->decrement('seedbonus', $treat->cost);
+
+            $this->chat->systemMessage(
+                sprintf(
+                    '🍽️ [b][url=/users/%s]%s[/url][/b] telah membeli Treats [b][url=/users/%s]%s[/url][/b] dengan harga [b]%s BON[/b]!',
+                    $user->username,
+                    $user->username,
+                    $user->username,
+                    $treat->name,
+                    number_format($treat->cost),
+                )
+            );
 
             return back()->with('success', 'Treat purchased!');
         });

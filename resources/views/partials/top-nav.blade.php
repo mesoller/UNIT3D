@@ -131,6 +131,12 @@
                         Kedai Lencana
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('reviews.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-star"></i>
+                        Ulasan
+                    </a>
+                </li>
             </ul>
         </li>
         <li class="top-nav__dropdown">

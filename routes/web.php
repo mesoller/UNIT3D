@@ -118,6 +118,17 @@ Route::middleware('language')->group(function (): void {
         Route::post('/badges/shop/{shopBadge}/buy', [App\Http\Controllers\ShopBadgeController::class, 'buy'])->name('badges.shop.buy');
         Route::post('/badges/shop/{shopBadge}/sell', [App\Http\Controllers\ShopBadgeController::class, 'sell'])->name('badges.shop.sell');
 
+        // Festival Filem Malaysia
+        Route::get('/festival-filem-malaysia', [App\Http\Controllers\FfmController::class, 'index'])->name('ffm.index');
+
+        // Reviews
+        Route::prefix('reviews')->name('reviews.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\ReviewController::class, 'index'])->name('index');
+            Route::post('/', [App\Http\Controllers\ReviewController::class, 'store'])->name('store');
+            Route::delete('/{review}', [App\Http\Controllers\ReviewController::class, 'destroy'])->name('destroy');
+            Route::post('/{review}/thank', [App\Http\Controllers\ReviewController::class, 'thank'])->name('thank');
+        });
+
         // Film Club
         Route::prefix('film-club')->name('film_club.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\FilmClubController::class, 'index'])->name('index');

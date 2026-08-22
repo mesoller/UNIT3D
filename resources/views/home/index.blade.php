@@ -18,6 +18,8 @@
         @include('blocks.top-donors')
     </div>
 
+    @include('blocks.ffm-widget')
+
     <livewire:home-trending lazy />
 
     {{-- Remaining user-configured blocks (news & chat skipped — already shown above) --}}
